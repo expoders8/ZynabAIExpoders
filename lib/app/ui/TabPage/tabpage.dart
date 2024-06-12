@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:zynabaiexpoders/app/ui/chat.dart';
-import 'package:zynabaiexpoders/app/ui/profil.dart';
+import 'package:flutter/cupertino.dart';
 
-import '../doctore.dart';
-import '../helth.dart';
 import '../home/home.dart';
+import '../Keep asking/yournotes.dart';
 import '../../controller/tab_controller.dart';
+import '../MyAppointments/my_appointments.dart';
+import '../ChatWithPatients/chat_with_patients.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../FIneDoctorsNearby/fine_doctors_nearby.dart';
 
 class TabPage extends StatefulWidget {
   final String? screenDef;
@@ -20,14 +21,33 @@ class TabPage extends StatefulWidget {
   State<TabPage> createState() => _TabPageState();
 }
 
-class _TabPageState extends State<TabPage> {
+class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
   final controller = Get.put(TabCountController());
   String authToken = "";
+  bool _isKeyboardVisible = false;
+
   int accessLevel = 1;
+
   @override
   void initState() {
     controller.changeTabIndex(widget.selectedTabIndex!.toInt());
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    final bottomInset = WidgetsBinding.instance.window.viewInsets.bottom;
+    setState(() {
+      _isKeyboardVisible = bottomInset > 0;
+    });
   }
 
   final TextStyle unselectedLabelStyle = const TextStyle(
@@ -50,8 +70,6 @@ class _TabPageState extends State<TabPage> {
     return GetBuilder<TabCountController>(
       builder: (context) {
         return Scaffold(
-          // bottomNavigationBar:
-          //     buildBottomNavigationMenu(context, tabCountController),
           body: Obx(
             () => Stack(
               children: [
@@ -59,129 +77,190 @@ class _TabPageState extends State<TabPage> {
                   index: tabCountController.tabIndex.value,
                   children: const [
                     HomePage(),
-                    chat(),
-                    Doctor(),
-                    Helth(),
-                    Profile(),
+                    ChatWithPatientsPage(),
+                    FindDoctorNearbyPage(),
+                    MyAppointmentsPage(),
+                    YourNotesPage(),
                   ],
                 ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Container(
-                      margin: EdgeInsets.only(top: Platform.isIOS ? 8 : 0),
-                      height: Platform.isIOS ? 100 : 68,
-                      // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: BottomNavigationBar(
-                          onTap: ((value) {
-                            tabCountController.changeTabIndex(value);
-                            if (widget.screenDef == "Details") {
-                              Get.offAll(
-                                () => TabPage(
-                                  screenDef: "Home",
-                                  selectedTabIndex: value,
+                !_isKeyboardVisible
+                    ? Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Container(
+                            margin:
+                                EdgeInsets.only(top: Platform.isIOS ? 8 : 0),
+                            height: Platform.isIOS ? 100 : 68,
+                            // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: kHighlightColor),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(width: 15),
+                                    buildBottomTab(
+                                        0, "Home", "assets/icons/home.png"),
+                                    const SizedBox(width: 15),
+                                    buildBottomTab(
+                                        1, "Chat", "assets/icons/comment.png"),
+                                    const SizedBox(width: 15),
+                                    buildBottomTab(2, "Doctors",
+                                        "assets/icons/person_plus.png"),
+                                    const SizedBox(width: 15),
+                                    buildBottomTab(3, "My Health",
+                                        "assets/icons/hart.png"),
+                                    const SizedBox(width: 15),
+                                    buildBottomTab(
+                                        4, "Profile", "assets/icons/User.png"),
+                                    const SizedBox(width: 15),
+                                  ],
+                                )
+                                // BottomNavigationBar(
+                                //   onTap: ((value) {
+                                //     tabCountController.changeTabIndex(value);
+                                //     if (widget.screenDef == "Details") {
+                                //       Get.offAll(
+                                //         () => TabPage(
+                                //           screenDef: "Home",
+                                //           selectedTabIndex: value,
+                                //         ),
+                                //       );
+                                //     }
+                                //   }),
+                                //   currentIndex: tabCountController.tabIndex.value,
+                                //   backgroundColor: kHighlightColor,
+                                //   unselectedItemColor: kIconColor,
+                                //   selectedItemColor: kSelectedIconColor,
+                                //   unselectedLabelStyle: unselectedLabelStyle,
+                                //   selectedLabelStyle: selectedLabelStyle,
+                                //   type: BottomNavigationBarType.fixed,
+                                //   items: [
+                                //     BottomNavigationBarItem(
+                                //       icon: Padding(
+                                //         padding:
+                                //             const EdgeInsets.only(bottom: 7.0, top: 2),
+                                //         child: Image.asset(
+                                //           "assets/icons/home.png",
+                                //           color: tabCountController.tabIndex.value == 0
+                                //               ? kSelectedIconColor
+                                //               : kIconColor,
+                                //           scale: 1.5,
+                                //         ),
+                                //       ),
+                                //       label: 'Home',
+                                //       backgroundColor: kBackGroundColor,
+                                //     ),
+                                //     BottomNavigationBarItem(
+                                //       icon: Padding(
+                                //         padding:
+                                //             const EdgeInsets.only(bottom: 9.0, top: 4),
+                                //         child: Image.asset(
+                                //           "assets/icons/comment.png",
+                                //           color: tabCountController.tabIndex.value == 0
+                                //               ? kSelectedIconColor
+                                //               : kIconColor,
+                                //           scale: 1.5,
+                                //         ),
+                                //       ),
+                                //       label: 'Chat',
+                                //       backgroundColor: kBackGroundColor,
+                                //     ),
+                                //     BottomNavigationBarItem(
+                                //       icon: Padding(
+                                //         padding:
+                                //             const EdgeInsets.only(bottom: 7.0, top: 2),
+                                //         child: Image.asset(
+                                //           "assets/icons/person_plus.png",
+                                //           color: tabCountController.tabIndex.value == 0
+                                //               ? kSelectedIconColor
+                                //               : kIconColor,
+                                //           scale: 1.7,
+                                //         ),
+                                //       ),
+                                //       label: 'Doctors',
+                                //       backgroundColor: kBackGroundColor,
+                                //     ),
+                                //     BottomNavigationBarItem(
+                                //       icon: Padding(
+                                //         padding:
+                                //             const EdgeInsets.only(bottom: 7.0, top: 2),
+                                //         child: Image.asset(
+                                //           "assets/icons/hart.png",
+                                //           color: tabCountController.tabIndex.value == 0
+                                //               ? kSelectedIconColor
+                                //               : kIconColor,
+                                //           scale: 1.7,
+                                //         ),
+                                //       ),
+                                //       label: 'My Health',
+                                //     ),
+                                //     BottomNavigationBarItem(
+                                //       icon: Padding(
+                                //           padding: const EdgeInsets.only(
+                                //               bottom: 7.0, top: 3),
+                                //           child: Image.asset(
+                                //             "assets/icons/User.png",
+                                //             color:
+                                //                 tabCountController.tabIndex.value == 0
+                                //                     ? kSelectedIconColor
+                                //                     : kIconColor,
+                                //             scale: 1.7,
+                                //           )),
+                                //       label: 'Profile',
+                                //       backgroundColor: kBackGroundColor,
+                                //     ),
+                                //   ],
+                                // ),
                                 ),
-                              );
-                            }
-                          }),
-                          currentIndex: tabCountController.tabIndex.value,
-                          backgroundColor: kHighlightColor,
-                          unselectedItemColor: kIconColor,
-                          selectedItemColor: kSelectedIconColor,
-                          unselectedLabelStyle: unselectedLabelStyle,
-                          selectedLabelStyle: selectedLabelStyle,
-                          type: BottomNavigationBarType.fixed,
-                          items: [
-                            BottomNavigationBarItem(
-                              icon: Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 7.0, top: 2),
-                                child: Image.asset(
-                                  "assets/icons/home.png",
-                                  color: tabCountController.tabIndex.value == 0
-                                      ? kSelectedIconColor
-                                      : kIconColor,
-                                  scale: 1.5,
-                                ),
-                              ),
-                              label: 'Home',
-                              backgroundColor: kBackGroundColor,
-                            ),
-                            BottomNavigationBarItem(
-                              icon: Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 9.0, top: 4),
-                                child: Image.asset(
-                                  "assets/icons/comment.png",
-                                  color: tabCountController.tabIndex.value == 0
-                                      ? kSelectedIconColor
-                                      : kIconColor,
-                                  scale: 1.5,
-                                ),
-                              ),
-                              label: 'Chat',
-                              backgroundColor: kBackGroundColor,
-                            ),
-                            BottomNavigationBarItem(
-                              icon: Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 7.0, top: 2),
-                                child: Image.asset(
-                                  "assets/icons/person_plus.png",
-                                  color: tabCountController.tabIndex.value == 0
-                                      ? kSelectedIconColor
-                                      : kIconColor,
-                                  scale: 1.7,
-                                ),
-                              ),
-                              label: 'Doctors',
-                              backgroundColor: kBackGroundColor,
-                            ),
-                            BottomNavigationBarItem(
-                              icon: Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 7.0, top: 2),
-                                child: Image.asset(
-                                  "assets/icons/hart.png",
-                                  color: tabCountController.tabIndex.value == 0
-                                      ? kSelectedIconColor
-                                      : kIconColor,
-                                  scale: 1.7,
-                                ),
-                              ),
-                              label: 'My Health',
-                            ),
-                            BottomNavigationBarItem(
-                              icon: Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 7.0, top: 3),
-                                  child: Image.asset(
-                                    "assets/icons/User.png",
-                                    color:
-                                        tabCountController.tabIndex.value == 0
-                                            ? kSelectedIconColor
-                                            : kIconColor,
-                                    scale: 1.7,
-                                  )),
-                              label: 'Profile',
-                              backgroundColor: kBackGroundColor,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                )
+                      )
+                    : Container()
               ],
             ),
           ),
         );
       },
+    );
+  }
+
+  buildBottomTab(int index, String title, String image) {
+    final TabCountController tabCountController =
+        Get.put(TabCountController(), permanent: false);
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: () {
+        tabCountController.changeTabIndex(index);
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 34,
+            child: Image.asset(
+              image,
+              color: kPrimaryColor,
+              scale: 1.5,
+            ),
+          ),
+          Text(
+            title,
+            style: TextStyle(
+                letterSpacing: 0.3,
+                color: tabCountController.tabIndex.value == index
+                    ? kSelectedIconColor
+                    : kIconColor,
+                fontSize: 11.4,
+                fontFamily: kCircularStdMedium),
+          )
+        ],
+      ),
     );
   }
 

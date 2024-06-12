@@ -4,23 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../routes/app_pages.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 
-class DoctoreDetailsPage extends StatefulWidget {
+class AppointmentDetailsPage extends StatefulWidget {
   final String? name;
   final String? year;
-  const DoctoreDetailsPage(
+  const AppointmentDetailsPage(
       {super.key,
       this.name = "Dr.Pooja\n Patel",
       this.year = "Physician / 2+ yrs"});
 
   @override
-  State<DoctoreDetailsPage> createState() => _DoctoreDetailsPageState();
+  State<AppointmentDetailsPage> createState() => _DoctoreDetailsPageState();
 }
 
-class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
+class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _selectedDay = DateTime.now();
   DateTime todayDate = DateTime.now();
@@ -76,9 +75,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
         actions: [
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: () {},
             child: Container(
               height: 40,
               width: 40,
@@ -288,6 +285,164 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/icons/alarm.png",
+                          fit: BoxFit.contain,
+                          height: 18,
+                          width: 18,
+                        ),
+                        const SizedBox(width: 5),
+                        const Text(
+                          "Set Alarm",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Card(
+                      shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                      elevation: 5,
+                      child: Container(
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "Appointment",
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdNormal,
+                                        fontSize: 22),
+                                  ),
+                                  Container(
+                                    width: Get.width / 4.1,
+                                    decoration: BoxDecoration(
+                                        color: kBackGroundColor,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 14,
+                                            width: 14,
+                                            decoration: BoxDecoration(
+                                                color: kWhiteColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Image.asset(
+                                                "assets/icons/check_yellow.png"),
+                                          ),
+                                          const SizedBox(
+                                            width: 4,
+                                          ),
+                                          const Text(
+                                            "Upcoming",
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                      text: "5",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 17),
+                                    ),
+                                    WidgetSpan(
+                                      child: Transform.translate(
+                                        offset: const Offset(2, -4),
+                                        child: const Text(
+                                          "th",
+                                          textScaleFactor: 0.7,
+                                          style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontFamily: kCircularStdNormal,
+                                              fontSize: 17),
+                                        ),
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: " Mar 2024 - 10:30 am",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 17),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Text(
+                                "Consultation Date",
+                                style: TextStyle(
+                                    color: kSecondaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 12),
+                              ),
+                              const SizedBox(height: 10),
+                              const Text(
+                                "Online",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 17),
+                              ),
+                              const Text(
+                                "Payment Mode",
+                                style: TextStyle(
+                                    color: kSecondaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 12),
+                              ),
+                              const SizedBox(height: 10),
+                              const Text(
+                                "647364536",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 17),
+                              ),
+                              const Text(
+                                "Transaction ID",
+                                style: TextStyle(
+                                    color: kSecondaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 12),
+                              ),
+                              const SizedBox(height: 10),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     const Text(
                       "Services",
                       style: TextStyle(
@@ -316,7 +471,6 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                         buildServiceCardWidget("Chest Pain")
                       ],
                     ),
-                    const SizedBox(height: 20),
                     const Text(
                       "Availability",
                       style: TextStyle(
@@ -423,6 +577,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Card(
                       shadowColor: const Color.fromARGB(10, 0, 0, 0),
                       elevation: 5,
@@ -465,7 +620,9 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                   fontFamily: kCircularStdNormal,
                                   fontSize: 15),
                             ),
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 10),
+                            const Divider(color: kPrimaryColor),
+                            const SizedBox(height: 10),
                             Row(
                               children: [
                                 Container(
@@ -564,9 +721,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                         const SizedBox(width: 0),
                         CupertinoButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {
-                            bottomSheetforChat();
-                          },
+                          onPressed: () {},
                           child: Container(
                             height: 40,
                             width: 40,
@@ -585,14 +740,12 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                             borderRadius: BorderRadius.circular(25),
                             padding: EdgeInsets.zero,
                             color: kPrimaryColor,
-                            onPressed: () {
-                              Get.toNamed(Routes.patientDetailsPage);
-                            },
+                            onPressed: () {},
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const Text(
-                                  "CONSULT - \$50",
+                                  "REMIND",
                                   style: TextStyle(
                                       color: kWhiteColor,
                                       fontFamily: kCircularStdNormal,
@@ -609,9 +762,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                         ),
                         CupertinoButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {
-                            Get.back();
-                          },
+                          onPressed: () {},
                           child: Container(
                             height: 40,
                             width: 40,
@@ -638,139 +789,12 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
     );
   }
 
-  Widget buildDayWidget(DateTime date, Color color) {
-    return Container(
-      margin: const EdgeInsets.all(4),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
-      child: Text(
-        date.day.toString(),
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-
   buildServiceCardWidget(String text) {
     return Container(
       decoration: BoxDecoration(
           color: kCardColor, borderRadius: BorderRadius.circular(20)),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       child: Text(text),
-    );
-  }
-
-  bottomSheetforChat() {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: kWhiteColor,
-      builder: (context) {
-        int? localSelectedTimeIndex = selectedTimendex;
-
-        return Wrap(
-          children: [
-            const Center(
-              child: ImageIcon(
-                AssetImage("assets/icons/des.png"),
-                size: 30,
-                color: Color(0XffBFC5CC),
-              ),
-            ),
-            Theme(
-              data: ThemeData(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              ),
-              child: SizedBox(
-                height: 200,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      const Text(
-                        "Select Time",
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontSize: 22,
-                            fontFamily: kCircularStdNormal),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          buildTimeWidget("09:00", 0),
-                          const SizedBox(width: 10),
-                          buildTimeWidget("10:30", 1),
-                          const SizedBox(width: 10),
-                          buildTimeWidget("11:00", 2),
-                          const SizedBox(width: 10),
-                          buildTimeWidget("11:30", 3),
-                        ],
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            selectedTimendex = localSelectedTimeIndex;
-                          });
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Confirm'),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget buildTimeWidget(
-    String time,
-    int index,
-  ) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: selectedTimendex == index ? kPrimaryColor : kWhiteColor,
-            borderRadius: BorderRadius.circular(60),
-          ),
-          height: 70,
-          width: 70,
-          child: CupertinoButton(
-            borderRadius: BorderRadius.circular(60),
-            onPressed: () {
-              setState(() {
-                selectedTimendex = index;
-              });
-            },
-            child: Text(
-              time,
-              style: const TextStyle(
-                  color: kWhiteColor,
-                  fontSize: 16,
-                  fontFamily: kCircularStdNormal),
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          "AM",
-          style: TextStyle(
-              color: kSecondaryColor,
-              fontSize: 16,
-              fontFamily: kCircularStdNormal),
-        ),
-      ],
     );
   }
 }

@@ -69,7 +69,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(color: kPrimaryColor, fontSize: 15),
+      style: const TextStyle(color: kWhiteColor, fontSize: 16),
       controller: widget.ctrl,
       keyboardType: widget.keyboardType,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -79,12 +79,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       obscureText: widget.name == "password" ? !_passwordVisible : false,
       obscuringCharacter: '*',
       decoration: InputDecoration(
-        labelText: widget.hintText,
+        hintText: widget.hintText,
         filled: true,
-        fillColor: kWhiteColor,
-        contentPadding: const EdgeInsets.fromLTRB(38, 0, 10, 0),
-        hintStyle: const TextStyle(color: kGreyColor),
-        labelStyle: const TextStyle(color: kBlackColor),
+        fillColor: kTextfildColor,
+        contentPadding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+        hintStyle: const TextStyle(color: kWhiteColor),
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.name == "password"
             ? IconButton(
@@ -104,28 +103,28 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             : null,
         border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.grey, // Default border color
+            color: kTextfildColor, // Default border color
           ),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: kErrorColor, // Default border color
           ),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
         ),
         errorStyle: const TextStyle(color: kErrorColor),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.grey, // Default border color
+            color: kTextfildColor, // Default border color
           ),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.grey, // Default border color
+            color: kHighlightColor, // Default border color
           ),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(7),
         ),
       ),
       maxLines: widget.maxLines,

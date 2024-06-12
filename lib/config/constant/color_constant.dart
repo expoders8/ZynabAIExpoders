@@ -23,6 +23,7 @@ const kCardColor = Color(0xFFF5F3F3);
 const kSecondaryColor = Color(0xFF6A6A6A);
 const kDividerColor = Color(0XFFBFC5CC);
 const kBorderColor = Color(0XFFE6E6E6);
+const kTextfildColor = Color(0XFF888888);
 
 const kTransparentColor = Color(0x00000000);
 const kWhiteColor = Color(0XFFFFFFFF);

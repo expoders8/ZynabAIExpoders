@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zynabaiexpoders/app/routes/app_pages.dart';
-import 'package:zynabaiexpoders/config/constant/color_constant.dart';
-import 'package:zynabaiexpoders/config/constant/font_constant.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+import '../../routes/app_pages.dart';
+import '../../../config/constant/font_constant.dart';
+import '../../../config/constant/color_constant.dart';
 
 class ChatWithDoctorMadicalPage extends StatefulWidget {
   const ChatWithDoctorMadicalPage({super.key});

@@ -1,10 +1,15 @@
+import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stts;
-import 'package:zynabaiexpoders/app/routes/app_pages.dart';
+import 'package:voice_message_package/voice_message_package.dart';
 
+import '../../routes/app_pages.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 
@@ -25,32 +30,100 @@ class _UserChatPageState extends State<UserChatPage> {
   String text = "";
   var speechToText = stts.SpeechToText();
   SampleItem? selectedItem;
-  void listen() async {
-    if (!islisteing) {
-      bool available = await speechToText.initialize();
-      if (available) {
-        setState(() {
-          islisteing = true;
-        });
-        speechToText.listen(
-          onResult: (result) => setState(
-            () {
-              text = result.recognizedWords;
-              if (text != "") {
-                setState(() {
-                  islisteing = false;
-                });
-              }
-            },
-          ),
-        );
-      }
-    } else {
+  final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  final FlutterSoundPlayer _player = FlutterSoundPlayer();
+  bool _isRecording = false;
+  bool isPlaying = false;
+  String? _filePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeRecorder();
+  }
+
+  @override
+  void dispose() {
+    _recorder.closeRecorder();
+    _player.closePlayer();
+    super.dispose();
+  }
+
+  Future<void> _initializeRecorder() async {
+    await _recorder.openRecorder();
+    await _player.openPlayer();
+    await Permission.microphone.request();
+  }
+
+  Future<void> _startRecording() async {
+    Directory tempDir = await getTemporaryDirectory();
+    _filePath = '${tempDir.path}/temp_audio.aac';
+    await _recorder.startRecorder(
+      toFile: _filePath,
+      codec: Codec.aacADTS,
+    );
+    setState(() {
+      _isRecording = true;
+    });
+  }
+
+  Future<void> _stopRecording() async {
+    await _recorder.stopRecorder();
+    setState(() {
+      _isRecording = false;
+    });
+  }
+
+  Future<void> playAudio() async {
+    if (_filePath != null) {
+      await _player.startPlayer(
+        fromURI: _filePath,
+        codec: Codec.aacADTS,
+        whenFinished: () {
+          setState(() {
+            isPlaying = false;
+          });
+        },
+      );
       setState(() {
-        islisteing = false;
+        isPlaying = true;
       });
-      speechToText.stop();
     }
+  }
+
+  Future<void> stopAudio() async {
+    await _player.stopPlayer();
+    setState(() {
+      isPlaying = false;
+    });
+  }
+
+  void listen() async {
+    // if (!islisteing) {
+    //   bool available = await speechToText.initialize();
+    //   if (available) {
+    //     setState(() {
+    //       islisteing = true;
+    //     });
+    //     speechToText.listen(
+    //       onResult: (result) => setState(
+    //         () {
+    //           text = result.recognizedWords;
+    //           if (text != "") {
+    //             setState(() {
+    //               islisteing = false;
+    //             });
+    //           }
+    //         },
+    //       ),
+    //     );
+    //   }
+    // } else {
+    //   setState(() {
+    //     islisteing = false;
+    //   });
+    //   speechToText.stop();
+    // }
   }
 
   @override
@@ -114,7 +187,7 @@ class _UserChatPageState extends State<UserChatPage> {
               ),
             ),
           ),
-          SizedBox(width: 5)
+          const SizedBox(width: 5)
         ],
       ),
       body: Container(
@@ -471,6 +544,25 @@ class _UserChatPageState extends State<UserChatPage> {
                         ),
                       ],
                     ),
+                    if (_filePath != null)
+                      VoiceMessageView(
+                        activeSliderColor: kYellowColor,
+                        notActiveSliderColor: kWhiteColor,
+                        circlesTextStyle: const TextStyle(color: kWhiteColor),
+                        counterTextStyle: const TextStyle(color: kWhiteColor),
+                        backgroundColor: kPrimaryColor,
+                        controller: VoiceController(
+                          audioSrc: _filePath!,
+                          maxDuration: const Duration(seconds: 10),
+                          isFile: true,
+                          onComplete: () {},
+                          onPause: () {},
+                          onPlaying: () {},
+                          onError: (err) {},
+                        ),
+                        innerPadding: 12,
+                        cornerRadius: 20,
+                      ),
                     const SizedBox(height: 15),
                   ],
                 ),
@@ -560,7 +652,7 @@ class _UserChatPageState extends State<UserChatPage> {
                   CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () {
-                      listen();
+                      _isRecording ? _stopRecording() : _startRecording();
                     },
                     child: AvatarGlow(
                       animate: islisteing,
@@ -574,7 +666,9 @@ class _UserChatPageState extends State<UserChatPage> {
                         decoration: BoxDecoration(
                             color: kHighlightColor,
                             borderRadius: BorderRadius.circular(25)),
-                        child: Image.asset("assets/icons/mic.png", scale: 1.5),
+                        child: _isRecording
+                            ? const Icon(Icons.close)
+                            : Image.asset("assets/icons/mic.png", scale: 1.5),
                       ),
                     ),
                   )
