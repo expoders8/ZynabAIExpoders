@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../routes/app_pages.dart';
+import '../TabPage/tabpage.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 
@@ -50,9 +51,7 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
         actions: [
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: () {},
             child: Container(
               height: 40,
               width: 40,
@@ -308,7 +307,7 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
                         padding: EdgeInsets.zero,
                         color: kPrimaryColor,
                         onPressed: () {
-                          Get.toNamed(Routes.patientDetailsPage);
+                          Get.offAll(() => const TabPage(selectedTabIndex: 0));
                         },
                         child: const Text(
                           "SAVE RECEIPT",
@@ -321,8 +320,8 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
                     ),
                     CupertinoButton(
                       padding: EdgeInsets.zero,
-                      onPressed: () {
-                        Get.back();
+                      onPressed: () async {
+                        launch('tel:1234567899');
                       },
                       child: Container(
                         height: 40,
@@ -464,8 +463,9 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
             },
             child: Text(
               time,
-              style: const TextStyle(
-                  color: kWhiteColor,
+              style: TextStyle(
+                  color:
+                      selectedTimendex == index ? kWhiteColor : kPrimaryColor,
                   fontSize: 16,
                   fontFamily: kCircularStdNormal),
             ),

@@ -11,7 +11,8 @@ import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 
 class GeneralPhysicianPage extends StatefulWidget {
-  const GeneralPhysicianPage({super.key});
+  final String? title;
+  const GeneralPhysicianPage({super.key, this.title});
 
   @override
   State<GeneralPhysicianPage> createState() => _GeneralPhysicianPageState();
@@ -101,9 +102,9 @@ class _GeneralPhysicianPageState extends State<GeneralPhysicianPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-              const Text(
-                "General\nPhysician",
-                style: TextStyle(
+              Text(
+                widget.title!,
+                style: const TextStyle(
                     color: kPrimaryColor,
                     fontFamily: kCircularStdMedium,
                     fontSize: 25),
@@ -204,6 +205,8 @@ class _GeneralPhysicianPageState extends State<GeneralPhysicianPage> {
               const SizedBox(height: 15),
               Expanded(
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
                   child: Column(
                     children: [
                       Row(

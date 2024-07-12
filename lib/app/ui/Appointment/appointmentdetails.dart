@@ -2,10 +2,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../routes/app_pages.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../widgets/custom_calander.dart';
 
 class AppointmentDetailsPage extends StatefulWidget {
   final String? name;
@@ -100,56 +103,152 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Positioned(
-                    bottom: -80,
-                    child: Card(
-                      shadowColor: const Color.fromARGB(10, 0, 0, 0),
-                      elevation: 5,
-                      child: Container(
-                        width: Get.width - 38,
-                        decoration: BoxDecoration(
+                  Column(
+                    children: [
+                      Container(
+                        width: Get.width,
+                        decoration: const BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(14.0),
+                              topRight: Radius.circular(14.0)),
+                        ),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: kHighlightColor,
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: const Center(
+                                child: Text(
+                                  "ai",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdMedium,
+                                      fontSize: 18),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              width: 160,
+                              child: Text(
+                                widget.name.toString(),
+                                style: const TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdMedium,
+                                    fontSize: 25),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              "MBBS",
+                              style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontFamily: kCircularStdNormal,
+                                  fontSize: 15),
+                            ),
+                            Text(
+                              widget.year.toString(),
+                              style: const TextStyle(
+                                  color: kPrimaryColor,
+                                  fontFamily: kCircularStdNormal,
+                                  fontSize: 15),
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: 170,
+                              child: CupertinoButton(
+                                borderRadius: BorderRadius.circular(25),
+                                padding: EdgeInsets.zero,
+                                color: kPrimaryColor,
+                                onPressed: () {
+                                  Get.toNamed(Routes.patientDetailsPage);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "CONSULT - \$50",
+                                      style: TextStyle(
+                                          color: kWhiteColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 15),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    Image.asset(
+                                      "assets/icons/arrow_right.png",
+                                      scale: 1.3,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: Get.width,
+                        decoration: const BoxDecoration(
                           color: kHighlightColor,
-                          borderRadius: BorderRadius.circular(14.0),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(14.0),
+                              bottomRight: Radius.circular(14.0)),
                         ),
                         padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                         child: Column(
                           children: [
-                            const SizedBox(height: 100),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      height: 45,
-                                      width: 45,
-                                      decoration: BoxDecoration(
-                                          color: kHighlightColor,
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          border: Border.all(
-                                              color: kPrimaryColor,
-                                              width: 0.5)),
-                                      child: Image.asset(
-                                        "assets/icons/send.png",
-                                        scale: 1.5,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(Routes.userChatPage);
+                                      },
+                                      child: Container(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
+                                            color: kHighlightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            border: Border.all(
+                                                color: kPrimaryColor,
+                                                width: 0.5)),
+                                        child: Image.asset(
+                                          "assets/icons/send.png",
+                                          scale: 1.5,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 10),
-                                    Container(
-                                      height: 45,
-                                      width: 45,
-                                      decoration: BoxDecoration(
-                                          color: kHighlightColor,
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          border: Border.all(
-                                              color: kPrimaryColor,
-                                              width: 0.5)),
-                                      child: Image.asset(
-                                        "assets/icons/phone.png",
-                                        scale: 1.5,
+                                    GestureDetector(
+                                      onTap: () {
+                                        launch('tel:1234567899');
+                                      },
+                                      child: Container(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
+                                            color: kHighlightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            border: Border.all(
+                                                color: kPrimaryColor,
+                                                width: 0.5)),
+                                        child: Image.asset(
+                                          "assets/icons/phone.png",
+                                          scale: 1.5,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -179,95 +278,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  Card(
-                    shadowColor: const Color.fromARGB(10, 0, 0, 0),
-                    elevation: 5,
-                    child: Container(
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                        color: kCardColor,
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 10),
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                                color: kHighlightColor,
-                                borderRadius: BorderRadius.circular(25)),
-                            child: const Center(
-                              child: Text(
-                                "ai",
-                                style: TextStyle(
-                                    color: kPrimaryColor,
-                                    fontFamily: kCircularStdMedium,
-                                    fontSize: 18),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: 160,
-                            child: Text(
-                              widget.name.toString(),
-                              style: const TextStyle(
-                                  color: kPrimaryColor,
-                                  fontFamily: kCircularStdMedium,
-                                  fontSize: 25),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            "MBBS",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontFamily: kCircularStdNormal,
-                                fontSize: 15),
-                          ),
-                          Text(
-                            widget.year.toString(),
-                            style: const TextStyle(
-                                color: kPrimaryColor,
-                                fontFamily: kCircularStdNormal,
-                                fontSize: 15),
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: 170,
-                            child: CupertinoButton(
-                              borderRadius: BorderRadius.circular(25),
-                              padding: EdgeInsets.zero,
-                              color: kPrimaryColor,
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "CONSULT - \$50",
-                                    style: TextStyle(
-                                        color: kWhiteColor,
-                                        fontFamily: kCircularStdNormal,
-                                        fontSize: 15),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  Image.asset(
-                                    "assets/icons/arrow_right.png",
-                                    scale: 1.3,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
+                    ],
                   ),
                   Positioned(
                     top: -30,
@@ -279,7 +290,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                   )
                 ],
               ),
-              const SizedBox(height: 90),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: Column(
@@ -480,94 +491,96 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    TableCalendar(
-                      firstDay: DateTime.utc(2010, 10, 16),
-                      rowHeight: 51,
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      focusedDay: _selectedDay,
-                      selectedDayPredicate: (day) =>
-                          isSameDay(_selectedDay, day),
-                      calendarFormat: _calendarFormat,
-                      onDaySelected: _onDaySelected,
-                      daysOfWeekStyle: const DaysOfWeekStyle(
-                          weekdayStyle: TextStyle(color: kTitleColor),
-                          weekendStyle: TextStyle(color: kTextSecondaryColor)),
-                      startingDayOfWeek: StartingDayOfWeek.monday,
-                      calendarBuilders: CalendarBuilders(
-                        markerBuilder: (date, events, holidays) {
-                          if (customDates.contains(date)) {
-                            return Positioned(
-                              right: 1,
-                              bottom: 1,
-                              child: Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.blue,
-                                ),
-                                width: 5,
-                                height: 5,
-                              ),
-                            );
-                          }
-                          return null;
-                        },
-                      ),
-                      headerStyle: const HeaderStyle(
-                        formatButtonVisible: false,
-                        titleCentered: false,
-                        leftChevronVisible: false,
-                        rightChevronVisible: false,
-                        titleTextStyle:
-                            TextStyle(color: kTitleColor, fontSize: 15),
-                        headerPadding:
-                            EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-                      ),
-                      calendarStyle: const CalendarStyle(
-                        outsideDaysVisible: false,
-                        defaultTextStyle: TextStyle(color: kTitleColor),
-                        defaultDecoration: BoxDecoration(
-                          color: Color.fromARGB(255, 202, 200, 200),
-                          shape: BoxShape.circle,
-                        ),
-                        selectedDecoration: BoxDecoration(
-                          color: Color.fromARGB(255, 202, 200, 200),
-                          shape: BoxShape.circle,
-                        ),
-                        holidayTextStyle: TextStyle(color: kPrimaryColor),
-                        selectedTextStyle: TextStyle(color: kPrimaryColor),
-                        weekendTextStyle: TextStyle(color: kPrimaryColor),
-                        weekendDecoration: BoxDecoration(
-                          color: Color.fromARGB(255, 202, 200, 200),
-                          shape: BoxShape.circle,
-                        ),
-                        todayDecoration: BoxDecoration(
-                          color: kWhiteColor,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      onFormatChanged: (formet) {
-                        if (_calendarFormat != formet) {
-                          setState(() {
-                            _calendarFormat = formet;
-                          });
-                        }
-                      },
-                      onHeaderTapped: (focusedDay) {
-                        setState(() {
-                          _calendarFormat = CalendarFormat.month;
-                        });
-                      },
-                      onPageChanged: ((focusedDay) {
-                        String formattedpageDate =
-                            DateFormat('MM').format(focusedDay);
-                        String todayPage = DateFormat('MM').format(todayDate);
-                        if (formattedpageDate == todayPage) {
-                          focuseToday = true;
-                        } else {
-                          focuseToday = true;
-                        }
-                      }),
-                    ),
+                    SizedBox(
+                        height: 395, width: Get.width, child: CustomCalendar()),
+                    // TableCalendar(
+                    //   firstDay: DateTime.utc(2010, 10, 16),
+                    //   rowHeight: 51,
+                    //   lastDay: DateTime.utc(2030, 3, 14),
+                    //   focusedDay: _selectedDay,
+                    //   selectedDayPredicate: (day) =>
+                    //       isSameDay(_selectedDay, day),
+                    //   calendarFormat: _calendarFormat,
+                    //   onDaySelected: _onDaySelected,
+                    //   daysOfWeekStyle: const DaysOfWeekStyle(
+                    //       weekdayStyle: TextStyle(color: kTitleColor),
+                    //       weekendStyle: TextStyle(color: kTextSecondaryColor)),
+                    //   startingDayOfWeek: StartingDayOfWeek.monday,
+                    //   calendarBuilders: CalendarBuilders(
+                    //     markerBuilder: (date, events, holidays) {
+                    //       if (customDates.contains(date)) {
+                    //         return Positioned(
+                    //           right: 1,
+                    //           bottom: 1,
+                    //           child: Container(
+                    //             decoration: const BoxDecoration(
+                    //               shape: BoxShape.circle,
+                    //               color: Colors.blue,
+                    //             ),
+                    //             width: 5,
+                    //             height: 5,
+                    //           ),
+                    //         );
+                    //       }
+                    //       return null;
+                    //     },
+                    //   ),
+                    //   headerStyle: const HeaderStyle(
+                    //     formatButtonVisible: false,
+                    //     titleCentered: false,
+                    //     leftChevronVisible: false,
+                    //     rightChevronVisible: false,
+                    //     titleTextStyle:
+                    //         TextStyle(color: kTitleColor, fontSize: 15),
+                    //     headerPadding:
+                    //         EdgeInsets.symmetric(horizontal: 1, vertical: 10),
+                    //   ),
+                    //   calendarStyle: const CalendarStyle(
+                    //     outsideDaysVisible: false,
+                    //     defaultTextStyle: TextStyle(color: kTitleColor),
+                    //     defaultDecoration: BoxDecoration(
+                    //       color: Color.fromARGB(255, 202, 200, 200),
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //     selectedDecoration: BoxDecoration(
+                    //       color: Color.fromARGB(255, 202, 200, 200),
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //     holidayTextStyle: TextStyle(color: kPrimaryColor),
+                    //     selectedTextStyle: TextStyle(color: kPrimaryColor),
+                    //     weekendTextStyle: TextStyle(color: kPrimaryColor),
+                    //     weekendDecoration: BoxDecoration(
+                    //       color: Color.fromARGB(255, 202, 200, 200),
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //     todayDecoration: BoxDecoration(
+                    //       color: kWhiteColor,
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //   ),
+                    //   onFormatChanged: (formet) {
+                    //     if (_calendarFormat != formet) {
+                    //       setState(() {
+                    //         _calendarFormat = formet;
+                    //       });
+                    //     }
+                    //   },
+                    //   onHeaderTapped: (focusedDay) {
+                    //     setState(() {
+                    //       _calendarFormat = CalendarFormat.month;
+                    //     });
+                    //   },
+                    //   onPageChanged: ((focusedDay) {
+                    //     String formattedpageDate =
+                    //         DateFormat('MM').format(focusedDay);
+                    //     String todayPage = DateFormat('MM').format(todayDate);
+                    //     if (formattedpageDate == todayPage) {
+                    //       focuseToday = true;
+                    //     } else {
+                    //       focuseToday = true;
+                    //     }
+                    //   }),
+                    // ),
                     const Text(
                       "About",
                       style: TextStyle(
@@ -721,7 +734,9 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         const SizedBox(width: 0),
                         CupertinoButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(Routes.userChatPage);
+                          },
                           child: Container(
                             height: 40,
                             width: 40,
@@ -762,7 +777,9 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         ),
                         CupertinoButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+                            launch('tel:1234567899');
+                          },
                           child: Container(
                             height: 40,
                             width: 40,

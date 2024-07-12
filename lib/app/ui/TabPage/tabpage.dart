@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../home/home.dart';
+import '../Profile/profile.dart';
 import '../Keep asking/yournotes.dart';
 import '../../controller/tab_controller.dart';
+import '../../../config/constant/constant.dart';
 import '../MyAppointments/my_appointments.dart';
 import '../ChatWithPatients/chat_with_patients.dart';
 import '../../../config/constant/font_constant.dart';
@@ -23,7 +25,7 @@ class TabPage extends StatefulWidget {
 
 class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
   final controller = Get.put(TabCountController());
-  String authToken = "";
+  String authToken = "", selectedPerson = "";
   bool _isKeyboardVisible = false;
 
   int accessLevel = 1;
@@ -31,6 +33,11 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
   @override
   void initState() {
     controller.changeTabIndex(widget.selectedTabIndex!.toInt());
+    var person = getStorage.read("selctetperson") ?? "";
+    setState(() {
+      selectedPerson = person;
+    });
+    super.initState();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
@@ -75,12 +82,14 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
               children: [
                 IndexedStack(
                   index: tabCountController.tabIndex.value,
-                  children: const [
-                    HomePage(),
-                    ChatWithPatientsPage(),
-                    FindDoctorNearbyPage(),
-                    MyAppointmentsPage(),
-                    YourNotesPage(),
+                  children: [
+                    const HomePage(),
+                    const ChatWithPatientsPage(),
+                    const FindDoctorNearbyPage(),
+                    selectedPerson == "Doctor"
+                        ? const MyAppointmentsPage()
+                        : const YourNotesPage(),
+                    const ProfilePage(),
                   ],
                 ),
                 !_isKeyboardVisible
@@ -109,11 +118,17 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
                                     buildBottomTab(
                                         1, "Chat", "assets/icons/comment.png"),
                                     const SizedBox(width: 15),
-                                    buildBottomTab(2, "Doctors",
-                                        "assets/icons/person_plus.png"),
+                                    selectedPerson == "Doctor"
+                                        ? buildBottomTab(2, "Patients",
+                                            "assets/icons/person_plus.png")
+                                        : buildBottomTab(2, "Doctors",
+                                            "assets/icons/person_plus.png"),
                                     const SizedBox(width: 15),
-                                    buildBottomTab(3, "My Health",
-                                        "assets/icons/hart.png"),
+                                    selectedPerson == "Doctor"
+                                        ? buildBottomTab(
+                                            3, "Appts", "assets/icons/hart.png")
+                                        : buildBottomTab(3, "My Health",
+                                            "assets/icons/hart.png"),
                                     const SizedBox(width: 15),
                                     buildBottomTab(
                                         4, "Profile", "assets/icons/User.png"),
@@ -336,22 +351,36 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
                       scale: 1.7,
                     ),
                   ),
-                  label: 'Doctors',
+                  label: selectedPerson == "Doctor" ? 'Doctors' : 'Patient',
                   backgroundColor: kBackGroundColor,
                 ),
-                BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: const EdgeInsets.only(bottom: 7.0, top: 2),
-                    child: Image.asset(
-                      "assets/icons/hart.png",
-                      color: landingPageController.tabIndex.value == 0
-                          ? kSelectedIconColor
-                          : kIconColor,
-                      scale: 1.7,
-                    ),
-                  ),
-                  label: 'My Health',
-                ),
+                selectedPerson == "Doctor"
+                    ? BottomNavigationBarItem(
+                        icon: Padding(
+                          padding: const EdgeInsets.only(bottom: 7.0, top: 2),
+                          child: Image.asset(
+                            "assets/icons/hart.png",
+                            color: landingPageController.tabIndex.value == 0
+                                ? kSelectedIconColor
+                                : kIconColor,
+                            scale: 1.7,
+                          ),
+                        ),
+                        label: 'My Appointments',
+                      )
+                    : BottomNavigationBarItem(
+                        icon: Padding(
+                          padding: const EdgeInsets.only(bottom: 7.0, top: 2),
+                          child: Image.asset(
+                            "assets/icons/hart.png",
+                            color: landingPageController.tabIndex.value == 0
+                                ? kSelectedIconColor
+                                : kIconColor,
+                            scale: 1.7,
+                          ),
+                        ),
+                        label: 'My dddddd',
+                      ),
                 BottomNavigationBarItem(
                   icon: Padding(
                       padding: const EdgeInsets.only(bottom: 7.0, top: 3),

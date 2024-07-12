@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../config/constant/constant.dart';
 import '../../routes/app_pages.dart';
 import '../../controller/tab_controller.dart';
 import '../DoctorDetails/doctor_details.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../Keep asking/keepasking.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,12 +20,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectCatgoryIndex = 0, selectAsstenIndex = 0;
   final tabController = Get.put(TabCountController());
+  String selectedPerson = "";
+  @override
+  void initState() {
+    var person = getStorage.read("selctetperson") ?? "";
+    setState(() {
+      selectedPerson = person;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Stack(
@@ -31,11 +45,17 @@ class _HomePageState extends State<HomePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    "assets/icons/h4.png",
-                    fit: BoxFit.cover,
-                    height: 35,
-                    width: 35,
+                  CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      Get.toNamed(Routes.loginPatientPage);
+                    },
+                    child: Image.asset(
+                      "assets/icons/h4.png",
+                      fit: BoxFit.cover,
+                      height: 35,
+                      width: 35,
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 50.0, bottom: 0),
@@ -89,13 +109,13 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            "I’m Zynab\nYour ai Doctor",
+                            "I’m Zynab\nYour AI Health\nAssistant",
                             style: TextStyle(
                                 color: kPrimaryColor,
                                 fontFamily: kCircularStdMedium,
                                 fontSize: 20),
                           ),
-                          const SizedBox(height: 40),
+                          const SizedBox(height: 10),
                           const Text(
                             "How are you feeling ?",
                             style: TextStyle(
@@ -106,30 +126,41 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 20),
                           Row(
                             children: [
-                              Container(
-                                height: 49,
-                                width: 49,
-                                decoration: BoxDecoration(
-                                  color: kWhiteColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: Image.asset(
-                                  "assets/icons/send.png",
-                                  scale: 1.7,
+                              CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  Get.toNamed(Routes.chatWithDoctorPage);
+                                },
+                                child: Container(
+                                  height: 49,
+                                  width: 49,
+                                  decoration: BoxDecoration(
+                                    color: kWhiteColor,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/icons/send.png",
+                                    scale: 1.7,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Container(
-                                height: 49,
-                                width: 49,
-                                // padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  color: kWhiteColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: Image.asset(
-                                  "assets/icons/mic.png",
-                                  scale: 1.7,
+                              CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  Get.to(() => const KeepAsking());
+                                },
+                                child: Container(
+                                  height: 49,
+                                  width: 49,
+                                  decoration: BoxDecoration(
+                                    color: kWhiteColor,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/icons/mic.png",
+                                    scale: 1.7,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 10),
@@ -182,15 +213,21 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           children: [
                             Image.asset(
-                              "assets/icons/h1.png",
+                              selectedPerson == "Doctor"
+                                  ? "assets/icons/g1.png"
+                                  : "assets/icons/h1.png",
                               scale: 6,
                             ),
                             Image.asset(
-                              "assets/icons/h2.png",
+                              selectedPerson == "Doctor"
+                                  ? "assets/icons/h6.png"
+                                  : "assets/icons/h2.png",
                               scale: 3.5,
                             ),
                             Image.asset(
-                              "assets/icons/h3.png",
+                              selectedPerson == "Doctor"
+                                  ? "assets/icons/g3.png"
+                                  : "assets/icons/h3.png",
                               scale: 6,
                             ),
                             CupertinoButton(
@@ -215,9 +252,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      const Text(
-                        "Your doctors",
-                        style: TextStyle(
+                      Text(
+                        "Your ${selectedPerson == "Doctor" ? "Patients" : "Doctors"}",
+                        style: const TextStyle(
                             color: kPrimaryColor,
                             fontFamily: kCircularStdNormal,
                             fontSize: 14),
@@ -233,6 +270,8 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 16),
                   ),
                   SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
@@ -254,17 +293,39 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 16),
                   ),
                   SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        buildNearby("Dr. Pooja\nPatel", "assets/icons/h1.png",
-                            "4.5", "Dentist / 2+ yrs"),
-                        buildNearby("Dr. Aryaa\nPatel", "assets/icons/h2.png",
-                            "4.8", "Surgeons / 8+ yrs"),
-                        buildNearby("Dr. Aryaa\nPatel", "assets/icons/h3.png",
-                            "4.8", "Surgeons / 8+ yrs")
-                      ],
-                    ),
+                    child: selectedPerson == "Doctor"
+                        ? Row(
+                            children: [
+                              buildNearby("Rajesh\nPatel",
+                                  "assets/icons/g3.png", "4.5", ""),
+                              buildNearby("Aryaa\nPatel", "assets/icons/g4.png",
+                                  "4.8", ""),
+                              buildNearby("Romiua\nPatel",
+                                  "assets/icons/g5.png", "4.8", "")
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              buildNearby(
+                                  "Dr. Pooja\nPatel",
+                                  "assets/icons/h1.png",
+                                  "4.5",
+                                  "Dentist / 2+ yrs"),
+                              buildNearby(
+                                  "Dr. Aryaa\nPatel",
+                                  "assets/icons/h2.png",
+                                  "4.8",
+                                  "Surgeons / 8+ yrs"),
+                              buildNearby(
+                                  "Dr. Aryaa\nPatel",
+                                  "assets/icons/h3.png",
+                                  "4.8",
+                                  "Surgeons / 8+ yrs")
+                            ],
+                          ),
                   ),
                   const SizedBox(height: 10),
                   const Text(
@@ -275,6 +336,8 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 16),
                   ),
                   SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
@@ -448,7 +511,7 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: kCircularStdMedium,
                       fontSize: 16),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: year == "" ? 0 : 10),
                 Text(
                   year,
                   style: const TextStyle(
@@ -456,7 +519,7 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: kCircularStdNormal,
                       fontSize: 12),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: year == "" ? 0 : 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

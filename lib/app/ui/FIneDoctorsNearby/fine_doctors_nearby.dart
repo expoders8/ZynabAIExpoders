@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:zynabaiexpoders/app/ui/FIneDoctorsNearby/general_physician.dart';
 
+import '../../../config/constant/constant.dart';
 import '../../routes/app_pages.dart';
 import '../DoctorDetails/doctor_details.dart';
 import '../../../config/constant/font_constant.dart';
@@ -18,331 +20,482 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
   FocusNode focusNode = FocusNode();
   var searchController = TextEditingController();
   int selectedIndex = 0;
+  String selectedPerson = "";
+  @override
+  void initState() {
+    var person = getStorage.read("selctetperson") ?? "";
+    setState(() {
+      selectedPerson = person;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Find Doctors\nNearby",
-                style: TextStyle(
-                    color: kPrimaryColor,
-                    fontFamily: kCircularStdMedium,
-                    fontSize: 23),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                children: [
-                  buildSicknessWidget("Doctors", 0),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("My Doctors", 1),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("Appointments", 2)
-                ],
-              ),
-              TextFormField(
-                controller: searchController,
-                decoration: const InputDecoration(
-                  labelText: 'Search',
-                  labelStyle: TextStyle(color: kPrimaryColor),
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFACACAC),
-                      width: 1,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Find ${selectedPerson == "Doctor" ? "Patients" : "Doctors"} \nNearby",
+                  style: const TextStyle(
+                      color: kPrimaryColor,
+                      fontFamily: kCircularStdMedium,
+                      fontSize: 23),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  children: [
+                    buildSicknessWidget(
+                        selectedPerson == "Doctor" ? "Patients" : "Doctors", 0),
+                    const SizedBox(width: 10),
+                    buildSicknessWidget(
+                        selectedPerson == "Doctor"
+                            ? "My Patients"
+                            : "My Doctors",
+                        1),
+                    const SizedBox(width: 10),
+                    selectedPerson == "Doctor"
+                        ? Container()
+                        : buildSicknessWidget("Appointments", 2)
+                  ],
+                ),
+                TextFormField(
+                  controller: searchController,
+                  decoration: const InputDecoration(
+                    labelText: 'Search',
+                    labelStyle: TextStyle(color: kPrimaryColor),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFACACAC),
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFACACAC),
-                      width: 1,
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFACACAC),
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: kWhiteColor,
-                      width: 1,
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: kWhiteColor,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              selectedIndex == 0
-                  ? Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Nearby",
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 16),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 4),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: kPrimaryColor, width: 1),
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: const Text(
-                                    "View All",
-                                    style: TextStyle(
-                                        color: kPrimaryColor, fontSize: 12),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 7),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
+                const SizedBox(height: 15),
+                selectedIndex == 0
+                    ? selectedPerson == "Doctor"
+                        ? Expanded(
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              child: Column(
                                 children: [
-                                  buildNearby(
-                                      "Dr. Pooja\nPatel",
-                                      "assets/icons/h1.png",
-                                      "4.5",
-                                      "Dentist / 2+ yrs"),
-                                  buildNearby(
-                                      "Dr. Aryaa\nPatel",
-                                      "assets/icons/h3.png",
-                                      "4.8",
-                                      "Surgeons / 8+ yrs"),
-                                  buildNearby(
-                                      "Dr. Aryaa\nPatel",
-                                      "assets/icons/h5.png",
-                                      "4.8",
-                                      "Surgeons / 8+ yrs")
+                                  Row(
+                                    children: [
+                                      buildNearby("Rammi\nRathod",
+                                          "assets/icons/g1.png", "4.5", ""),
+                                      const SizedBox(width: 5),
+                                      buildNearby("Aryaa\nPatel",
+                                          "assets/icons/g2.png", "4.8", ""),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      buildNearby("Vincent\nChepkwony",
+                                          "assets/icons/g3.png", "4.5", ""),
+                                      const SizedBox(width: 5),
+                                      buildNearby("Amelia\nKimani",
+                                          "assets/icons/g4.png", "4.8", ""),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      buildNearby("John\nDoe",
+                                          "assets/icons/g5.png", "4.5", ""),
+                                      const SizedBox(width: 5),
+                                      buildNearby("Anusha\nPriya",
+                                          "assets/icons/g6.png", "4.8", ""),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 85)
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "Dentist",
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 16),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 4),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: kPrimaryColor, width: 1),
-                                      borderRadius: BorderRadius.circular(25)),
-                                  child: const Text(
-                                    "View All",
-                                    style: TextStyle(
-                                        color: kPrimaryColor, fontSize: 12),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 7),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
+                          )
+                        : Expanded(
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              child: Column(
                                 children: [
-                                  buildNearby(
-                                      "Dr. Amelia\nKimani",
-                                      "assets/icons/doctor3.png",
-                                      "4.5",
-                                      "Dentist / 2+ yrs"),
-                                  buildNearby(
-                                      "Dr. Vincent\nChepkwony",
-                                      "assets/icons/doctor4.png",
-                                      "4.8",
-                                      "Surgeons / 8+ yrs"),
-                                  buildNearby(
-                                      "Dr. Aryaa\nPatel",
-                                      "assets/icons/h5.png",
-                                      "4.8",
-                                      "Surgeons / 8+ yrs")
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  "General Physician",
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 16),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(Routes.generalPhysicianPage);
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 6, vertical: 4),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: kPrimaryColor, width: 1),
-                                        borderRadius:
-                                            BorderRadius.circular(25)),
-                                    child: const Text(
-                                      "View All",
-                                      style: TextStyle(
-                                          color: kPrimaryColor, fontSize: 12),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Nearby",
+                                        style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontFamily: kCircularStdNormal,
+                                            fontSize: 16),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(() =>
+                                              const GeneralPhysicianPage(
+                                                  title: "Nearby"));
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 6, vertical: 4),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: kPrimaryColor,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: const Text(
+                                            "View All",
+                                            style: TextStyle(
+                                                color: kPrimaryColor,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 7),
+                                  SingleChildScrollView(
+                                    physics: const BouncingScrollPhysics(
+                                        parent:
+                                            AlwaysScrollableScrollPhysics()),
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        buildNearby(
+                                            "Dr. Pooja\nPatel",
+                                            "assets/icons/h1.png",
+                                            "4.5",
+                                            "Dentist / 2+ yrs"),
+                                        buildNearby(
+                                            "Dr. Aryaa\nPatel",
+                                            "assets/icons/h3.png",
+                                            "4.8",
+                                            "Surgeons / 8+ yrs"),
+                                        buildNearby(
+                                            "Dr. Aryaa\nPatel",
+                                            "assets/icons/h5.png",
+                                            "4.8",
+                                            "Surgeons / 8+ yrs")
+                                      ],
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 7),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  buildNearby(
-                                      "Dr. John\nDoe",
-                                      "assets/icons/doctor5.png",
-                                      "4.5",
-                                      "General / 2+ yrs"),
-                                  buildNearby(
-                                      "Dr. Anusha\nPriya",
-                                      "assets/icons/doctor1.png",
-                                      "4.8",
-                                      "General P / 8+ yrs"),
-                                  buildNearby(
-                                      "Dr. Aryaa\nPatel",
-                                      "assets/icons/h5.png",
-                                      "4.8",
-                                      "General P / 8+ yrs")
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "Dentist",
+                                        style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontFamily: kCircularStdNormal,
+                                            fontSize: 16),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(() =>
+                                              const GeneralPhysicianPage(
+                                                  title: "Dentist"));
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 6, vertical: 4),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: kPrimaryColor,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: const Text(
+                                            "View All",
+                                            style: TextStyle(
+                                                color: kPrimaryColor,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 7),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: const BouncingScrollPhysics(
+                                        parent:
+                                            AlwaysScrollableScrollPhysics()),
+                                    child: Row(
+                                      children: [
+                                        buildNearby(
+                                            "Dr. Amelia\nKimani",
+                                            "assets/icons/doctor3.png",
+                                            "4.5",
+                                            "Dentist / 2+ yrs"),
+                                        buildNearby(
+                                            "Dr. Vincent\nChepkwony",
+                                            "assets/icons/doctor4.png",
+                                            "4.8",
+                                            "Surgeons / 8+ yrs"),
+                                        buildNearby(
+                                            "Dr. Aryaa\nPatel",
+                                            "assets/icons/h5.png",
+                                            "4.8",
+                                            "Surgeons / 8+ yrs")
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        "General Physician",
+                                        style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontFamily: kCircularStdNormal,
+                                            fontSize: 16),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Get.to(() =>
+                                              const GeneralPhysicianPage(
+                                                  title: "General Physician"));
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 6, vertical: 4),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: kPrimaryColor,
+                                                  width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: const Text(
+                                            "View All",
+                                            style: TextStyle(
+                                                color: kPrimaryColor,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: 7),
+                                  SingleChildScrollView(
+                                    physics: const BouncingScrollPhysics(
+                                        parent:
+                                            AlwaysScrollableScrollPhysics()),
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: [
+                                        buildNearby(
+                                            "Dr. John\nDoe",
+                                            "assets/icons/doctor5.png",
+                                            "4.5",
+                                            "General / 2+ yrs"),
+                                        buildNearby(
+                                            "Dr. Anusha\nPriya",
+                                            "assets/icons/doctor1.png",
+                                            "4.8",
+                                            "General P / 8+ yrs"),
+                                        buildNearby(
+                                            "Dr. Aryaa\nPatel",
+                                            "assets/icons/h5.png",
+                                            "4.8",
+                                            "General P / 8+ yrs")
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 85)
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : selectedIndex == 1
-                      ? Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    buildNearby(
-                                        "Dr. Pooja\nPatel",
-                                        "assets/icons/h1.png",
-                                        "4.5",
-                                        "Physician / 2+ yrs"),
-                                    const SizedBox(width: 5),
-                                    buildNearby(
-                                        "Dr. Aryaa\nPatel",
-                                        "assets/icons/h3.png",
-                                        "4.8",
-                                        "Surgeons / 8+ yrs"),
-                                  ],
+                          )
+                    : selectedIndex == 1
+                        ? selectedPerson == "Doctor"
+                            ? Expanded(
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          buildNearby("John\nDoe",
+                                              "assets/icons/g5.png", "4.5", ""),
+                                          const SizedBox(width: 5),
+                                          buildNearby("Rammi\nRathod",
+                                              "assets/icons/g1.png", "4.5", ""),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          buildNearby("Vincent\nChepkwony",
+                                              "assets/icons/g3.png", "4.5", ""),
+                                          const SizedBox(width: 5),
+                                          buildNearby("Aryaa\nPatel",
+                                              "assets/icons/g2.png", "4.8", ""),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          buildNearby("Anusha\nPriya",
+                                              "assets/icons/g6.png", "4.8", ""),
+                                          const SizedBox(width: 5),
+                                          buildNearby("Amelia\nKimani",
+                                              "assets/icons/g4.png", "4.8", ""),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 85)
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    buildNearby(
-                                        "Dr. Amelia\nKimani",
-                                        "assets/icons/h5.png",
-                                        "4.5",
-                                        "Physician / 2+ yrs"),
-                                    const SizedBox(width: 5),
-                                    buildNearby(
-                                        "Dr. Vincent\nChepkwony",
-                                        "assets/icons/doctor4.png",
-                                        "4.8",
-                                        "Surgeons / 8+ yrs"),
-                                  ],
+                              )
+                            : Expanded(
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "Dr. Pooja\nPatel",
+                                              "assets/icons/h1.png",
+                                              "4.5",
+                                              "Physician / 2+ yrs"),
+                                          const SizedBox(width: 5),
+                                          buildNearby(
+                                              "Dr. Aryaa\nPatel",
+                                              "assets/icons/h3.png",
+                                              "4.8",
+                                              "Surgeons / 8+ yrs"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "Dr. Amelia\nKimani",
+                                              "assets/icons/h5.png",
+                                              "4.5",
+                                              "Physician / 2+ yrs"),
+                                          const SizedBox(width: 5),
+                                          buildNearby(
+                                              "Dr. Vincent\nChepkwony",
+                                              "assets/icons/doctor4.png",
+                                              "4.8",
+                                              "Surgeons / 8+ yrs"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "Dr. Anusha\nPriya",
+                                              "assets/icons/doctor1.png",
+                                              "4.5",
+                                              "Physician / 2+ yrs"),
+                                          const SizedBox(width: 5),
+                                          buildNearby(
+                                              "Dr. John\nDoe",
+                                              "assets/icons/doctor5.png",
+                                              "4.8",
+                                              "Surgeons / 8+ yrs"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 85)
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    buildNearby(
-                                        "Dr. Anusha\nPriya",
-                                        "assets/icons/doctor1.png",
-                                        "4.5",
-                                        "Physician / 2+ yrs"),
-                                    const SizedBox(width: 5),
-                                    buildNearby(
-                                        "Dr. John\nDoe",
-                                        "assets/icons/doctor5.png",
-                                        "4.8",
-                                        "Surgeons / 8+ yrs"),
-                                  ],
+                              )
+                        : selectedPerson == "Doctor"
+                            ? Container()
+                            : Expanded(
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "5th Mar 2024",
+                                              "assets/icons/h1.png",
+                                              "4.5",
+                                              "Physician / 2+ yrs"),
+                                          const SizedBox(width: 5),
+                                          buildNearby(
+                                              "10th Mar 2024",
+                                              "assets/icons/h3.png",
+                                              "4.8",
+                                              "Surgeons / 8+ yrs"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "5th Mar 2024",
+                                              "assets/icons/h5.png",
+                                              "4.5",
+                                              "Physician / 2+ yrs"),
+                                          const SizedBox(width: 5),
+                                          buildNearby(
+                                              "10th Mar 2024",
+                                              "assets/icons/doctor4.png",
+                                              "4.8",
+                                              "Surgeons / 8+ yrs"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "5th Mar 2024",
+                                              "assets/icons/doctor1.png",
+                                              "4.5",
+                                              "Physician / 2+ yrs"),
+                                          const SizedBox(width: 5),
+                                          buildNearby(
+                                              "10th Mar 2024",
+                                              "assets/icons/doctor5.png",
+                                              "4.8",
+                                              "Surgeons / 8+ yrs"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 85)
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        )
-                      : Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    buildNearby(
-                                        "5th Mar 2024",
-                                        "assets/icons/h1.png",
-                                        "4.5",
-                                        "Physician / 2+ yrs"),
-                                    const SizedBox(width: 5),
-                                    buildNearby(
-                                        "10th Mar 2024",
-                                        "assets/icons/h3.png",
-                                        "4.8",
-                                        "Surgeons / 8+ yrs"),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    buildNearby(
-                                        "5th Mar 2024",
-                                        "assets/icons/h5.png",
-                                        "4.5",
-                                        "Physician / 2+ yrs"),
-                                    const SizedBox(width: 5),
-                                    buildNearby(
-                                        "10th Mar 2024",
-                                        "assets/icons/doctor4.png",
-                                        "4.8",
-                                        "Surgeons / 8+ yrs"),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    buildNearby(
-                                        "5th Mar 2024",
-                                        "assets/icons/doctor1.png",
-                                        "4.5",
-                                        "Physician / 2+ yrs"),
-                                    const SizedBox(width: 5),
-                                    buildNearby(
-                                        "10th Mar 2024",
-                                        "assets/icons/doctor5.png",
-                                        "4.8",
-                                        "Surgeons / 8+ yrs"),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-            ],
+                              ),
+              ],
+            ),
           ),
         ),
       ),
@@ -360,6 +513,7 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                 () => DoctoreDetailsPage(
                   name: text,
                   year: year,
+                  image: image,
                 ),
               );
       },
@@ -376,17 +530,40 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      color: selectedIndex == 2
-                          ? const Color(0xFFE6E6E6)
-                          : kWhiteColor,
-                      borderRadius: BorderRadius.circular(25)),
-                  child: selectedIndex == 2
-                      ? const Center(child: Text("5th"))
-                      : Image.asset(image),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          color: selectedIndex == 2
+                              ? const Color(0xFFE6E6E6)
+                              : kWhiteColor,
+                          borderRadius: BorderRadius.circular(25)),
+                      child: selectedIndex == 2
+                          ? const Center(child: Text("5th"))
+                          : Image.asset(image),
+                    ),
+                    selectedIndex == 0
+                        ? Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                  color: kWhiteColor,
+                                  borderRadius: BorderRadius.circular(25),
+                                  border: Border.all(
+                                      width: 1, color: kPrimaryColor)),
+                              child: const Icon(
+                                Icons.add,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          )
+                        : Container(),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -396,7 +573,7 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                       fontFamily: kCircularStdMedium,
                       fontSize: 16),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: year == "" ? 0 : 10),
                 Text(
                   selectedIndex == 2 ? "10:30 AM" : year,
                   style: const TextStyle(

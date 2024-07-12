@@ -7,10 +7,13 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stts;
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/sickness_model.dart';
 import '../../routes/app_pages.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../Keep asking/keepasking.dart';
 
 class ChatWithDoctorPage extends StatefulWidget {
   const ChatWithDoctorPage({super.key});
@@ -23,13 +26,67 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
   FocusNode focusNode = FocusNode();
   var msgController = TextEditingController();
   bool islisteing = false;
-  String text = "";
+  String text = "", checkBadge = "sickness";
   var speechToText = stts.SpeechToText();
   final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
   final FlutterSoundPlayer _player = FlutterSoundPlayer();
   bool isRecording = false;
   bool isPlaying = false;
   String? _filePath;
+  List<SicknessModel> sicknessList = [
+    SicknessModel(
+      name: "Fever",
+    ),
+    SicknessModel(
+      name: "Cough",
+    ),
+    SicknessModel(
+      name: "Sore Throat",
+    ),
+    SicknessModel(
+      name: "Tooth Fractures",
+    ),
+    SicknessModel(
+      name: "Tooth Erosion",
+    ),
+    SicknessModel(
+      name: "Chest Pain",
+    ),
+    SicknessModel(
+      name: "Rash",
+    ),
+    SicknessModel(
+      name: "Diarrhea",
+    ),
+    SicknessModel(
+      name: "plus",
+    ),
+  ];
+  List<SicknessModel> madicalList = [
+    SicknessModel(
+      name: "Tooth Decay",
+    ),
+    SicknessModel(
+      name: "Bad Breath",
+    ),
+    SicknessModel(
+      name: "Dry",
+    ),
+    SicknessModel(
+      name: "Vomiting",
+    ),
+    SicknessModel(
+      name: "Wheezes",
+    ),
+    SicknessModel(
+      name: "Oral Thrush",
+    ),
+    SicknessModel(
+      name: "plus",
+    ),
+  ];
+  List<int> selectedIndices = [];
+  List<int> selectedIndMadical = [];
   @override
   void initState() {
     super.initState();
@@ -127,7 +184,13 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
         leading: CupertinoButton(
           padding: const EdgeInsets.all(9),
           onPressed: () {
-            Get.back();
+            if (checkBadge == "dentalMedical") {
+              setState(() {
+                checkBadge = "sickness";
+              });
+            } else {
+              Get.back();
+            }
           },
           child: Container(
             height: 70,
@@ -151,7 +214,7 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
           CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () {
-              Get.back();
+              launch('tel:1234567899');
             },
             child: Container(
               height: 40,
@@ -168,9 +231,7 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
           const SizedBox(width: 5),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            onPressed: () {
-              Get.back();
-            },
+            onPressed: () {},
             child: Container(
               height: 40,
               width: 40,
@@ -185,191 +246,337 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
           const SizedBox(width: 15)
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const SizedBox(height: 50),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, bottom: 15),
-                    child: Container(
-                      height: 35,
-                      width: 35,
-                      decoration: BoxDecoration(
-                          color: kHighlightColor,
-                          borderRadius: BorderRadius.circular(25)),
-                      child: const Center(
-                        child: Text(
-                          "ai",
-                          style: TextStyle(
-                              color: kPrimaryColor,
-                              fontFamily: kCircularStdMedium,
-                              fontSize: 18),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Image.asset(
-                    "assets/icons/lady.png",
-                    fit: BoxFit.cover,
-                    height: 250,
-                    width: 152,
-                  )
-                ],
-              ),
-              const Text(
-                "I’m Zynab\nYour ai Doctor.\nAsk me anything.",
-                style: TextStyle(
-                    color: kPrimaryColor,
-                    fontFamily: kCircularStdMedium,
-                    fontSize: 25),
-              ),
-              const SizedBox(height: 30),
-              const Text(
-                "Pick sickness",
-                style: TextStyle(
-                    color: kPrimaryColor,
-                    fontFamily: kCircularStdMedium,
-                    fontSize: 15),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  buildSicknessWidget("Fever"),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("Cough"),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("Sore Throat")
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  buildSicknessWidget("Vomiting"),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("Vomiting"),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("Chest Pain")
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  buildSicknessWidget("Rash"),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("Diarrhea"),
-                  const SizedBox(width: 10),
-                  buildSicknessWidget("plus")
-                ],
-              ),
-              const SizedBox(height: 23),
-              Row(
-                children: [
-                  SizedBox(
-                    width: Get.width - 111,
-                    height: 50,
-                    child: TextFormField(
-                      controller: msgController,
-                      focusNode: focusNode,
-                      textAlignVertical: TextAlignVertical.center,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      minLines: 1,
-                      cursorColor: kPrimaryColor,
-                      onChanged: (value) {},
-                      decoration: InputDecoration(
-                        fillColor: kWhiteColor,
-                        filled: true,
-                        hintText: "Ask me anything.",
-                        hintStyle: const TextStyle(color: kPrimaryColor),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
-                        prefixIcon: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 5, top: 5, bottom: 5, right: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                    color: kBorderColor, width: 1.0)),
-                            child: Image.asset(
-                              "assets/icons/plus.png",
-                              scale: 1,
-                            ),
-                          ),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: Image.asset(
-                              "assets/icons/send.png",
-                              scale: 1.6,
-                            ),
-                          ),
-                          onPressed: () async {
-                            Get.toNamed(Routes.chatWithDoctorMadicalPage);
-                          },
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: kWhiteColor, // Default border color
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: kWhiteColor, // Default border color
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        errorStyle: const TextStyle(color: kErrorColor),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: kWhiteColor, // Default border color
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: kWhiteColor, // Default border color
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                    ),
-                  ),
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      isRecording ? stopRecording() : startRecording();
-                    },
-                    child: AvatarGlow(
-                      animate: islisteing,
-                      repeat: true,
-                      endRadius: 40,
-                      glowColor: const Color(0xFFCCDA00),
-                      duration: const Duration(milliseconds: 1000),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const SizedBox(height: 50),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15.0, bottom: 15),
                       child: Container(
-                        height: 48,
-                        width: 48,
+                        height: 35,
+                        width: 35,
                         decoration: BoxDecoration(
                             color: kHighlightColor,
                             borderRadius: BorderRadius.circular(25)),
-                        child: isRecording
-                            ? const Icon(Icons.close)
-                            : Image.asset("assets/icons/mic.png", scale: 1.5),
+                        child: const Center(
+                          child: Text(
+                            "ai",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontFamily: kCircularStdMedium,
+                                fontSize: 18),
+                          ),
+                        ),
                       ),
                     ),
-                  )
-                ],
-              ),
-            ],
+                    Image.asset(
+                      "assets/icons/lady.png",
+                      fit: BoxFit.cover,
+                      height: 250,
+                      width: 152,
+                    )
+                  ],
+                ),
+                const Text(
+                  "I’m Zynab\nYour ai Doctor.\nAsk me anything.",
+                  style: TextStyle(
+                      color: kPrimaryColor,
+                      fontFamily: kCircularStdMedium,
+                      fontSize: 25),
+                ),
+                const SizedBox(height: 30),
+                checkBadge == "sickness"
+                    ? const Text(
+                        "Pick sickness",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 15),
+                      )
+                    : const Text(
+                        "Dental Medical Issues",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 15),
+                      ),
+                const SizedBox(height: 10),
+                checkBadge == "sickness"
+                    ? SizedBox(
+                        height: Get.height / 4.6,
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: Get.width > 500 ? 6 : 3,
+                                  mainAxisExtent: 40,
+                                  crossAxisSpacing: 6,
+                                  mainAxisSpacing: 15),
+                          itemCount: sicknessList.length,
+                          itemBuilder: (context, index) {
+                            var data = sicknessList[index];
+                            bool isSelected = selectedIndices.contains(index);
+                            return data.name == "plus"
+                                ? CupertinoButton(
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      Get.toNamed(Routes.multipalSicknessPage);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 35,
+                                          width: 35,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              color: kPrimaryColor),
+                                          child: Image.asset(
+                                            "assets/icons/plus.png",
+                                            scale: 1.5,
+                                            color: kWhiteColor,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        const Text(
+                                          "23 sickness",
+                                          style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontFamily: kCircularStdNormal,
+                                              fontSize: 13),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : CupertinoButton(
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      setState(() {
+                                        if (isSelected) {
+                                          selectedIndices.remove(index);
+                                        } else {
+                                          selectedIndices.add(index);
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: isSelected
+                                              ? kHighlightColor
+                                              : kWhiteColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Center(
+                                        child: Text(
+                                          data.name,
+                                          style: const TextStyle(
+                                              color: kPrimaryColor,
+                                              fontFamily: kCircularStdNormal,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                          },
+                        ),
+                      )
+                    : SizedBox(
+                        height: Get.height / 4.6,
+                        child: GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: Get.width > 500 ? 6 : 3,
+                                  mainAxisExtent: 40,
+                                  crossAxisSpacing: 6,
+                                  mainAxisSpacing: 15),
+                          itemCount: madicalList.length,
+                          itemBuilder: (context, index) {
+                            var data = madicalList[index];
+                            bool isSelectedMadical =
+                                selectedIndMadical.contains(index);
+                            return data.name == "plus"
+                                ? CupertinoButton(
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      Get.toNamed(Routes.multipalSicknessPage);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 35,
+                                          width: 35,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              color: kPrimaryColor),
+                                          child: Image.asset(
+                                            "assets/icons/plus.png",
+                                            scale: 1.5,
+                                            color: kWhiteColor,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        const Text(
+                                          "23 sickness",
+                                          style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontFamily: kCircularStdNormal,
+                                              fontSize: 13),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : CupertinoButton(
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      setState(() {
+                                        if (isSelectedMadical) {
+                                          selectedIndMadical.remove(index);
+                                        } else {
+                                          selectedIndMadical.add(index);
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: isSelectedMadical
+                                              ? kHighlightColor
+                                              : kWhiteColor,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: Center(
+                                        child: Text(
+                                          data.name,
+                                          style: const TextStyle(
+                                              color: kPrimaryColor,
+                                              fontFamily: kCircularStdNormal,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                          },
+                        ),
+                      ),
+                const SizedBox(height: 23),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Get.width - 111,
+                      height: 50,
+                      child: TextFormField(
+                        controller: msgController,
+                        focusNode: focusNode,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 5,
+                        minLines: 1,
+                        cursorColor: kPrimaryColor,
+                        onChanged: (value) {},
+                        decoration: InputDecoration(
+                          fillColor: kWhiteColor,
+                          filled: true,
+                          hintText: "Ask me anything.",
+                          hintStyle: const TextStyle(color: kPrimaryColor),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 5, top: 5, bottom: 5, right: 10),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(
+                                        color: kBorderColor, width: 1.0)),
+                                child: const Icon(
+                                  Icons.attach_file_outlined,
+                                  size: 20,
+                                )),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: Image.asset(
+                                "assets/icons/send.png",
+                                scale: 1.6,
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (checkBadge == "sickness") {
+                                setState(() {
+                                  checkBadge = "dentalMedical";
+                                });
+                              } else {
+                                Get.toNamed(Routes.userChatPage);
+                              }
+                            },
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: kWhiteColor, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: kWhiteColor, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          errorStyle: const TextStyle(color: kErrorColor),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: kWhiteColor, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: kWhiteColor, // Default border color
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                      ),
+                    ),
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        // isRecording ? stopRecording() : startRecording();
+                        Get.to(() => const KeepAsking());
+                      },
+                      child: AvatarGlow(
+                        animate: islisteing,
+                        repeat: true,
+                        endRadius: 40,
+                        glowColor: const Color(0xFFCCDA00),
+                        duration: const Duration(milliseconds: 1000),
+                        child: Container(
+                          height: 48,
+                          width: 48,
+                          decoration: BoxDecoration(
+                              color: kHighlightColor,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: isRecording
+                              ? const Icon(Icons.close)
+                              : Image.asset("assets/icons/mic.png", scale: 1.5),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -408,16 +615,19 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
               ],
             ),
           )
-        : Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            decoration: BoxDecoration(
-                color: kWhiteColor, borderRadius: BorderRadius.circular(20)),
-            child: Text(
-              text,
-              style: const TextStyle(
-                  color: kPrimaryColor,
-                  fontFamily: kCircularStdNormal,
-                  fontSize: 15),
+        : CupertinoButton(
+            onPressed: () {},
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: BoxDecoration(
+                  color: kWhiteColor, borderRadius: BorderRadius.circular(20)),
+              child: Text(
+                text,
+                style: const TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdNormal,
+                    fontSize: 15),
+              ),
             ),
           );
   }

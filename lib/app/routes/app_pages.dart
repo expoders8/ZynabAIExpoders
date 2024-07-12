@@ -1,22 +1,25 @@
 import 'package:get/get.dart';
 
-import '../ui/Appointment/appointment_day.dart';
 import '../ui/home/home.dart';
 import '../ui/TabPage/tabpage.dart';
 import '../ui/Chat/chat_screen.dart';
+import '../ui/Auth/SignUp/signup.dart';
+import '../ui/Auth/Login/login_doctor.dart';
 import '../ui/AiSharePDF/ai_share_pdf.dart';
 import '../ui/ChatHistory/chat_history.dart';
+import '../ui/Auth/Login/login_patient.dart';
 import '../ui/widgets/multipal_sickness.dart';
+import '../ui/Appointment/appointment_day.dart';
 import '../ui/ChatWIthAI/chatwithaidoctor.dart';
 import '../ui/DoctorDetails/doctor_details.dart';
 import '../ui/Appointment/appointmentdetails.dart';
 import '../ui/PatientDetails/patient_details.dart';
 import '../ui/ConsultationFees/consultation_fees.dart';
+import '../ui/Auth/ForgotPassword/forgot_password.dart';
 import '../ui/MyAppointments/myappointmentsdetail.dart';
 import '../ui/FIneDoctorsNearby/general_physician.dart';
 import '../ui/FIneDoctorsNearby/fine_doctors_nearby.dart';
 import '../ui/AppointmentScheduled/appointment_scheduled.dart';
-import '../ui/ChatWIthAIMadicalIsue/chatwithaidoctormaidcal.dart';
 import '../ui/ChatWIthAI/ChatWithPetients/chet_with_petients.dart';
 
 part 'app_routes.dart';
@@ -32,6 +35,22 @@ class AppPages {
       page: () => const TabPage(),
     ),
     GetPage(
+      name: _Paths.loginDoctorPage,
+      page: () => const LoginDoctorPage(),
+    ),
+    GetPage(
+      name: _Paths.loginPatientPage,
+      page: () => const LoginPatientPage(),
+    ),
+    GetPage(
+      name: _Paths.forgotPasswordPage,
+      page: () => const ForgotPasswordPage(),
+    ),
+    GetPage(
+      name: _Paths.signUpPage,
+      page: () => const SignUpPage(),
+    ),
+    GetPage(
       name: _Paths.homePage,
       page: () => const HomePage(),
     ),
@@ -42,10 +61,6 @@ class AppPages {
     GetPage(
       name: _Paths.multipalSicknessPage,
       page: () => const MultipalSicknessPage(),
-    ),
-    GetPage(
-      name: _Paths.chatWithDoctorMadicalPage,
-      page: () => const ChatWithDoctorMadicalPage(),
     ),
     GetPage(
       name: _Paths.userChatPage,

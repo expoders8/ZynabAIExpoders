@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../routes/app_pages.dart';
 import '../../../config/constant/font_constant.dart';
@@ -69,56 +70,206 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
               Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Positioned(
-                    bottom: -80,
-                    child: Card(
-                      shadowColor: const Color.fromARGB(10, 0, 0, 0),
-                      elevation: 5,
-                      child: Container(
-                        width: Get.width - 38,
-                        decoration: BoxDecoration(
+                  Column(
+                    children: [
+                      Container(
+                        width: Get.width,
+                        decoration: const BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(14.0),
+                              topRight: Radius.circular(14.0)),
+                        ),
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 35,
+                                          width: 35,
+                                          decoration: BoxDecoration(
+                                              color: kHighlightColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          child: const Center(
+                                            child: Text(
+                                              "ai",
+                                              style: TextStyle(
+                                                  color: kPrimaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 18),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        const Text(
+                                          "New Patient\nRequest",
+                                          style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontFamily: kCircularStdMedium,
+                                              fontSize: 10),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const SizedBox(
+                                      width: 160,
+                                      child: Text(
+                                        "Amelia\nKimani",
+                                        style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontFamily: kCircularStdMedium,
+                                            fontSize: 25),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const Text(
+                                      "5Th Mar 2024",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 15),
+                                    ),
+                                    const Text(
+                                      "10:30 AM",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: 6),
+                                Image.asset(
+                                  "assets/icons/g2.png",
+                                  scale: 1.6,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 90,
+                                  child: CupertinoButton(
+                                    borderRadius: BorderRadius.circular(25),
+                                    padding: EdgeInsets.zero,
+                                    color: kPrimaryColor,
+                                    onPressed: () {
+                                      bottomSheetforChat();
+                                    },
+                                    child: const Text(
+                                      "ACCEPT",
+                                      style: TextStyle(
+                                          color: kWhiteColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 14),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                SizedBox(
+                                  width: 90,
+                                  child: CupertinoButton(
+                                    borderRadius: BorderRadius.circular(25),
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {},
+                                    child: Container(
+                                      width: 90,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          border:
+                                              Border.all(color: kPrimaryColor)),
+                                      child: const Center(
+                                        child: Text(
+                                          "REJECT",
+                                          style: TextStyle(
+                                              color: kPrimaryColor,
+                                              fontFamily: kCircularStdMedium,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: Get.width,
+                        decoration: const BoxDecoration(
                           color: kHighlightColor,
-                          borderRadius: BorderRadius.circular(14.0),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(14.0),
+                              bottomRight: Radius.circular(14.0)),
                         ),
                         padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                         child: Column(
                           children: [
-                            const SizedBox(height: 100),
+                            const SizedBox(height: 3),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      height: 45,
-                                      width: 45,
-                                      decoration: BoxDecoration(
-                                          color: kHighlightColor,
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          border: Border.all(
-                                              color: kPrimaryColor,
-                                              width: 0.5)),
-                                      child: Image.asset(
-                                        "assets/icons/send.png",
-                                        scale: 1.5,
+                                    CupertinoButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () {
+                                        Get.toNamed(Routes.userChatPage);
+                                      },
+                                      child: Container(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
+                                            color: kHighlightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            border: Border.all(
+                                                color: kPrimaryColor,
+                                                width: 0.5)),
+                                        child: Image.asset(
+                                          "assets/icons/send.png",
+                                          scale: 1.5,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(width: 10),
-                                    Container(
-                                      height: 45,
-                                      width: 45,
-                                      decoration: BoxDecoration(
-                                          color: kHighlightColor,
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          border: Border.all(
-                                              color: kPrimaryColor,
-                                              width: 0.5)),
-                                      child: Image.asset(
-                                        "assets/icons/phone.png",
-                                        scale: 1.5,
+                                    CupertinoButton(
+                                      padding: EdgeInsets.zero,
+                                      onPressed: () async {
+                                        launch('tel:1234567899');
+                                      },
+                                      child: Container(
+                                        height: 45,
+                                        width: 45,
+                                        decoration: BoxDecoration(
+                                            color: kHighlightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            border: Border.all(
+                                                color: kPrimaryColor,
+                                                width: 0.5)),
+                                        child: Image.asset(
+                                          "assets/icons/phone.png",
+                                          scale: 1.5,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -129,149 +280,12 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                  Card(
-                    shadowColor: const Color.fromARGB(10, 0, 0, 0),
-                    elevation: 5,
-                    child: Container(
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                        color: kCardColor,
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        height: 35,
-                                        width: 35,
-                                        decoration: BoxDecoration(
-                                            color: kHighlightColor,
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: const Center(
-                                          child: Text(
-                                            "ai",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 18),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Text(
-                                        "New Patient\nRequest",
-                                        style: TextStyle(
-                                            color: kSecondaryColor,
-                                            fontFamily: kCircularStdMedium,
-                                            fontSize: 10),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
-                                  const SizedBox(
-                                    width: 160,
-                                    child: Text(
-                                      "Amelia\nKimani",
-                                      style: TextStyle(
-                                          color: kPrimaryColor,
-                                          fontFamily: kCircularStdMedium,
-                                          fontSize: 25),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  const Text(
-                                    "5Th Mar 2024",
-                                    style: TextStyle(
-                                        color: kPrimaryColor,
-                                        fontFamily: kCircularStdNormal,
-                                        fontSize: 15),
-                                  ),
-                                  const Text(
-                                    "10:30 AM",
-                                    style: TextStyle(
-                                        color: kPrimaryColor,
-                                        fontFamily: kCircularStdNormal,
-                                        fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 6),
-                              Image.asset(
-                                "assets/icons/g2.png",
-                                scale: 1.6,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 90,
-                                child: CupertinoButton(
-                                  borderRadius: BorderRadius.circular(25),
-                                  padding: EdgeInsets.zero,
-                                  color: kPrimaryColor,
-                                  onPressed: () {},
-                                  child: const Text(
-                                    "ACCEPT",
-                                    style: TextStyle(
-                                        color: kWhiteColor,
-                                        fontFamily: kCircularStdNormal,
-                                        fontSize: 14),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              SizedBox(
-                                width: 90,
-                                child: CupertinoButton(
-                                  borderRadius: BorderRadius.circular(25),
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {},
-                                  child: Container(
-                                    width: 90,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                        border:
-                                            Border.all(color: kPrimaryColor)),
-                                    child: const Center(
-                                      child: Text(
-                                        "REJECT",
-                                        style: TextStyle(
-                                            color: kPrimaryColor,
-                                            fontFamily: kCircularStdMedium,
-                                            fontSize: 14),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
+                    ],
                   ),
                 ],
               ),
               const SizedBox(
-                height: 90,
+                height: 15,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 5.0),
@@ -621,7 +635,7 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
                   CupertinoButton(
                     padding: EdgeInsets.zero,
                     onPressed: () {
-                      //bottomSheetforChat();
+                      Get.toNamed(Routes.userChatPage);
                     },
                     child: Container(
                       height: 40,
@@ -665,8 +679,8 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
                   ),
                   CupertinoButton(
                     padding: EdgeInsets.zero,
-                    onPressed: () {
-                      //Get.back();
+                    onPressed: () async {
+                      launch('tel:1234567899');
                     },
                     child: Container(
                       height: 40,
