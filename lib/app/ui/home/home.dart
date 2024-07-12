@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 10),
                           const Text(
-                            "How are you feeling ?",
+                            "Tell Me Your Symptoms",
                             style: TextStyle(
                                 color: kPrimaryColor,
                                 fontFamily: kCircularStdNormal,
@@ -135,12 +135,13 @@ class _HomePageState extends State<HomePage> {
                                   height: 49,
                                   width: 49,
                                   decoration: BoxDecoration(
-                                    color: kWhiteColor,
+                                    color: kPrimaryColor,
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                   child: Image.asset(
                                     "assets/icons/send.png",
-                                    scale: 1.7,
+                                    color: kWhiteColor,
+                                    scale: 1.5,
                                   ),
                                 ),
                               ),
@@ -154,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                                   height: 49,
                                   width: 49,
                                   decoration: BoxDecoration(
-                                    color: kWhiteColor,
+                                    color: kHighlightColor,
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                   child: Image.asset(
@@ -178,16 +179,17 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     child: const Row(
                                       children: [
+                                        Icon(
+                                          Icons.arrow_right_alt_outlined,
+                                          color: kWhiteColor,
+                                        ),
+                                        SizedBox(width: 5),
                                         Text(
                                           "CHAT NOW",
                                           style: TextStyle(
                                               color: kWhiteColor,
                                               fontFamily: kCircularStdNormal,
                                               fontSize: 15),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_right_alt_outlined,
-                                          color: kWhiteColor,
                                         )
                                       ],
                                     )),
@@ -275,12 +277,48 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
+                        buildCategoryWidget("General Practitioners", 0,
+                            "assets/icons/General.png"),
+                        buildCategoryWidget("Pediatricians\n", 1,
+                            "assets/icons/Pediatricians.png"),
                         buildCategoryWidget(
-                            "Ear\nInfections", 0, "assets/icons/eye.png"),
+                            "Dentists\n", 2, "assets/icons/noice.png"),
+                        buildCategoryWidget("Cardiologists\n", 3,
+                            "assets/icons/Cardiologists.png"),
+                        buildCategoryWidget("Dermatologists\n", 4,
+                            "assets/icons/Dermatologists.png"),
+                        buildCategoryWidget("Gynecologists\n", 5,
+                            "assets/icons/gynecologists.png"),
+                        buildCategoryWidget("Orthopedists\n", 6,
+                            "assets/icons/Orthopedists.png"),
+                        buildCategoryWidget("Ophthalmologists\n", 7,
+                            "assets/icons/Ophthalmologists.png"),
+                        buildCategoryWidget("ENT Specialists\n", 8,
+                            "assets/icons/ENT_Specialists.png"),
+                        buildCategoryWidget("Psychiatrists\n", 9,
+                            "assets/icons/Psychiatrists.png"),
+                        buildCategoryWidget("Endocrinologists\n", 10,
+                            "assets/icons/Endocrinologists.png"),
+                        buildCategoryWidget("Gastroenterologists\n", 11,
+                            "assets/icons/Gastroenterologists.png"),
+                        buildCategoryWidget("Neurologists\n", 12,
+                            "assets/icons/Neurologists.png"),
+                        buildCategoryWidget("Pulmonologists\n", 13,
+                            "assets/icons/Pulmonologists.png"),
                         buildCategoryWidget(
-                            "Dental\nMedical", 1, "assets/icons/noice.png"),
+                            "Allergists\n", 14, "assets/icons/Allergists.png"),
                         buildCategoryWidget(
-                            "Dental\nMedical", 2, "assets/icons/noice.png")
+                            "Urologists\n", 15, "assets/icons/Urologists.png"),
+                        buildCategoryWidget("Nephrologists\n", 16,
+                            "assets/icons/Nephrologists.png"),
+                        buildCategoryWidget("Rheumatologists\n", 17,
+                            "assets/icons/Rheumatologists.png"),
+                        buildCategoryWidget(
+                            "Infectious Disease Specialists",
+                            18,
+                            "assets/icons/Infectious_Disease_Specialists.png"),
+                        buildCategoryWidget(
+                            "Surgeons\n", 19, "assets/icons/Surgeons.png"),
                       ],
                     ),
                   ),
@@ -342,11 +380,29 @@ class _HomePageState extends State<HomePage> {
                     child: Row(
                       children: [
                         buildAssentWidget("Symptom\nChecker", 0,
-                            "assets/icons/noun-allergy-symptom.png"),
+                            "assets/icons/SymptomChecker.png"),
                         buildAssentWidget("Risk Factor\nAssessment", 1,
                             "assets/icons/siron.png"),
-                        buildAssentWidget("Risk Factor\nAssessment", 2,
-                            "assets/icons/siron.png")
+                        buildAssentWidget("Health\nMonitoring", 2,
+                            "assets/icons/Cardiologists.png"),
+                        buildAssentWidget("Mental\nHealth", 3,
+                            "assets/icons/Neurologists.png"),
+                        buildAssentWidget("Lifestyle and\nWellness", 4,
+                            "assets/icons/LifestyleandWellness.png"),
+                        buildAssentWidget("Chronic Condition Management", 5,
+                            "assets/icons/ChronicConditionManagement.png"),
+                        buildAssentWidget("Women's \nHealth", 6,
+                            "assets/icons/Women_sHealth.png"),
+                        buildAssentWidget("Children's\nHealth", 7,
+                            "assets/icons/Children_sHealth.png"),
+                        buildAssentWidget("Medication\nManagement", 8,
+                            "assets/icons/MedicationManagement.png"),
+                        buildAssentWidget("Preventive\nHealth", 9,
+                            "assets/icons/PreventiveHealth.png"),
+                        buildAssentWidget("Specialized\nAssessments", 10,
+                            "assets/icons/SpecializedAssessments.png"),
+                        buildAssentWidget("Emergency\nAssessments", 11,
+                            "assets/icons/EmergencyAssessments.png"),
                       ],
                     ),
                   ),
@@ -373,12 +429,13 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           selectCatgoryIndex = index;
         });
+        tabController.changeTabIndex(2);
       },
       child: Card(
         shadowColor: const Color.fromARGB(10, 0, 0, 0),
         elevation: 5,
         child: Container(
-            width: 130,
+            width: 150,
             decoration: BoxDecoration(
               color:
                   selectCatgoryIndex == index ? kHighlightColor : kWhiteColor,
@@ -404,7 +461,47 @@ class _HomePageState extends State<HomePage> {
                               width: 1)),
                       child: Image.asset(
                         image,
-                        scale: 1.5,
+                        scale: index == 0
+                            ? 9
+                            : index == 1
+                                ? 15
+                                : index == 2
+                                    ? 1.2
+                                    : index == 3
+                                        ? 16
+                                        : index == 4
+                                            ? 16
+                                            : index == 5
+                                                ? 5.5
+                                                : index == 6
+                                                    ? 14
+                                                    : index == 7
+                                                        ? 15
+                                                        : index == 8
+                                                            ? 5.5
+                                                            : index == 9
+                                                                ? 3
+                                                                : index == 10
+                                                                    ? 15
+                                                                    : index ==
+                                                                            11
+                                                                        ? 7
+                                                                        : index ==
+                                                                                12
+                                                                            ? 15
+                                                                            : index == 13
+                                                                                ? 15
+                                                                                : index == 14
+                                                                                    ? 18
+                                                                                    : index == 15
+                                                                                        ? 6
+                                                                                        : index == 16
+                                                                                            ? 6
+                                                                                            : index == 17
+                                                                                                ? 1
+                                                                                                : index == 18
+                                                                                                    ? 7
+                                                                                                    : 15,
                       ),
                     ),
                   ],
@@ -429,7 +526,7 @@ class _HomePageState extends State<HomePage> {
         shadowColor: const Color.fromARGB(10, 0, 0, 0),
         elevation: 5,
         child: Container(
-            width: 130,
+            width: 150,
             decoration: BoxDecoration(
               color: selectAsstenIndex == index ? kHighlightColor : kWhiteColor,
               borderRadius: BorderRadius.circular(8.0),
@@ -454,7 +551,35 @@ class _HomePageState extends State<HomePage> {
                               width: 1)),
                       child: Image.asset(
                         image,
-                        scale: 1.5,
+                        scale: index == 0
+                            ? 6
+                            : index == 1
+                                ? 1
+                                : index == 2
+                                    ? 14
+                                    : index == 3
+                                        ? 15
+                                        : index == 4
+                                            ? 6
+                                            : index == 5
+                                                ? 17
+                                                : index == 6
+                                                    ? 6
+                                                    : index == 7
+                                                        ? 2
+                                                        : index == 8
+                                                            ? 8
+                                                            : index == 9
+                                                                ? 1
+                                                                : index == 10
+                                                                    ? 12
+                                                                    : index ==
+                                                                            11
+                                                                        ? 3
+                                                                        : index ==
+                                                                                12
+                                                                            ? 6
+                                                                            : 6,
                       ),
                     ),
                   ],

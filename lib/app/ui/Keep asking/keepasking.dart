@@ -140,7 +140,7 @@ class _KeepAskingState extends State<KeepAsking> {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const SizedBox(
-            height: 75,
+            height: 35,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
@@ -158,7 +158,7 @@ class _KeepAskingState extends State<KeepAsking> {
           const Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              "Keep asking…",
+              "Tell me your symptoms",
               style: TextStyle(
                   color: kWhiteColor,
                   fontFamily: kCircularStdMedium,
@@ -171,7 +171,7 @@ class _KeepAskingState extends State<KeepAsking> {
           const Padding(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              "I’m listening and noting down \neverything for you",
+              "I'm Listening and noting down everything for\nyou.",
               style: TextStyle(
                   color: kWhiteColor,
                   fontFamily: kCircularStdNormal,
@@ -215,6 +215,16 @@ class _KeepAskingState extends State<KeepAsking> {
           SizedBox(
             height: Get.height / 4.7,
           ),
+          const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(
+              "Tap the microphone below and speak in\nyour own words.",
+              style: TextStyle(
+                  color: kWhiteColor,
+                  fontFamily: kCircularStdNormal,
+                  fontSize: 15),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -225,7 +235,7 @@ class _KeepAskingState extends State<KeepAsking> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                      padding: const EdgeInsets.only(left: 5),
                       child: Container(
                         height: 45,
                         width: 45,
