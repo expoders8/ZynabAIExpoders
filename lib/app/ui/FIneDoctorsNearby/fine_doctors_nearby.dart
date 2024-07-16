@@ -43,13 +43,25 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Find ${selectedPerson == "Doctor" ? "Patients" : "Doctors"} \nNearby",
-                  style: const TextStyle(
-                      color: kPrimaryColor,
-                      fontFamily: kCircularStdMedium,
-                      fontSize: 23),
-                ),
+                selectedPerson == "Doctor"
+                    ? const Text(
+                        "Find Patients \nNearby",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 23),
+                      )
+                    : Text(
+                        selectedIndex == 0
+                            ? "Find Doctors \nNearby"
+                            : selectedIndex == 1
+                                ? "My\nDoctors"
+                                : "My\nAppointments",
+                        style: const TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 23),
+                      ),
                 const SizedBox(height: 30),
                 Row(
                   children: [

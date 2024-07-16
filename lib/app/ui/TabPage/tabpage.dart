@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../MyHelth/myhealth.dart';
 import '../home/home.dart';
 import '../Profile/profile.dart';
-import '../Keep asking/yournotes.dart';
 import '../../controller/tab_controller.dart';
 import '../../../config/constant/constant.dart';
 import '../MyAppointments/my_appointments.dart';
@@ -88,7 +88,7 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
                     const FindDoctorNearbyPage(),
                     selectedPerson == "Doctor"
                         ? const MyAppointmentsPage()
-                        : const YourNotesPage(),
+                        : const MyHealthPage(),
                     const ProfilePage(),
                   ],
                 ),

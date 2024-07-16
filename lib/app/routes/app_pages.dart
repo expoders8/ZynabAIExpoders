@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../ui/MyHelth/myhealth.dart';
 import '../ui/home/home.dart';
 import '../ui/TabPage/tabpage.dart';
 import '../ui/Chat/chat_screen.dart';
@@ -113,6 +114,10 @@ class AppPages {
     GetPage(
       name: _Paths.appointmentDayPage,
       page: () => const AppointmentDayPage(),
+    ),
+    GetPage(
+      name: _Paths.myHealthPage,
+      page: () => const MyHealthPage(),
     ),
   ];
 }

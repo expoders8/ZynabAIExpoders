@@ -108,17 +108,21 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            "I’m Zynab\nYour AI Health\nAssistant",
-                            style: TextStyle(
+                          Text(
+                            selectedPerson == "Doctor"
+                                ? "I'm Zynab\nYour co pilot\nMedical Asstant"
+                                : "I’m Zynab\nYour AI Health\nAssistant",
+                            style: const TextStyle(
                                 color: kPrimaryColor,
                                 fontFamily: kCircularStdMedium,
                                 fontSize: 20),
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            "Tell Me Your Symptoms",
-                            style: TextStyle(
+                          Text(
+                            selectedPerson == "Doctor"
+                                ? "Get instant support for\nclinical docs and queries"
+                                : "Tell Me Your Symptoms",
+                            style: const TextStyle(
                                 color: kPrimaryColor,
                                 fontFamily: kCircularStdNormal,
                                 fontSize: 15),
@@ -126,6 +130,36 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 20),
                           Row(
                             children: [
+                              CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  Get.toNamed(Routes.chatWithDoctorPage);
+                                },
+                                child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 13, vertical: 12),
+                                    decoration: BoxDecoration(
+                                      color: kBlackColor,
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: const Row(
+                                      children: [
+                                        Text(
+                                          "CHAT NOW",
+                                          style: TextStyle(
+                                              color: kWhiteColor,
+                                              fontFamily: kCircularStdNormal,
+                                              fontSize: 15),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Icon(
+                                          Icons.arrow_right_alt_outlined,
+                                          color: kWhiteColor,
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                              const SizedBox(width: 10),
                               CupertinoButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
@@ -164,36 +198,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              CupertinoButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {
-                                  Get.toNamed(Routes.chatWithDoctorPage);
-                                },
-                                child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 13, vertical: 12),
-                                    decoration: BoxDecoration(
-                                      color: kBlackColor,
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    child: const Row(
-                                      children: [
-                                        Icon(
-                                          Icons.arrow_right_alt_outlined,
-                                          color: kWhiteColor,
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          "CHAT NOW",
-                                          style: TextStyle(
-                                              color: kWhiteColor,
-                                              fontFamily: kCircularStdNormal,
-                                              fontSize: 15),
-                                        )
-                                      ],
-                                    )),
-                              )
                             ],
                           ),
                           const SizedBox(height: 10),
@@ -367,7 +371,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   const SizedBox(height: 10),
                   const Text(
-                    "Assessments",
+                    "AI Assessment Tools",
                     style: TextStyle(
                         color: kPrimaryColor,
                         fontFamily: kCircularStdNormal,

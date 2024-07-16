@@ -485,8 +485,9 @@ class _ChatWithDoctorPageState extends State<ChatWithDoctorPage> {
                         decoration: InputDecoration(
                           fillColor: kWhiteColor,
                           filled: true,
-                          hintText: "Ask me anything.",
-                          hintStyle: const TextStyle(color: kPrimaryColor),
+                          hintText: "Additional symptoms?",
+                          hintStyle: const TextStyle(
+                              color: kPrimaryColor, fontSize: 13),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 10),
                           prefixIcon: Padding(
