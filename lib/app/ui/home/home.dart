@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(height: 10),
                           Text(
                             selectedPerson == "Doctor"
-                                ? "I'm Zynab\nYour co pilot\nMedical Asstant"
+                                ? "I'm Zynab\nYour co and pilot\nMedical Asstant"
                                 : "I’m Zynab\nYour AI Health\nAssistant",
                             style: const TextStyle(
                                 color: kPrimaryColor,

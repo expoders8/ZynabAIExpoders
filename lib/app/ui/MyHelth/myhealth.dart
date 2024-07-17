@@ -248,7 +248,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Health History",
+                        "Encounters",
                         style: TextStyle(
                             color: kPrimaryColor,
                             fontFamily: kCircularStdMedium,
@@ -280,147 +280,150 @@ class _MyHealthPageState extends State<MyHealthPage> {
                     headerPadding: const EdgeInsets.symmetric(vertical: 10),
                     children: [
                       AccordionSection(
-                        isOpen: true,
-                        contentVerticalPadding: 20,
-                        header: const Padding(
-                          padding: EdgeInsets.only(left: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Encounter: 12-Jul-2024',
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdMedium,
-                                      fontSize: 14)),
-                              Text('Chief Complaint: Sore',
-                                  style: TextStyle(
-                                      color: kSecondaryPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 11)),
-                            ],
+                          isOpen: true,
+                          contentVerticalPadding: 20,
+                          header: const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Encounter: 12-Jul-2024',
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14)),
+                                Text('Chief Complaint: Sore',
+                                    style: TextStyle(
+                                        color: kSecondaryPrimaryColor,
+                                        fontFamily: kCircularStdNormal,
+                                        fontSize: 11)),
+                              ],
+                            ),
                           ),
-                        ),
-                        content: const Text(
-                            "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontSize: 11,
-                                fontFamily: kCircularStdNormal)),
-                      ),
+                          content: accordionDesign()
+                          // content: const Text(
+                          //     "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
+                          //     style: TextStyle(
+                          //         color: kPrimaryColor,
+                          //         fontSize: 11,
+                          //         fontFamily: kCircularStdNormal)),
+                          ),
                       AccordionSection(
-                        isOpen: false,
-                        contentVerticalPadding: 20,
-                        header: const Padding(
-                          padding: EdgeInsets.only(left: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Encounter: 01-Jun-2024',
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdMedium,
-                                      fontSize: 14)),
-                              Text('Chief Complaint: Headache',
-                                  style: TextStyle(
-                                      color: kSecondaryPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 11)),
-                            ],
+                          isOpen: false,
+                          contentVerticalPadding: 20,
+                          header: const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Encounter: 01-Jun-2024',
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14)),
+                                Text('Chief Complaint: Headache',
+                                    style: TextStyle(
+                                        color: kSecondaryPrimaryColor,
+                                        fontFamily: kCircularStdNormal,
+                                        fontSize: 11)),
+                              ],
+                            ),
                           ),
-                        ),
-                        content: const Text(
-                            "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontSize: 11,
-                                fontFamily: kCircularStdNormal)),
-                      ),
+                          content: accordionDesign()
+                          // const Text(
+                          //     "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
+                          //     style: TextStyle(
+                          //         color: kPrimaryColor,
+                          //         fontSize: 11,
+                          //         fontFamily: kCircularStdNormal)),
+                          ),
                       AccordionSection(
-                        isOpen: false,
-                        contentVerticalPadding: 20,
-                        header: const Padding(
-                          padding: EdgeInsets.only(left: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Encounter: 01-Jun-2024',
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdMedium,
-                                      fontSize: 14)),
-                              Text('Chief Complaint: Headache',
-                                  style: TextStyle(
-                                      color: kSecondaryPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 11)),
-                            ],
+                          isOpen: false,
+                          contentVerticalPadding: 20,
+                          header: const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Encounter: 01-Jun-2024',
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14)),
+                                Text('Chief Complaint: Headache',
+                                    style: TextStyle(
+                                        color: kSecondaryPrimaryColor,
+                                        fontFamily: kCircularStdNormal,
+                                        fontSize: 11)),
+                              ],
+                            ),
                           ),
-                        ),
-                        content: const Text(
-                            "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontSize: 11,
-                                fontFamily: kCircularStdNormal)),
-                      ),
+                          content: accordionDesign()
+                          // const Text(
+                          //     "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
+                          //     style: TextStyle(
+                          //         color: kPrimaryColor,
+                          //         fontSize: 11,
+                          //         fontFamily: kCircularStdNormal)),
+                          ),
                     ],
                   ),
                   Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Encounters",
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontFamily: kCircularStdNormal,
-                                fontSize: 16),
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 4),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: kPrimaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: const Text(
-                                "View All",
-                                style: TextStyle(
-                                    color: kPrimaryColor, fontSize: 12),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 7),
-                      SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            buildNearby(
-                                "Dr. Pooja\nPatel",
-                                "assets/icons/h1.png",
-                                "4.5",
-                                "Dentist / 2+ yrs"),
-                            buildNearby(
-                                "Dr. Aryaa\nPatel",
-                                "assets/icons/h3.png",
-                                "4.8",
-                                "Surgeons / 8+ yrs"),
-                            buildNearby(
-                                "Dr. Aryaa\nPatel",
-                                "assets/icons/h5.png",
-                                "4.8",
-                                "Surgeons / 8+ yrs")
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 15),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     const Text(
+                      //       "Encounters",
+                      //       style: TextStyle(
+                      //           color: kPrimaryColor,
+                      //           fontFamily: kCircularStdNormal,
+                      //           fontSize: 16),
+                      //     ),
+                      //     GestureDetector(
+                      //       onTap: () {},
+                      //       child: Container(
+                      //         padding: const EdgeInsets.symmetric(
+                      //             horizontal: 6, vertical: 4),
+                      //         decoration: BoxDecoration(
+                      //             border: Border.all(
+                      //                 color: kPrimaryColor, width: 1),
+                      //             borderRadius: BorderRadius.circular(25)),
+                      //         child: const Text(
+                      //           "View All",
+                      //           style: TextStyle(
+                      //               color: kPrimaryColor, fontSize: 12),
+                      //         ),
+                      //       ),
+                      //     )
+                      //   ],
+                      // ),
+                      // const SizedBox(height: 7),
+                      // SingleChildScrollView(
+                      //   physics: const BouncingScrollPhysics(
+                      //       parent: AlwaysScrollableScrollPhysics()),
+                      //   scrollDirection: Axis.horizontal,
+                      //   child: Row(
+                      //     children: [
+                      //       buildNearby(
+                      //           "Dr. Pooja\nPatel",
+                      //           "assets/icons/h1.png",
+                      //           "4.5",
+                      //           "Dentist / 2+ yrs"),
+                      //       buildNearby(
+                      //           "Dr. Aryaa\nPatel",
+                      //           "assets/icons/h3.png",
+                      //           "4.8",
+                      //           "Surgeons / 8+ yrs"),
+                      //       buildNearby(
+                      //           "Dr. Aryaa\nPatel",
+                      //           "assets/icons/h5.png",
+                      //           "4.8",
+                      //           "Surgeons / 8+ yrs")
+                      //     ],
+                      //   ),
+                      // ),
+                      // const SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -460,17 +463,20 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                 "Paracetamol",
                                 "assets/images/Medications1.png",
                                 "",
-                                "medicine used to treat mild to moderate pain\n"),
+                                "medicine used to treat mild to moderate pain\n",
+                                "Medications"),
                             buildNearby(
                                 "DAN-P",
                                 "assets/images/Medications2.png",
                                 "",
-                                "Dan-P Tablet is a pain-relieving medicine\n"),
+                                "Dan-P Tablet is a pain-relieving medicine\n",
+                                "Medications1"),
                             buildNearby(
                                 "Action 500",
                                 "assets/images/Medications3.png",
                                 "",
-                                "Action 500 Advanced Having the common cold.")
+                                "Action 500 Advanced Having the common cold.",
+                                "Medications")
                           ],
                         ),
                       ),
@@ -510,15 +516,24 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            buildNearby("Polio", "assets/images/polio.png", "",
-                                "virus that mainly affects nerves in the spinal cord or brain stem\n"),
+                            buildNearby(
+                                "Polio",
+                                "assets/images/polio.png",
+                                "",
+                                "virus that mainly affects nerves in the spinal cord or brain stem\n",
+                                ""),
                             buildNearby(
                                 "Skin Allergy",
                                 "assets/images/SkinAllergy.png",
                                 "",
-                                "allergist can diagnose and treat your condition, so you can live life to the fullest"),
-                            buildNearby("HIV", "assets/images/HIV.png", "",
-                                "making a person more vulnerable to other infections and diseases.\n")
+                                "allergist can diagnose and treat your condition, so you can live life to the fullest",
+                                ""),
+                            buildNearby(
+                                "HIV",
+                                "assets/images/HIV.png",
+                                "",
+                                "making a person more vulnerable to other infections and diseases.\n",
+                                "")
                           ],
                         ),
                       ),
@@ -558,11 +573,11 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
+                            buildNearby("Blood urea nitrogen", "", "",
+                                "40–70 μg/dL", ""),
+                            buildNearby("Ammonia\n", "", "", "25–43 mg/dL", ""),
                             buildNearby(
-                                "Blood urea nitrogen", "", "", "40–70 μg/dL"),
-                            buildNearby("Ammonia\n", "", "", "25–43 mg/dL"),
-                            buildNearby(
-                                "Ceruloplasmin\n", "", "", "0.8-1.3 mg/dL")
+                                "Ceruloplasmin\n", "", "", "0.8-1.3 mg/dL", "")
                           ],
                         ),
                       ),
@@ -603,20 +618,59 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         child: Row(
                           children: [
                             buildNearby(
-                                "Eye Allergies",
-                                "assets/images/eyseAllergies.png",
+                                "Pollen\nAllergy",
+                                "assets/images/pollenallergy.png",
                                 "4.5",
-                                "the body’s immune system reacts to an allergen that is normally harmless"),
+                                "Reaction to tree, grass, weed pollen.",
+                                ""),
                             buildNearby(
-                                "Asthma allergies",
-                                "assets/images/Asthma allergies.png",
+                                "Pet\nAllergy",
+                                "assets/images/petallergy.png",
                                 "4.8",
-                                "like dust mites, pollen, animal dander or mold spores\n"),
+                                "Reaction to proteins in animal skin and saliva.",
+                                ""),
                             buildNearby(
-                                "Skin Allergy",
-                                "assets/images/SkinAllergy.png",
+                                "Dust Mite\nAllergy",
+                                "assets/images/dustmiteallergy.png",
                                 "4.8",
-                                "allergic reactions to a medication or a food. measles or chickenpox\n")
+                                "Reaction to tiny house dust bugs.",
+                                ""),
+                            buildNearby(
+                                "Food\nAllergies",
+                                "assets/images/foodallergy.png",
+                                "4.8",
+                                "Reaction to peanuts, tree nuts, milk, fish.",
+                                ""),
+                            buildNearby(
+                                "Insect Sting\nAllergy",
+                                "assets/images/inspectstingallergy.png",
+                                "4.8",
+                                "Reaction to bee, wasp, fire ant stings.",
+                                ""),
+                            buildNearby(
+                                "Mold\nAllergy",
+                                "assets/images/moldallergy.png",
+                                "4.8",
+                                "Reaction to mold spores in damp areas.",
+                                ""),
+                            buildNearby(
+                                "Latex\nAllergy",
+                                "assets/images/latexallergy.png",
+                                "4.8",
+                                "Reaction to natural rubber latex proteins.",
+                                ""),
+                            buildNearby(
+                                "Medication\nAllergy",
+                                "assets/images/medicationallergy.png",
+                                "4.8",
+                                "Reaction to penicillin, aspirin, and others.",
+                                ""),
+                            buildNearby(
+                                "Fragrance\nAllergy",
+                                "assets/images/fragranceallergy.png",
+                                "4.8",
+                                "Reaction to chemicals in scented products.",
+                                ""),
                           ],
                         ),
                       ),
@@ -657,20 +711,17 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         child: Row(
                           children: [
                             buildNearby("Addison’s disease", "", "",
-                                "Low blood pressure, even fainting"),
+                                "Low blood pressure, even fainting", ""),
                             buildNearby("Norovirus", "", "",
-                                "Diarrhea, vomiting, nausea, stomach pain"),
+                                "Diarrhea, vomiting, nausea, stomach pain", ""),
                             buildNearby("Kidney cancer", "", "",
-                                "plenty of fruit and vegetables")
+                                "plenty of fruit and vegetables", "")
                           ],
                         ),
                       ),
-                      const SizedBox(height: 35)
+                      const SizedBox(height: 85)
                     ],
                   ),
-                  const SizedBox(
-                    height: 85,
-                  )
                 ],
               ),
             ),
@@ -680,7 +731,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
     );
   }
 
-  buildNearby(String text, image, review, year) {
+  buildNearby(String text, image, review, year, String? label) {
     Size size = MediaQuery.of(context).size;
     return CupertinoButton(
       padding: EdgeInsets.zero,
@@ -708,20 +759,50 @@ class _MyHealthPageState extends State<MyHealthPage> {
               children: [
                 image == ""
                     ? Container()
-                    : Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            color: kWhiteColor,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
-                          child: Image.asset(
-                            image,
-                            fit: BoxFit.cover,
+                    : label == "Medications" || label == "Medications1"
+                        ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    color: kWhiteColor,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(25),
+                                  child: Image.asset(
+                                    image,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                label == "Medications1" ? "Inactive" : "Active",
+                                style: TextStyle(
+                                    color: label == "Medications1"
+                                        ? kRedAccentColor
+                                        : kGreenColor,
+                                    fontFamily: kCircularStdMedium,
+                                    fontSize: 12),
+                              )
+                            ],
+                          )
+                        : Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: kWhiteColor,
+                                borderRadius: BorderRadius.circular(25)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.asset(
+                                image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
                 SizedBox(height: image == "" ? 0 : 10),
                 Text(
                   text,
@@ -730,6 +811,25 @@ class _MyHealthPageState extends State<MyHealthPage> {
                       fontFamily: kCircularStdMedium,
                       fontSize: 16),
                 ),
+                label == "Medications" || label == "Medications1"
+                    ? Text(
+                        label != "Medications1"
+                            ? "07 jan 2024 - 10 dec 2024"
+                            : "10 feb 2024 - 07 july 2024",
+                        style: const TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 10),
+                      )
+                    : Container(),
+                // label == "Medications" || label == "Medications1"?
+                // const Text(
+                //   "End Date: 07 july 2024",
+                //   style: TextStyle(
+                //       color: kPrimaryColor,
+                //       fontFamily: kCircularStdMedium,
+                //       fontSize: 10),
+                // ):Container(),
                 SizedBox(height: year == "" ? 0 : 10),
                 Text(
                   year,
@@ -780,6 +880,378 @@ class _MyHealthPageState extends State<MyHealthPage> {
               ],
             )),
       ),
+    );
+  }
+
+  accordionDesign() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // const SizedBox(height: 10),
+        // Container(
+        //   height: 50,
+        //   width: 50,
+        //   decoration: BoxDecoration(
+        //       color: kWhiteColor,
+        //       borderRadius: BorderRadius.circular(35)),
+        //   child: Image.asset("assets/icons/h4.png"),
+        // ),
+        // const SizedBox(
+        //   height: 25,
+        // ),
+        // const Padding(
+        //   padding: EdgeInsets.only(left: 20),
+        //   child: Text(
+        //     "Your Notes:",
+        //     style: TextStyle(
+        //         color: kPrimaryColor,
+        //         fontFamily: kCircularStdMedium,
+        //         fontSize: 22),
+        //   ),
+        // ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                  color: kHighlightColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                  child: Text(
+                "01",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 14),
+              )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 150,
+                  width: 2,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kHighlightColor, width: 0.8)),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 65,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 225, 225, 225),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: const Center(
+                        child: Text(
+                          "DOCTOR",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        "Chief Complaint",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: 65,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 225, 225, 225),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: const Center(
+                        child: Text(
+                          "PATIENT",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    const SizedBox(
+                      width: 260,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 3.0),
+                        child: Text(
+                          "I’ve had a sore throat and runny nose for the past three days.",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 13),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                  color: kHighlightColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                  child: Text(
+                "02",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 14),
+              )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 130,
+                  width: 2,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kHighlightColor, width: 0.8)),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 65,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 225, 225, 225),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: const Center(
+                        child: Text(
+                          "DOCTOR",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        "History of Present Illness",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: 65,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 225, 225, 225),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: const Center(
+                        child: Text(
+                          "PATIENT",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    const SizedBox(
+                      width: 270,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 3.0),
+                        child: Text(
+                          "The sore throat started first, feels scratchy and painful, especially when swallowing",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 13),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                  color: kHighlightColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                  child: Text(
+                "03",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 14),
+              )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 130,
+                  width: 2,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kHighlightColor, width: 0.8)),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 65,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 225, 225, 225),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: const Center(
+                        child: Text(
+                          "DOCTOR",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        "Past Medical History",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      width: 65,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 225, 225, 225),
+                          borderRadius: BorderRadius.circular(25)),
+                      child: const Center(
+                        child: Text(
+                          "PATIENT",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    const SizedBox(
+                      width: 260,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 3.0),
+                        child: Text(
+                          "Generally healthy, no major illnesses or surgeries",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 13),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 12.0),
+        //   child: Row(
+        //     children: [
+        //       Container(
+        //         height: 45,
+        //         width: 45,
+        //         padding: const EdgeInsets.all(18),
+        //         decoration: BoxDecoration(
+        //             borderRadius: BorderRadius.circular(25),
+        //             border: Border.all(width: 1, color: kWhiteColor)),
+        //         child: Container(
+        //           width: 5,
+        //           height: 5,
+        //           decoration: BoxDecoration(
+        //               color: kHighlightColor,
+        //               borderRadius: BorderRadius.circular(25)),
+        //         ),
+        //       ),
+        //       const SizedBox(width: 10),
+        //       const Text(
+        //         "Tap to start adding more notes",
+        //         style: TextStyle(
+        //             color: kWhiteColor,
+        //             fontFamily: kCircularStdNormal,
+        //             fontSize: 13),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        //  const SizedBox(
+        //    height: 10,
+        //  ),
+        //  Center(
+        //    child: SizedBox(
+        //      width: Get.width - 100,
+        //      child: CupertinoButton(
+        //        color: kHighlightColor,
+        //        borderRadius: BorderRadius.circular(25),
+        //        child: Row(
+        //          mainAxisAlignment: MainAxisAlignment.center,
+        //          children: [
+        //            const Text(
+        //              "ADD TO PROFILE",
+        //              style: TextStyle(
+        //                  color: kPrimaryColor,
+        //                  fontFamily: kCircularStdMedium,
+        //                  fontSize: 13),
+        //            ),
+        //            const SizedBox(width: 10),
+        //            Image.asset(
+        //              "assets/icons/arrow_right.png",
+        //              color: kPrimaryColor,
+        //              scale: 1.3,
+        //            )
+        //          ],
+        //        ),
+        //        onPressed: () {
+        //          // Get.toNamed(Routes.appointmentScheduledPage);
+        //        },
+        //      ),
+        //    ),
+        //  ),
+        // const SizedBox(height: 90)
+      ],
     );
   }
 }
