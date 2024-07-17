@@ -1,12 +1,12 @@
-import 'package:accordion/accordion.dart';
-import 'package:accordion/controllers.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:accordion/accordion.dart';
+import 'package:zynabaiexpoders/app/view/medications_view.dart';
 
-import '../../../config/constant/color_constant.dart';
-import '../../../config/constant/font_constant.dart';
 import '../../view/allergies_view.dart';
+import '../../../config/constant/font_constant.dart';
+import '../../../config/constant/color_constant.dart';
 
 class MyHealthPage extends StatefulWidget {
   const MyHealthPage({super.key});
@@ -100,24 +100,24 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             fontSize: 16),
                       ),
                       Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Container(
-                            height: 31,
-                            width: 31,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                    color: kPrimaryColor, width: 0.5)),
-                            child: const Icon(
-                              Icons.edit,
-                              color: kPrimaryColor,
-                              size: 18,
-                            ),
-                          ))
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Container(
+                          height: 31,
+                          width: 31,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              border:
+                                  Border.all(color: kPrimaryColor, width: 0.5)),
+                          child: const Icon(
+                            Icons.edit,
+                            color: kPrimaryColor,
+                            size: 18,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 5),
-
                   Container(
                     width: Get.width,
                     decoration: BoxDecoration(
@@ -310,63 +310,59 @@ class _MyHealthPageState extends State<MyHealthPage> {
                           //         fontFamily: kCircularStdNormal)),
                           ),
                       AccordionSection(
-                          isOpen: false,
-                          contentVerticalPadding: 20,
-                          header: const Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Encounter: 01-Jun-2024',
-                                    style: TextStyle(
-                                        color: kPrimaryColor,
-                                        fontFamily: kCircularStdMedium,
-                                        fontSize: 14)),
-                                Text('Chief Complaint: Headache',
-                                    style: TextStyle(
-                                        color: kSecondaryPrimaryColor,
-                                        fontFamily: kCircularStdNormal,
-                                        fontSize: 11)),
-                              ],
-                            ),
+                        isOpen: false,
+                        contentVerticalPadding: 20,
+                        header: const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Encounter: 01-Jun-2024',
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdMedium,
+                                    fontSize: 14),
+                              ),
+                              Text(
+                                'Chief Complaint: Headache',
+                                style: TextStyle(
+                                    color: kSecondaryPrimaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 11),
+                              ),
+                            ],
                           ),
-                          content: accordionDesign()
-                          // const Text(
-                          //     "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
-                          //     style: TextStyle(
-                          //         color: kPrimaryColor,
-                          //         fontSize: 11,
-                          //         fontFamily: kCircularStdNormal)),
-                          ),
+                        ),
+                        content: accordionDesign(),
+                      ),
                       AccordionSection(
-                          isOpen: false,
-                          contentVerticalPadding: 20,
-                          header: const Padding(
-                            padding: EdgeInsets.only(left: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Encounter: 01-Jun-2024',
-                                    style: TextStyle(
-                                        color: kPrimaryColor,
-                                        fontFamily: kCircularStdMedium,
-                                        fontSize: 14)),
-                                Text('Chief Complaint: Headache',
-                                    style: TextStyle(
-                                        color: kSecondaryPrimaryColor,
-                                        fontFamily: kCircularStdNormal,
-                                        fontSize: 11)),
-                              ],
-                            ),
+                        isOpen: false,
+                        contentVerticalPadding: 20,
+                        header: const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Encounter: 01-Jun-2024',
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdMedium,
+                                    fontSize: 14),
+                              ),
+                              Text(
+                                'Chief Complaint: Headache',
+                                style: TextStyle(
+                                    color: kSecondaryPrimaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 11),
+                              ),
+                            ],
                           ),
-                          content: accordionDesign()
-                          // const Text(
-                          //     "Expandable Cards: Each encounter can be a card that expands on click to show detailed notes, diagnosis, treatment, and follow-up actions",
-                          //     style: TextStyle(
-                          //         color: kPrimaryColor,
-                          //         fontSize: 11,
-                          //         fontFamily: kCircularStdNormal)),
-                          ),
+                        ),
+                        content: accordionDesign(),
+                      ),
                     ],
                   ),
                   Column(
@@ -454,32 +450,9 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         ],
                       ),
                       const SizedBox(height: 7),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        child: Row(
-                          children: [
-                            buildNearby(
-                                "Paracetamol",
-                                "assets/images/Medications1.png",
-                                "",
-                                "medicine used to treat mild to moderate pain\n",
-                                "Medications"),
-                            buildNearby(
-                                "DAN-P",
-                                "assets/images/Medications2.png",
-                                "",
-                                "Dan-P Tablet is a pain-relieving medicine\n",
-                                "Medications1"),
-                            buildNearby(
-                                "Action 500",
-                                "assets/images/Medications3.png",
-                                "",
-                                "Action 500 Advanced Having the common cold.",
-                                "Medications")
-                          ],
-                        ),
+                      const SizedBox(
+                        height: 190,
+                        child: MedicationsView(),
                       ),
                       const SizedBox(height: 15),
                       Row(
@@ -599,9 +572,10 @@ class _MyHealthPageState extends State<MyHealthPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 4),
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: kPrimaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(25)),
+                                border:
+                                    Border.all(color: kPrimaryColor, width: 1),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
                               child: const Text(
                                 "View All",
                                 style: TextStyle(
@@ -613,7 +587,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                       ),
                       const SizedBox(height: 7),
                       const SizedBox(
-                        height: 230,
+                        height: 240,
                         child: AllergiesView(),
                       ),
                       const SizedBox(height: 15),
@@ -633,9 +607,10 @@ class _MyHealthPageState extends State<MyHealthPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 4),
                               decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: kPrimaryColor, width: 1),
-                                  borderRadius: BorderRadius.circular(25)),
+                                border:
+                                    Border.all(color: kPrimaryColor, width: 1),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
                               child: const Text(
                                 "View All",
                                 style: TextStyle(
