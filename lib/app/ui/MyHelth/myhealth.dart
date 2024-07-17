@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../config/constant/color_constant.dart';
 import '../../../config/constant/font_constant.dart';
+import '../../view/allergies_view.dart';
 
 class MyHealthPage extends StatefulWidget {
   const MyHealthPage({super.key});
@@ -611,68 +612,9 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         ],
                       ),
                       const SizedBox(height: 7),
-                      SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            buildNearby(
-                                "Pollen\nAllergy",
-                                "assets/images/pollenallergy.png",
-                                "4.5",
-                                "Reaction to tree, grass, weed pollen.",
-                                ""),
-                            buildNearby(
-                                "Pet\nAllergy",
-                                "assets/images/petallergy.png",
-                                "4.8",
-                                "Reaction to proteins in animal skin and saliva.",
-                                ""),
-                            buildNearby(
-                                "Dust Mite\nAllergy",
-                                "assets/images/dustmiteallergy.png",
-                                "4.8",
-                                "Reaction to tiny house dust bugs.",
-                                ""),
-                            buildNearby(
-                                "Food\nAllergies",
-                                "assets/images/foodallergy.png",
-                                "4.8",
-                                "Reaction to peanuts, tree nuts, milk, fish.",
-                                ""),
-                            buildNearby(
-                                "Insect Sting\nAllergy",
-                                "assets/images/inspectstingallergy.png",
-                                "4.8",
-                                "Reaction to bee, wasp, fire ant stings.",
-                                ""),
-                            buildNearby(
-                                "Mold\nAllergy",
-                                "assets/images/moldallergy.png",
-                                "4.8",
-                                "Reaction to mold spores in damp areas.",
-                                ""),
-                            buildNearby(
-                                "Latex\nAllergy",
-                                "assets/images/latexallergy.png",
-                                "4.8",
-                                "Reaction to natural rubber latex proteins.",
-                                ""),
-                            buildNearby(
-                                "Medication\nAllergy",
-                                "assets/images/medicationallergy.png",
-                                "4.8",
-                                "Reaction to penicillin, aspirin, and others.",
-                                ""),
-                            buildNearby(
-                                "Fragrance\nAllergy",
-                                "assets/images/fragranceallergy.png",
-                                "4.8",
-                                "Reaction to chemicals in scented products.",
-                                ""),
-                          ],
-                        ),
+                      const SizedBox(
+                        height: 230,
+                        child: AllergiesView(),
                       ),
                       const SizedBox(height: 15),
                       Row(
