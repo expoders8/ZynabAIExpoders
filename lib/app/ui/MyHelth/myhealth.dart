@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:accordion/accordion.dart';
+import 'package:zynabaiexpoders/app/routes/app_pages.dart';
 import 'package:zynabaiexpoders/app/view/medications_view.dart';
 
 import '../../view/allergies_view.dart';
@@ -432,7 +433,9 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                 fontSize: 16),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(Routes.medicationsDetailsPage);
+                            },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 4),
@@ -450,7 +453,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         ],
                       ),
                       const SizedBox(height: 7),
-                      const SizedBox(
+                      SizedBox(
                         height: 190,
                         child: MedicationsView(),
                       ),
@@ -567,7 +570,9 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                 fontSize: 16),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(Routes.myAllAllergiesPage);
+                            },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 4),

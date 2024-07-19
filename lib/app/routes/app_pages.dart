@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:zynabaiexpoders/app/ui/Allergies/allergies_detail.dart';
 
+import '../ui/Medications/medications_details.dart';
 import '../ui/MyHelth/myhealth.dart';
 import '../ui/home/home.dart';
 import '../ui/TabPage/tabpage.dart';
@@ -118,6 +120,14 @@ class AppPages {
     GetPage(
       name: _Paths.myHealthPage,
       page: () => const MyHealthPage(),
+    ),
+    GetPage(
+      name: _Paths.myAllAllergiesPage,
+      page: () => const MyAllAllergiesPage(),
+    ),
+    GetPage(
+      name: _Paths.medicationsDetailsPage,
+      page: () => const MedicationsDetailsPage(),
     ),
   ];
 }

@@ -25,6 +25,8 @@ abstract class Routes {
   static const myAppointmentDetailPage = _Paths.myAppointmentDetailPage;
   static const appointmentScheduledPage = _Paths.appointmentScheduledPage;
   static const myHealthPage = _Paths.myHealthPage;
+  static const myAllAllergiesPage = _Paths.myAllAllergiesPage;
+  static const medicationsDetailsPage = _Paths.medicationsDetailsPage;
 }
 
 abstract class _Paths {
@@ -50,4 +52,6 @@ abstract class _Paths {
   static const myAppointmentDetailPage = '/myAppointmentDetailPage';
   static const appointmentScheduledPage = '/appointmentScheduledPage';
   static const myHealthPage = '/myHealthPage';
+  static const myAllAllergiesPage = '/myAllAllergiesPage';
+  static const medicationsDetailsPage = '/medicationsDetailsPage';
 }
