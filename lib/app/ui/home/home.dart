@@ -9,6 +9,7 @@ import '../DoctorDetails/doctor_details.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 import '../Keep asking/keepasking.dart';
+import '../Keep asking/yournotes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -258,12 +259,17 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        "Your ${selectedPerson == "Doctor" ? "Patients" : "Doctors"}",
-                        style: const TextStyle(
-                            color: kPrimaryColor,
-                            fontFamily: kCircularStdNormal,
-                            fontSize: 14),
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(() => const YourNotesPage());
+                        },
+                        child: Text(
+                          "Your ${selectedPerson == "Doctor" ? "Patients" : "Doctors"}",
+                          style: const TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 14),
+                        ),
                       )
                     ],
                   ),
