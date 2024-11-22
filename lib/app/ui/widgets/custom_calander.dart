@@ -128,6 +128,7 @@ class CustomCalendarState extends State<CustomCalendar> {
             const SizedBox(height: 5),
             Expanded(
               child: GridView.count(
+                physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 7,
                 children: dayWidgets,
               ),

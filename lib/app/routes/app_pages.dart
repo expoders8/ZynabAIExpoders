@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
-import 'package:zynabaiexpoders/app/ui/Allergies/allergies_detail.dart';
 
-import '../ui/Medications/medications_details.dart';
-import '../ui/MyHelth/myhealth.dart';
+import '../ui/Allergies/allergies_list.dart';
 import '../ui/home/home.dart';
 import '../ui/TabPage/tabpage.dart';
 import '../ui/Chat/chat_screen.dart';
+import '../ui/MyHelth/myhealth.dart';
 import '../ui/Auth/SignUp/signup.dart';
 import '../ui/Auth/Login/login_doctor.dart';
 import '../ui/AiSharePDF/ai_share_pdf.dart';
@@ -15,6 +14,7 @@ import '../ui/widgets/multipal_sickness.dart';
 import '../ui/Appointment/appointment_day.dart';
 import '../ui/ChatWIthAI/chatwithaidoctor.dart';
 import '../ui/DoctorDetails/doctor_details.dart';
+import '../ui/Medications/medications_list.dart';
 import '../ui/Appointment/appointmentdetails.dart';
 import '../ui/PatientDetails/patient_details.dart';
 import '../ui/ConsultationFees/consultation_fees.dart';
@@ -122,12 +122,12 @@ class AppPages {
       page: () => const MyHealthPage(),
     ),
     GetPage(
-      name: _Paths.myAllAllergiesPage,
-      page: () => const MyAllAllergiesPage(),
+      name: _Paths.allergiesListPage,
+      page: () => const AllergiesListPage(),
     ),
     GetPage(
-      name: _Paths.medicationsDetailsPage,
-      page: () => const MedicationsDetailsPage(),
+      name: _Paths.medicationsListPage,
+      page: () => const MedicationsListPage(),
     ),
   ];
 }

@@ -434,7 +434,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(Routes.medicationsDetailsPage);
+                              Get.toNamed(Routes.medicationsListPage);
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
@@ -500,7 +500,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                                 "virus that mainly affects nerves in the spinal cord or brain stem\n",
                                 ""),
                             buildNearby(
-                                "Skin Allergy",
+                                "Skin\nAllergy",
                                 "assets/images/SkinAllergy.png",
                                 "",
                                 "allergist can diagnose and treat your condition, so you can live life to the fullest",
@@ -550,7 +550,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            buildNearby("Blood urea nitrogen", "", "",
+                            buildNearby("Blood urea\nnitrogen", "", "",
                                 "40–70 μg/dL", ""),
                             buildNearby("Ammonia\n", "", "", "25–43 mg/dL", ""),
                             buildNearby(
@@ -571,7 +571,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.toNamed(Routes.myAllAllergiesPage);
+                              Get.toNamed(Routes.allergiesListPage);
                             },
                             child: Container(
                               padding: const EdgeInsets.symmetric(
