@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../ui/Allergies/allergies_list.dart';
+import '../ui/MyAppointments/accept_myappointmentsdetail.dart';
 import '../ui/home/home.dart';
 import '../ui/TabPage/tabpage.dart';
 import '../ui/Chat/chat_screen.dart';
@@ -128,6 +129,10 @@ class AppPages {
     GetPage(
       name: _Paths.medicationsListPage,
       page: () => const MedicationsListPage(),
+    ),
+    GetPage(
+      name: _Paths.acceptedMyAppointmentDetailPage,
+      page: () => const AcceptedMyAppointmentDetailPage(),
     ),
   ];
 }

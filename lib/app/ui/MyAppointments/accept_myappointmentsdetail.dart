@@ -2,21 +2,22 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zynabaiexpoders/app/ui/MyAppointments/accept_myappointmentsdetail.dart';
 
 import '../../routes/app_pages.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../Keep asking/keepasking.dart';
 
-class MyAppointmentDetailPage extends StatefulWidget {
-  const MyAppointmentDetailPage({super.key});
+class AcceptedMyAppointmentDetailPage extends StatefulWidget {
+  const AcceptedMyAppointmentDetailPage({super.key});
 
   @override
-  State<MyAppointmentDetailPage> createState() =>
-      _MyAppointmentDetailPageState();
+  State<AcceptedMyAppointmentDetailPage> createState() =>
+      _AcceptedMyAppointmentDetailPageState();
 }
 
-class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
+class _AcceptedMyAppointmentDetailPageState
+    extends State<AcceptedMyAppointmentDetailPage> {
   int selectCatgoryIndex = 0, selectAsstenIndex = 0;
   int selectedTimendex = 0;
 
@@ -159,55 +160,36 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
                               ],
                             ),
                             const SizedBox(height: 20),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 90,
-                                  child: CupertinoButton(
-                                    borderRadius: BorderRadius.circular(25),
-                                    padding: EdgeInsets.zero,
-                                    color: kPrimaryColor,
-                                    onPressed: () {
-                                      bottomSheetforChat();
-                                    },
-                                    child: const Text(
-                                      "ACCEPT",
+                            SizedBox(
+                              width: 150,
+                              child: CupertinoButton(
+                                borderRadius: BorderRadius.circular(25),
+                                padding: EdgeInsets.zero,
+                                color: kPrimaryColor,
+                                onPressed: () {
+                                  Get.to(() => const KeepAsking());
+                                },
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "START NOTES",
                                       style: TextStyle(
                                           color: kWhiteColor,
                                           fontFamily: kCircularStdNormal,
                                           fontSize: 14),
                                     ),
-                                  ),
+                                    SizedBox(width: 5),
+                                    Icon(
+                                      Icons.radio_button_checked_outlined,
+                                      color: kRedColor,
+                                      size: 17,
+                                    )
+                                  ],
                                 ),
-                                const SizedBox(width: 5),
-                                SizedBox(
-                                  width: 90,
-                                  child: CupertinoButton(
-                                    borderRadius: BorderRadius.circular(25),
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () {},
-                                    child: Container(
-                                      width: 90,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          border:
-                                              Border.all(color: kPrimaryColor)),
-                                      child: const Center(
-                                        child: Text(
-                                          "REJECT",
-                                          style: TextStyle(
-                                              color: kPrimaryColor,
-                                              fontFamily: kCircularStdMedium,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
+                            const SizedBox(width: 5),
                             const SizedBox(height: 20),
                           ],
                         ),
@@ -465,6 +447,324 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 15),
+              Card(
+                shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                elevation: 5,
+                child: Container(
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: kCardColor,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        const Text(
+                          "Medical Notes",
+                          style: TextStyle(
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 22),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              color: kHighlightColor,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                              child: Text(
+                            "01",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontFamily: kCircularStdMedium,
+                                fontSize: 14),
+                          )),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              height: 150,
+                              width: 2,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      width: 0.8)),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 65,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: const Center(
+                                    child: Text(
+                                      "DOCTOR",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 3.0),
+                                  child: Text(
+                                    "Chief Complaint",
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  width: 65,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: const Center(
+                                    child: Text(
+                                      "PATIENT",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                const SizedBox(
+                                  width: 260,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 3.0),
+                                    child: Text(
+                                      "I’ve had a sore throat and runny nose for the past three days.",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 13),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              color: kHighlightColor,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                              child: Text(
+                            "02",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontFamily: kCircularStdMedium,
+                                fontSize: 14),
+                          )),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              height: 130,
+                              width: 2,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      width: 0.8)),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 65,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: const Center(
+                                    child: Text(
+                                      "DOCTOR",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 3.0),
+                                  child: Text(
+                                    "History of Present Illness",
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  width: 65,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: const Center(
+                                    child: Text(
+                                      "PATIENT",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                const SizedBox(
+                                  width: 260,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 3.0),
+                                    child: Text(
+                                      "The sore throat started first, feels scratchy and painful, especially when swallowing",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 13),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                        Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              color: kHighlightColor,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                              child: Text(
+                            "03",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontFamily: kCircularStdMedium,
+                                fontSize: 14),
+                          )),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 10),
+                              height: 130,
+                              width: 2,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      width: 0.8)),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 65,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: const Center(
+                                    child: Text(
+                                      "DOCTOR",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 3.0),
+                                  child: Text(
+                                    "Past Medical History",
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  width: 65,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 225, 225, 225),
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: const Center(
+                                    child: Text(
+                                      "PATIENT",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                const SizedBox(
+                                  width: 260,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 3.0),
+                                    child: Text(
+                                      "Generally healthy, no major illnesses or surgeries",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 13),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 15,
               ),
@@ -714,9 +1014,7 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
         Future.delayed(const Duration(seconds: 2), () {
           if (Navigator.of(context).canPop()) {
             Navigator.of(context).pop(); // Close the bottom sheet
-            // Get.toNamed(Routes
-            //     .acceptedMyAppointmentDetailPage); // Navigate to the next page
-            Get.off(() => const AcceptedMyAppointmentDetailPage());
+            Get.toNamed('/nextPage'); // Navigate to the next page
           }
         });
         return Wrap(

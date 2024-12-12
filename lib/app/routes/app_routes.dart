@@ -27,6 +27,8 @@ abstract class Routes {
   static const appointmentDetailsPage = _Paths.appointmentDetailsPage;
   static const myAppointmentDetailPage = _Paths.myAppointmentDetailPage;
   static const appointmentScheduledPage = _Paths.appointmentScheduledPage;
+  static const acceptedMyAppointmentDetailPage =
+      _Paths.acceptedMyAppointmentDetailPage;
 }
 
 abstract class _Paths {
@@ -54,4 +56,6 @@ abstract class _Paths {
   static const appointmentDetailsPage = '/appointmentDetailsPage';
   static const myAppointmentDetailPage = '/myAppointmentDetailPage';
   static const appointmentScheduledPage = '/appointmentScheduledPage';
+  static const acceptedMyAppointmentDetailPage =
+      '/acceptedMyAppointmentDetailPage';
 }
