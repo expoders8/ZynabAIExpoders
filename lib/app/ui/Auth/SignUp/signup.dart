@@ -8,6 +8,7 @@ import '../../widgets/custom_textfield_auth.dart';
 import '../../../../config/constant/constant.dart';
 import '../../../../config/constant/font_constant.dart';
 import '../../../../config/constant/color_constant.dart';
+import '../user_profile_info.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -171,7 +172,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     onPressed: () {
                       getStorage.write("selctetperson", selectedPerson);
-                      Get.offAll(() => const TabPage());
+                      // Get.offAll(() => const TabPage());
+                      Get.to(() => UserProfileInformationPage(
+                            roll: selectedPerson,
+                          ));
                     },
                   ),
                 ),

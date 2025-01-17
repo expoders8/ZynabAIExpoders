@@ -52,7 +52,7 @@ dependencies:
   url_launcher: ^6.3.0
   flutter_staggered_animations: ^1.1.1
   accordion: ^2.6.0
-  win32: ^5.8.0
+  bottom_picker: ^2.9.0
 
 dev_dependencies:
   flutter_test:
