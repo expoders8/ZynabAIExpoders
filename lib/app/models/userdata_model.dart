@@ -9,3 +9,9 @@ class Serices {
 
   Serices({required this.title});
 }
+
+class Serice {
+  final String title;
+
+  Serice({required this.title});
+}

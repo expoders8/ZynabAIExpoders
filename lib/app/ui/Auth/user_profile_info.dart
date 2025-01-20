@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:convert';
+
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 import '../../models/userdata_model.dart';
 import '../TabPage/tabpage.dart';
+import 'package:http/http.dart' as http;
 import '../widgets/custom_picker.dart';
 import '../widgets/custom_textfield_auth.dart';
 
@@ -32,6 +34,7 @@ class _UserProfileInformationPageState
   String? pickcategories;
   bool isFormSubmitted = false,
       categoriesError = false,
+      isTouched = false,
       isButtonDisabled = false;
   String selctesType = "Male";
   FocusNode focusNode = FocusNode();
@@ -44,11 +47,119 @@ class _UserProfileInformationPageState
   final TextEditingController addressController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
 
-  final List<String> _categories = [
-    "General Practitioner",
-    "Cardiologist",
-    "Dermatologist",
+  // final List<String> _categories = [
+  //   "",
+  //   "",
+  //   "",
+  // ];
+
+  // List<dynamic> selectcategories = [];
+  // final List<Serice> _categories = [
+  //   Serice(title: 'Cardiology'),
+  //   Serice(title: 'Dermatology'),
+  //   Serice(title: 'Neurology'),
+  //   Serice(title: 'Orthopedics'),
+  //   Serice(title: 'Oncology'),
+  //   Serice(title: 'Pediatrics'),
+  //   Serice(title: 'Psychiatry'),
+  //   Serice(title: 'Gastroenterology'),
+  //   Serice(title: 'Pulmonology'),
+  //   Serice(title: 'Endocrinology'),
+  // ];
+  List<String> selectedTitles = [];
+  List<dynamic> selectcategories = [];
+  String selectedSpecialization = '';
+  final Map<String, List<String>> subSpecializations = {
+    'Cardiology': [
+      'Interventional Cardiology',
+      'Pediatric Cardiology',
+      'Cardiac Electrophysiology',
+      'Heart Failure and Transplantation'
+    ],
+    'Dermatology': [
+      'Pediatric Dermatology',
+      'Cosmetic Dermatology',
+      'Dermatopathology',
+      'Immunodermatology'
+    ],
+    'Neurology': [
+      'Pediatric Neurology',
+      'Neurophysiology',
+      'Stroke and Vascular Neurology',
+      'Neurocritical Care'
+    ],
+    'Orthopedics': [
+      'Sports Medicine',
+      'Joint Replacement',
+      'Pediatric Orthopedics',
+      'Spine Surgery'
+    ],
+    'Oncology': [
+      'Radiation Oncology',
+      'Medical Oncology',
+      'Surgical Oncology',
+      'Pediatric Oncology'
+    ],
+    'Pediatrics': [
+      'Pediatric Cardiology',
+      'Pediatric Neurology',
+      'Neonatology',
+      'Pediatric Pulmonology'
+    ],
+    'Psychiatry': [
+      'Child and Adolescent Psychiatry',
+      'Forensic Psychiatry',
+      'Addiction Psychiatry',
+      'Geriatric Psychiatry'
+    ],
+    'Gastroenterology': [
+      'Hepatology',
+      'Pediatric Gastroenterology',
+      'Endoscopy',
+      'Inflammatory Bowel Disease'
+    ],
+    'Pulmonology': [
+      'Critical Care Medicine',
+      'Sleep Medicine',
+      'Pediatric Pulmonology',
+      'Interstitial Lung Disease'
+    ],
+    'Endocrinology': [
+      'Pediatric Endocrinology',
+      'Diabetes Management',
+      'Reproductive Endocrinology',
+      'Thyroid Disorders'
+    ],
+  };
+
+  final List<Serice> _categories = [
+    Serice(title: 'Cardiology'),
+    Serice(title: 'Dermatology'),
+    Serice(title: 'Neurology'),
+    Serice(title: 'Orthopedics'),
+    Serice(title: 'Oncology'),
+    Serice(title: 'Pediatrics'),
+    Serice(title: 'Psychiatry'),
+    Serice(title: 'Gastroenterology'),
+    Serice(title: 'Pulmonology'),
+    Serice(title: 'Endocrinology'),
   ];
+
+  void toggleSelectioncategories(int id) {
+    setState(() {
+      selectedSpecialization = _categories[id].title;
+    });
+  }
+
+  void toggleSelection(String subSpec) {
+    setState(() {
+      if (selectedTitles.contains(subSpec)) {
+        selectedTitles.remove(subSpec);
+      } else {
+        selectedTitles.add(subSpec);
+      }
+    });
+  }
 
   final List<String> questionsPatient = [
     "Personal Information.",
@@ -101,6 +212,7 @@ class _UserProfileInformationPageState
     });
   }
 
+  List<Serices> filteredServices = [];
   List<dynamic> selectedservice = [];
   final List<Serices> services = [
     Serices(title: 'Diabetes Management'),
@@ -114,15 +226,30 @@ class _UserProfileInformationPageState
     Serices(title: 'General Checkups'),
     Serices(title: 'Vaccinations'),
   ];
-  void toggleserviceselecte(int id) {
-    setState(() {
-      String nearbyTitle = services[id].title;
-      if (selectedservice.contains(nearbyTitle)) {
-        selectedservice.remove(nearbyTitle);
-      } else {
-        selectedservice.add(nearbyTitle);
-      }
-    });
+  void toggleserviceselecte(int index) {
+    final dept = filteredServices[index];
+    if (selectedservice.contains(dept.title)) {
+      selectedservice.remove(dept.title);
+    } else {
+      selectedservice.add(dept.title);
+    }
+    setState(() {}); // This will force a rebuild when selection changes
+  }
+
+  // Function to filter services based on text input
+  void filterServices(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        filteredServices = services; // Show all services if query is empty
+      });
+    } else {
+      setState(() {
+        filteredServices = services
+            .where((service) =>
+                service.title.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      });
+    }
   }
 
   List<String> selectedDays = [];
@@ -139,11 +266,11 @@ class _UserProfileInformationPageState
     "Sunday"
   ];
 
-  void _addTimeSlot() {
-    setState(() {
-      timeSlots.add({"start": "", "end": ""});
-    });
-  }
+  // void _addTimeSlot() {
+  //   setState(() {
+  //     timeSlots.add({"start": "", "end": ""});
+  //   });
+  // }
 
   void _pickUnavailableDate() async {
     DateTime? pickedDate = await showDatePicker(
@@ -166,6 +293,7 @@ class _UserProfileInformationPageState
     super.initState();
     buttonEventHandler(currentIndex);
     nameController.addListener(_updateButtonState);
+    filteredServices = services;
   }
 
   void _updateButtonState() {
@@ -280,39 +408,44 @@ class _UserProfileInformationPageState
                                   : Container(),
                               Row(
                                 children: [
-                                  CupertinoButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () {
-                                      if (currentIndex != 2) {
-                                        setState(() {
-                                          currentIndex++;
-                                          buttonEventHandler(currentIndex);
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Skip",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 16),
+                                  currentIndex != 2
+                                      ? CupertinoButton(
+                                          padding: EdgeInsets.zero,
+                                          onPressed: () {
+                                            if (currentIndex != 2) {
+                                              setState(() {
+                                                currentIndex++;
+                                                buttonEventHandler(
+                                                    currentIndex);
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Skip",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                        )
+                                      : Container(),
                                   const SizedBox(width: 15),
                                   SizedBox(
                                     width: 100,
@@ -387,7 +520,8 @@ class _UserProfileInformationPageState
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                  padding:
+                                      const EdgeInsets.only(top: 10, bottom: 5),
                                   child: Text(
                                     questionsDoctor[currentIndex] ==
                                             "Basic Information."
@@ -474,39 +608,44 @@ class _UserProfileInformationPageState
                                   : Container(),
                               Row(
                                 children: [
-                                  CupertinoButton(
-                                    padding: EdgeInsets.zero,
-                                    onPressed: () {
-                                      if (currentIndex != 3) {
-                                        setState(() {
-                                          currentIndex++;
-                                          buttonEventHandler(currentIndex);
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      height: 50,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: const Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Skip",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 16),
+                                  currentIndex != 3
+                                      ? CupertinoButton(
+                                          padding: EdgeInsets.zero,
+                                          onPressed: () {
+                                            if (currentIndex != 3) {
+                                              setState(() {
+                                                currentIndex++;
+                                                buttonEventHandler(
+                                                    currentIndex);
+                                              });
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            child: const Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "Skip",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 16),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                        )
+                                      : Container(),
                                   SizedBox(
                                     width: 100,
                                     child: CupertinoButton(
@@ -828,104 +967,171 @@ class _UserProfileInformationPageState
 
   buildBasicinfo() {
     return Flexible(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildTextWidget("Enter Title (e.g., Dr., Prof.)"),
-              SizedBox(
-                width: Get.width - 50,
-                child: CustomTextFormFieldAuth(
-                  hintText: 'Title Name',
-                  maxLines: 1,
-                  ctrl: titleController,
-                  name: "name",
-                  formSubmitted: isFormSubmitted,
-                  validationMsg: 'Please enter Title',
-                ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            buildTextWidget("Enter Title (e.g., Dr., Prof.)"),
+            SizedBox(
+              width: Get.width - 50,
+              child: CustomTextFormFieldAuth(
+                hintText: 'Title Name',
+                maxLines: 1,
+                ctrl: titleController,
+                name: "name",
+                formSubmitted: isFormSubmitted,
+                validationMsg: 'Please enter Title',
               ),
-              const SizedBox(height: 10),
-              buildTextWidget("Main Specialization"),
-              Container(
-                height: 48,
-                width: Get.width - 50,
-                padding: const EdgeInsets.all(10.0),
-                decoration: const BoxDecoration(
-                  color: kWhiteColor,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: pickcategories == "null" || pickcategories == ""
-                        ? ""
-                        : pickcategories,
-                    icon: Padding(
-                      padding: const EdgeInsets.only(right: 9.0),
-                      child: Image.asset(
-                        "assets/icons/polygon_down.png",
-                        scale: 1,
-                        width: 13,
-                      ),
-                    ),
-                    hint: const Text(
-                      "Specialization",
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontFamily: kCircularStdBook,
-                        fontSize: 15,
-                      ),
-                    ),
-                    items: _categories.map((category) {
-                      return DropdownMenuItem<String>(
-                        value: category,
-                        child: Text(category),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        categoryController.text = value ?? '';
-                        pickcategories = value;
-                        categoriesError = false;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              categoriesError == true
-                  ? const Padding(
-                      padding: EdgeInsets.only(left: 13, top: 6),
-                      child: Text(
-                        "Select Specialization",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 200, 53, 42),
-                            fontSize: 11,
-                            fontFamily: kCircularStdBook),
-                      ),
-                    )
-                  : Container(),
-            ],
-          ),
-          const SizedBox(height: 10),
-          buildTextWidget("Enter Subspecialty"),
-          SizedBox(
-            width: Get.width - 50,
-            child: CustomTextFormFieldAuth(
-              hintText: 'Subspecialty',
-              maxLines: 1,
-              ctrl: titleController,
-              name: "name",
-              formSubmitted: isFormSubmitted,
-              validationMsg: 'Please enter Subspecialty',
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            buildTextWidget("Main Specialization"),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: _categories.map((dept) {
+                final isSelected = selectedSpecialization == dept.title;
+                return GestureDetector(
+                  onTap: () =>
+                      toggleSelectioncategories(_categories.indexOf(dept)),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    width: (Get.width - 50) / 2 - 10,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: kWhiteColor,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: isSelected ? kPrimaryColor : kDividerColor,
+                        width: isSelected ? 2 : 1,
+                      ),
+                      boxShadow: [
+                        if (isSelected)
+                          BoxShadow(
+                            color: kPrimaryColor.withOpacity(0.3),
+                            blurRadius: 8,
+                            spreadRadius: 1,
+                          ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          isSelected
+                              ? Icons.check_circle
+                              : Icons.circle_outlined,
+                          color: isSelected ? kPrimaryColor : kDividerColor,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 2),
+                        Expanded(
+                          child: Text(
+                            dept.title,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color:
+                                  isSelected ? kPrimaryColor : Colors.black87,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 10),
+            buildTextWidget("Enter Subspecialty"),
+            if (subSpecializations[selectedSpecialization] != null)
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children:
+                    subSpecializations[selectedSpecialization]!.map((subSpec) {
+                  final isSelected = selectedTitles.contains(subSpec);
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          toggleSelection(subSpec);
+                        }, // You can add functionality here
+                        child: Container(
+                          width: Get.width - 55,
+                          decoration: BoxDecoration(
+                            color: kWhiteColor,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: isSelected ? kPrimaryColor : kDividerColor,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 15.0),
+                            child: Text(
+                              textAlign: TextAlign.center,
+                              subSpec,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: kPrimaryColor,
+                                fontFamily: kCircularStdBook,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (isSelected)
+                        Positioned(
+                          right: -5,
+                          top: -3,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: 15,
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
+                }).toList(),
+              ),
+            const SizedBox(height: 15),
+          ],
+        ),
       ),
     );
+  }
+
+  List<dynamic> placeList = [];
+  void getSuggestion(String input) async {
+    try {
+      String baseURL =
+          'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+      String request =
+          '$baseURL?input=$input&key=AIzaSyAQYUMPajZSmEupi3I7rsukQMSAZJmh-XA&sessiontoken=1234567890';
+      var response = await http.get(Uri.parse(request));
+      if (response.statusCode == 200) {
+        setState(() {
+          placeList = json.decode(response.body)['predictions'];
+        });
+      } else {
+        throw Exception('Failed to load predictions');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   buildConsultationFees() {
@@ -961,15 +1167,91 @@ class _UserProfileInformationPageState
           ),
           const SizedBox(height: 10),
           buildTextWidget("Clinic Address/Location"),
-          SizedBox(
-            width: Get.width - 50,
-            child: CustomTextFormFieldAuth(
-              hintText: 'Address',
-              maxLines: 1,
-              ctrl: addressController,
-              name: "address",
-              formSubmitted: isFormSubmitted,
-              validationMsg: 'Please enter Address',
+          // SizedBox(
+          //   width: Get.width - 50,
+          //   child: CustomTextFormFieldAuth(
+          //     hintText: 'Address',
+          //     maxLines: 1,
+          //     ctrl: addressController,
+          //     name: "address",
+          //     formSubmitted: isFormSubmitted,
+          //     validationMsg: 'Please enter Address',
+          //   ),
+          // ),
+          TextFormField(
+            // validator: (value) {
+            //   if (isTouched && isFormSubmitted) {
+            //     if (value == null || value.isEmpty) {
+            //       return 'Please enter Address';
+            //     }
+            //   }
+            //   return null;
+            // },
+            focusNode: focusNode,
+            controller: addressController,
+            textInputAction: TextInputAction.next,
+            onChanged: (value) => {
+              isTouched = true,
+              getSuggestion(addressController.text),
+              if (addressController.text == "") {setState(() {})}
+            },
+            decoration: InputDecoration(
+              hintText: "Address",
+              counterText: "",
+              contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+              hintStyle: const TextStyle(
+                fontFamily: kCircularStdBook,
+                fontWeight: FontWeight.w400,
+                color: kPrimaryColor,
+                fontSize: 14,
+              ),
+              filled: true,
+              fillColor: kWhiteColor,
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8.0),
+                ),
+                borderSide: BorderSide(color: kWhiteColor, width: 1.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(color: kWhiteColor, width: 1.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(
+                  color: kWhiteColor,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            child: Container(
+              height: placeList.isEmpty ? 0 : 200,
+              width: placeList.isEmpty ? 0 : Get.width,
+              color: kWhiteColor,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                shrinkWrap: true,
+                itemCount: placeList.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        addressController.text =
+                            placeList[index]["description"];
+                        focusNode.unfocus();
+                        placeList.clear();
+                      });
+                    },
+                    child: ListTile(
+                      title: Text(placeList[index]["description"]),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -1175,10 +1457,11 @@ class _UserProfileInformationPageState
             child: CustomTextFormFieldAuth(
               hintText: 'Enter services',
               maxLines: 1,
-              ctrl: feesController,
+              ctrl: categoryController,
               name: "name",
-              formSubmitted: isFormSubmitted,
-              validationMsg: 'Please enter services',
+              onChanged: (value) {
+                filterServices(value);
+              },
             ),
           ),
           const SizedBox(height: 10),
@@ -1191,9 +1474,9 @@ class _UserProfileInformationPageState
                 childAspectRatio: 6,
               ),
               padding: const EdgeInsets.all(5),
-              itemCount: services.length,
+              itemCount: filteredServices.length,
               itemBuilder: (context, index) {
-                final dept = services[index];
+                final dept = filteredServices[index];
                 final isSelected = selectedservice.contains(dept.title);
 
                 return CupertinoButton(
@@ -1243,6 +1526,7 @@ class _UserProfileInformationPageState
     );
   }
 
+  Map<String, Map<String, String>> timeSlotss = {};
   buildAvailable() {
     return Flexible(
       child: SingleChildScrollView(
@@ -1254,92 +1538,92 @@ class _UserProfileInformationPageState
             Wrap(
               spacing: 8.0,
               children: daysOfWeek.map((day) {
-                return FilterChip(
-                  label: Text(
-                    day,
-                    style: const TextStyle(color: kPrimaryColor),
-                  ),
-                  selectedColor: kWhiteColor,
-                  selected: selectedDays.contains(day),
-                  onSelected: (isSelected) {
-                    setState(() {
-                      isSelected
-                          ? selectedDays.add(day)
-                          : selectedDays.remove(day);
-                    });
-                  },
+                bool isDaySelected = selectedDays.contains(day);
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FilterChip(
+                      label: Text(
+                        day,
+                        style: const TextStyle(color: kPrimaryColor),
+                      ),
+                      selectedColor: kWhiteColor,
+                      selected: isDaySelected,
+                      onSelected: (isSelected) {
+                        setState(() {
+                          if (isSelected) {
+                            selectedDays.add(day);
+                            timeSlotss[day] = {"start": "", "end": ""};
+                          } else {
+                            selectedDays.remove(day);
+                            timeSlots.remove(day);
+                          }
+                        });
+                      },
+                    ),
+                    if (isDaySelected) ...[
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: "Start Time ($day)",
+                                labelStyle: const TextStyle(fontSize: 12),
+                              ),
+                              readOnly: true,
+                              onTap: () async {
+                                TimeOfDay? pickedTime = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                  initialEntryMode:
+                                      TimePickerEntryMode.inputOnly,
+                                );
+                                if (pickedTime != null) {
+                                  setState(() {
+                                    timeSlotss[day]!['start'] =
+                                        pickedTime.format(context);
+                                  });
+                                }
+                              },
+                              controller: TextEditingController(
+                                text: timeSlotss[day]!['start'],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                labelText: "End Time ($day)",
+                                labelStyle: const TextStyle(fontSize: 12),
+                              ),
+                              readOnly: true,
+                              onTap: () async {
+                                TimeOfDay? pickedTime = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                  initialEntryMode:
+                                      TimePickerEntryMode.inputOnly,
+                                );
+                                if (pickedTime != null) {
+                                  setState(() {
+                                    timeSlotss[day]!['end'] =
+                                        pickedTime.format(context);
+                                  });
+                                }
+                              },
+                              controller: TextEditingController(
+                                text: timeSlotss[day]!['end'],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ],
                 );
               }).toList(),
-            ),
-            const SizedBox(height: 20),
-            buildTextWidget("Time Slots"),
-            ...timeSlots.asMap().entries.map((entry) {
-              int index = entry.key;
-              Map<String, String> slot = entry.value;
-              return Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: "Start Time"),
-                      readOnly: true,
-                      onTap: () async {
-                        TimeOfDay? pickedTime = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                            initialEntryMode: TimePickerEntryMode.inputOnly);
-                        if (pickedTime != null) {
-                          setState(() {
-                            timeSlots[index]['start'] =
-                                pickedTime.format(context);
-                          });
-                        }
-                      },
-                      controller: TextEditingController(
-                        text: slot['start'],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(labelText: "End Time"),
-                      readOnly: true,
-                      onTap: () async {
-                        TimeOfDay? pickedTime = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                            initialEntryMode: TimePickerEntryMode.inputOnly);
-                        if (pickedTime != null) {
-                          setState(() {
-                            timeSlots[index]['end'] =
-                                pickedTime.format(context);
-                          });
-                        }
-                      },
-                      controller: TextEditingController(
-                        text: slot['end'],
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      setState(() {
-                        timeSlots.removeAt(index);
-                      });
-                    },
-                  ),
-                ],
-              );
-            }).toList(),
-            TextButton.icon(
-              onPressed: _addTimeSlot,
-              icon: const Icon(Icons.add, color: kPrimaryColor),
-              label: const Text(
-                "Add Time Slot",
-                style: TextStyle(color: kPrimaryColor),
-              ),
             ),
             const SizedBox(height: 20),
             buildTextWidget("Unavailable Dates"),
@@ -1347,9 +1631,7 @@ class _UserProfileInformationPageState
               spacing: 8.0,
               children: unavailableDates.map((date) {
                 return Chip(
-                  label: Text(
-                    "${date.day}/${date.month}/${date.year}",
-                  ),
+                  label: Text("${date.day}/${date.month}/${date.year}"),
                   onDeleted: () {
                     setState(() {
                       unavailableDates.remove(date);

@@ -11,18 +11,20 @@ class CustomTextFormFieldAuth extends StatefulWidget {
   final String? validationMsg;
   final int? maxLines;
   final bool formSubmitted;
+  final Function(String)? onChanged;
 
-  const CustomTextFormFieldAuth(
-      {Key? key,
-      this.ctrl,
-      this.hintText,
-      this.keyboardType,
-      this.prefixIcon,
-      this.maxLines,
-      this.formSubmitted = false,
-      this.name,
-      this.validationMsg})
-      : super(key: key);
+  const CustomTextFormFieldAuth({
+    Key? key,
+    this.ctrl,
+    this.hintText,
+    this.keyboardType,
+    this.prefixIcon,
+    this.maxLines,
+    this.formSubmitted = false,
+    this.name,
+    this.validationMsg,
+    this.onChanged,
+  }) : super(key: key);
 
   @override
   State<CustomTextFormFieldAuth> createState() =>
@@ -135,8 +137,11 @@ class _CustomTextFormFieldAuthState extends State<CustomTextFormFieldAuth> {
         ),
       ),
       maxLines: widget.maxLines,
-      onChanged: (value) => {
-        isTouched = true,
+      onChanged: (value) {
+        isTouched = true;
+        if (widget.onChanged != null) {
+          widget.onChanged!(value); // Call the passed in onChanged callback
+        }
       },
     );
   }

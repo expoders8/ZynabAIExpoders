@@ -7,6 +7,7 @@ import '../Auth/Login/login_doctor.dart';
 import '../../../config/constant/constant.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../Auth/user_profile_info.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -113,14 +114,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 120,
                               ),
                             ),
-                            const Positioned(
-                              bottom: 5,
-                              left: 8,
-                              child: Icon(
-                                Icons.edit,
-                                color: kSecondaryColor,
-                              ),
-                            )
+                            Positioned(
+                                bottom: 5,
+                                left: 8,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => UserProfileInformationPage(
+                                          roll: selectedPerson,
+                                        ));
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        borderRadius:
+                                            BorderRadius.circular(100)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: kWhiteColor,
+                                      ),
+                                    ),
+                                    // IconButton(
+                                    //   padding: EdgeInsets.zero,
+                                    //   onPressed: () {
+
+                                    //   },
+                                    //   icon:
+                                    // ),
+                                  ),
+                                ))
                           ],
                         ),
                       ],
@@ -206,9 +229,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 19),
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               Card(
                 shadowColor: const Color.fromARGB(10, 0, 0, 0),
                 elevation: 5,
@@ -327,7 +348,160 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.only(left: 5.0),
+                child: Text(
+                  "Details",
+                  style: TextStyle(
+                      color: kPrimaryColor,
+                      fontFamily: kCircularStdNormal,
+                      fontSize: 19),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Card(
+                shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                elevation: 5,
+                child: Container(
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: kCardColor,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: kHighlightColor,
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: const Center(
+                                child: Text(
+                                  "B",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdMedium,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            const Text(
+                              "20 Nov 1978",
+                              style: TextStyle(
+                                  color: kSecondaryColor,
+                                  fontFamily: kCircularStdMedium,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: kHighlightColor,
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: const Center(
+                                child: Text(
+                                  "G",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdMedium,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            const Text(
+                              "Male",
+                              style: TextStyle(
+                                  color: kSecondaryColor,
+                                  fontFamily: kCircularStdMedium,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: kHighlightColor,
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: const Center(
+                                child: Text(
+                                  "H",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdMedium,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              "Height : 4.7 feet",
+                              style: TextStyle(
+                                  color: kSecondaryColor,
+                                  fontFamily: kCircularStdMedium,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Container(
+                              height: 35,
+                              width: 35,
+                              decoration: BoxDecoration(
+                                  color: kHighlightColor,
+                                  borderRadius: BorderRadius.circular(25)),
+                              child: const Center(
+                                child: Text(
+                                  "W",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdMedium,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              "Weight : 60 Kg",
+                              style: TextStyle(
+                                  color: kSecondaryColor,
+                                  fontFamily: kCircularStdMedium,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 85)
             ],
           ),
         ),
