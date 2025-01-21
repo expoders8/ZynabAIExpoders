@@ -183,9 +183,51 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
+              selectedPerson == "Doctor"
+                  ? const Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        "Main Specialization",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdNormal,
+                            fontSize: 19),
+                      ),
+                    )
+                  : Container(),
+              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
+              selectedPerson == "Doctor"
+                  ? Row(
+                      children: [
+                        buildSicknessWidget("Family Medicine"),
+                      ],
+                    )
+                  : Container(),
+              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
+              selectedPerson == "Doctor"
+                  ? const Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        "Sub-Specializations",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdNormal,
+                            fontSize: 19),
+                      ),
+                    )
+                  : Container(),
+              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
+              selectedPerson == "Doctor"
+                  ? Row(
+                      children: [
+                        buildSicknessWidget("Geriatric Medicine"),
+                        const SizedBox(width: 2),
+                        buildSicknessWidget("Adolescent Medicine"),
+                      ],
+                    )
+                  : Container(),
+              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
               selectedPerson == "Doctor"
                   ? const Padding(
                       padding: EdgeInsets.only(left: 5.0),
@@ -198,24 +240,81 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     )
                   : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
               selectedPerson == "Doctor"
-                  ? Row(
-                      children: [
-                        buildSicknessWidget("Fever"),
-                        const SizedBox(width: 10),
-                        buildSicknessWidget("Cough"),
-                      ],
-                    )
-                  : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
-              selectedPerson == "Doctor"
-                  ? Row(
-                      children: [
-                        buildSicknessWidget("Vomiting"),
-                        const SizedBox(width: 10),
-                        buildSicknessWidget("Wheezes"),
-                      ],
+                  ? Card(
+                      shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                      elevation: 5,
+                      child: Container(
+                        width: size.width,
+                        decoration: BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: kPrimaryColor,
+                                    size: 12,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "General health check-ups",
+                                    style: TextStyle(
+                                        color: kSecondaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: kPrimaryColor,
+                                    size: 12,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Vaccinations",
+                                    style: TextStyle(
+                                        color: kSecondaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: kPrimaryColor,
+                                    size: 12,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Management of chronic conditions\n(diabetes, hypertension)",
+                                    style: TextStyle(
+                                        color: kSecondaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        ),
+                      ),
                     )
                   : Container(),
               SizedBox(height: selectedPerson == "Doctor" ? 15 : 10),
@@ -264,9 +363,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "johnddoe@gmail.com",
                               style: TextStyle(
@@ -276,9 +373,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
+                        const SizedBox(height: 5),
                         Row(
                           children: [
                             Container(
@@ -297,9 +392,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "+91738475655",
                               style: TextStyle(
@@ -309,9 +402,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
+                        const SizedBox(height: 5),
                         Row(
                           children: [
                             Container(
@@ -330,9 +421,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "234 Block, Mumbai Complex, India",
                               style: TextStyle(
@@ -394,9 +483,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "20 Nov 1978",
                               style: TextStyle(
@@ -425,9 +512,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "Male",
                               style: TextStyle(

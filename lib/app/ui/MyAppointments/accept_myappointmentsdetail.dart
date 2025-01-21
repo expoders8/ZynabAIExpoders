@@ -844,9 +844,7 @@ class _AcceptedMyAppointmentDetailPageState
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "johnddoe@gmail.com",
                               style: TextStyle(
@@ -877,9 +875,7 @@ class _AcceptedMyAppointmentDetailPageState
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "+91738475655",
                               style: TextStyle(
@@ -910,9 +906,7 @@ class _AcceptedMyAppointmentDetailPageState
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            const SizedBox(width: 8),
                             const Text(
                               "234 Block, Mumbai Complex, India",
                               style: TextStyle(

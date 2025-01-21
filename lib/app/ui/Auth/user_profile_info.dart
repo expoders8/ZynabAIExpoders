@@ -1,20 +1,18 @@
 import 'dart:convert';
-
-import 'package:bottom_picker/bottom_picker.dart';
-import 'package:bottom_picker/resources/arrays.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
 
-import '../../controller/tab_controller.dart';
+import '../TabPage/tabpage.dart';
+import '../widgets/custom_picker.dart';
+import 'package:http/http.dart' as http;
+import '../../models/userdata_model.dart';
+import '../widgets/custom_textfield_auth.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
-import '../../models/userdata_model.dart';
-import '../TabPage/tabpage.dart';
-import 'package:http/http.dart' as http;
-import '../widgets/custom_picker.dart';
-import '../widgets/custom_textfield_auth.dart';
 
 class UserProfileInformationPage extends StatefulWidget {
   final String? edit;
@@ -28,48 +26,45 @@ class UserProfileInformationPage extends StatefulWidget {
 
 class _UserProfileInformationPageState
     extends State<UserProfileInformationPage> {
+  String selectdate = "YYYY/MM/DD",
+      pickedDate = "",
+      selectedText = "",
+      selectedSpecialization = '',
+      selctesType = "Male";
   int? ft;
+  int currentIndex = 0;
   int? weight;
   int? inch;
-  String? pickcategories;
   bool isFormSubmitted = false,
-      categoriesError = false,
       isTouched = false,
+      dateError = false,
       isButtonDisabled = false;
-  String selctesType = "Male";
+  List<dynamic> placeList = [];
+  List<String> selectedDays = [];
+  List<String> selectedTitles = [];
   FocusNode focusNode = FocusNode();
+  List<dynamic> selectedservice = [];
+  List<dynamic> selectedmedical = [];
+  List<String> filteredServices = [];
+  List<DateTime> unavailableDates = [];
+  List<dynamic> selectedmedicalfamily = [];
+  List<Map<String, String>> timeSlots = [];
   final _queFormKey = GlobalKey<FormState>();
-  final tabController = Get.put(TabCountController());
+  Map<String, Map<String, String>> timeSlotss = {};
+  final TextEditingController feesController = TextEditingController();
+  final TextEditingController medicalController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
-  final TextEditingController localfeesController = TextEditingController();
-  final TextEditingController feesController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController categoryController = TextEditingController();
+  final TextEditingController localfeesController = TextEditingController();
 
-  // final List<String> _categories = [
-  //   "",
-  //   "",
-  //   "",
-  // ];
-
-  // List<dynamic> selectcategories = [];
-  // final List<Serice> _categories = [
-  //   Serice(title: 'Cardiology'),
-  //   Serice(title: 'Dermatology'),
-  //   Serice(title: 'Neurology'),
-  //   Serice(title: 'Orthopedics'),
-  //   Serice(title: 'Oncology'),
-  //   Serice(title: 'Pediatrics'),
-  //   Serice(title: 'Psychiatry'),
-  //   Serice(title: 'Gastroenterology'),
-  //   Serice(title: 'Pulmonology'),
-  //   Serice(title: 'Endocrinology'),
-  // ];
-  List<String> selectedTitles = [];
-  List<dynamic> selectcategories = [];
-  String selectedSpecialization = '';
   final Map<String, List<String>> subSpecializations = {
+    'Family Medicine': [
+      'Geriatric Medicine',
+      'Adolescent Medicine',
+      'Preventive Medicine',
+    ],
     'Cardiology': [
       'Interventional Cardiology',
       'Pediatric Cardiology',
@@ -77,58 +72,128 @@ class _UserProfileInformationPageState
       'Heart Failure and Transplantation'
     ],
     'Dermatology': [
-      'Pediatric Dermatology',
       'Cosmetic Dermatology',
       'Dermatopathology',
       'Immunodermatology'
     ],
     'Neurology': [
-      'Pediatric Neurology',
-      'Neurophysiology',
       'Stroke and Vascular Neurology',
-      'Neurocritical Care'
+      'Pediatric Neurology',
+      'Epilepsy',
     ],
     'Orthopedics': [
       'Sports Medicine',
       'Joint Replacement',
       'Pediatric Orthopedics',
-      'Spine Surgery'
     ],
     'Oncology': [
       'Radiation Oncology',
       'Medical Oncology',
       'Surgical Oncology',
-      'Pediatric Oncology'
     ],
     'Pediatrics': [
       'Pediatric Cardiology',
-      'Pediatric Neurology',
       'Neonatology',
       'Pediatric Pulmonology'
     ],
     'Psychiatry': [
-      'Child and Adolescent Psychiatry',
+      'Child Psychiatry',
       'Forensic Psychiatry',
-      'Addiction Psychiatry',
       'Geriatric Psychiatry'
     ],
     'Gastroenterology': [
       'Hepatology',
-      'Pediatric Gastroenterology',
       'Endoscopy',
-      'Inflammatory Bowel Disease'
+      'Pediatric Gastroenterology',
     ],
     'Pulmonology': [
-      'Critical Care Medicine',
       'Sleep Medicine',
-      'Pediatric Pulmonology',
+      'Critical Care Medicine',
       'Interstitial Lung Disease'
     ],
-    'Endocrinology': [
-      'Pediatric Endocrinology',
-      'Diabetes Management',
-      'Reproductive Endocrinology',
-      'Thyroid Disorders'
+  };
+
+  final Map<String, List<String>> subSpecializationsservice = {
+    'Family Medicine': [
+      'General health check-ups',
+      'Vaccinations',
+      'Management of chronic conditions (diabetes, hypertension)',
+      'Treatment of minor injuries',
+      'Cold and flu management',
+      'Pediatric care',
+    ],
+    'Cardiology': [
+      'Heart disease management',
+      'EKG and stress tests',
+      'Heart failure treatment',
+      'Pacemaker and defibrillator monitoring',
+      'Hypertension management',
+      'Cholesterol management',
+    ],
+    'Dermatology': [
+      'Acne treatment',
+      'Skin cancer screening',
+      'Eczema and psoriasis management',
+      'Laser treatments',
+      'Botox and fillers',
+      'Wart removal',
+      'Allergy testing',
+    ],
+    'Neurology': [
+      'Stroke care',
+      'Seizure management',
+      'Headache and migraine treatment',
+      'Neuropathy diagnosis and management',
+      'Movement disorder treatment (Parkinson’s, tremors)',
+      'Multiple sclerosis management',
+    ],
+    'Orthopedics': [
+      'Fracture care',
+      'Arthritis management',
+      'Joint replacement surgery',
+      'Sports injuries treatment',
+      'Back and neck pain treatment',
+      'Physical therapy coordination',
+    ],
+    'Oncology': [
+      'Cancer diagnosis and staging',
+      'Chemotherapy administration',
+      'Radiation therapy planning',
+      'Cancer surgery',
+      'Palliative care',
+      'Immunotherapy treatments',
+    ],
+    'Pediatrics': [
+      'Well-child visits',
+      'Immunizations',
+      'Developmental assessments',
+      'Treatment of childhood illnesses',
+      'Asthma management',
+      'Newborn care',
+    ],
+    'Psychiatry': [
+      'Mental health assessments',
+      'Medication management',
+      'Therapy sessions (individual, family, group)',
+      'Addiction treatment',
+      'Crisis intervention',
+      'Cognitive behavioral therapy (CBT)',
+    ],
+    'Gastroenterology': [
+      'Treatment of GERD and acid reflux',
+      'Colonoscopies and endoscopies',
+      'Liver disease management',
+      'IBS and IBD treatment',
+      'Treatment of gastrointestinal infections',
+      'Pancreatic disease care',
+    ],
+    'Pulmonology': [
+      'Asthma and COPD management',
+      'Lung function testing',
+      'Sleep apnea treatment',
+      'Bronchoscopy',
+      'Pneumonia treatment',
+      'Pulmonary rehabilitation',
     ],
   };
 
@@ -148,6 +213,10 @@ class _UserProfileInformationPageState
   void toggleSelectioncategories(int id) {
     setState(() {
       selectedSpecialization = _categories[id].title;
+      filteredServices =
+          subSpecializationsservice[selectedSpecialization] != null
+              ? List.from(subSpecializationsservice[selectedSpecialization]!)
+              : [];
     });
   }
 
@@ -168,13 +237,11 @@ class _UserProfileInformationPageState
   ];
   final List<String> questionsDoctor = [
     "Basic Information.",
-    "Consultation Fees?",
     "What conditions do you treat?",
+    "Consultation Fees?",
     "Availability Schedule"
   ];
 
-  List<dynamic> selectedmedical = [];
-  List<dynamic> selectedmedicalfamily = [];
   final List<MedicalHistory> medical = [
     MedicalHistory(title: 'Diabetes'),
     MedicalHistory(title: 'Hypertension (High Blood Pressure)'),
@@ -190,9 +257,9 @@ class _UserProfileInformationPageState
     MedicalHistory(title: 'Depression/Anxiety'),
     MedicalHistory(title: 'Thyroid Disorders'),
   ];
-  void toggleSelectionNearby(int id) {
+  void toggleSelectionNearby(int index) {
     setState(() {
-      String nearbyTitle = medical[id].title;
+      String nearbyTitle = filteredMedical[index].title;
       if (selectedmedical.contains(nearbyTitle)) {
         selectedmedical.remove(nearbyTitle);
       } else {
@@ -201,9 +268,41 @@ class _UserProfileInformationPageState
     });
   }
 
+  List<MedicalHistory> filteredMedical = [];
+
+  void _filterMedicalList() {
+    setState(() {
+      if (feesController.text.isEmpty) {
+        filteredMedical = medical; // Show all items when search is empty
+      } else {
+        filteredMedical = medical
+            .where((item) => item.title
+                .toLowerCase()
+                .contains(feesController.text.toLowerCase()))
+            .toList();
+      }
+    });
+  }
+
+  List<MedicalHistory> filteredMedical1 = [];
+
+  void _filterMedicalList1() {
+    setState(() {
+      if (medicalController.text.isEmpty) {
+        filteredMedical1 = medical; // Show all items when search is empty
+      } else {
+        filteredMedical1 = medical
+            .where((item) => item.title
+                .toLowerCase()
+                .contains(medicalController.text.toLowerCase()))
+            .toList();
+      }
+    });
+  }
+
   void toggleSelectionmedicalfamily(int id) {
     setState(() {
-      String nearbyTitle = medical[id].title;
+      String nearbyTitle = filteredMedical1[id].title;
       if (selectedmedicalfamily.contains(nearbyTitle)) {
         selectedmedicalfamily.remove(nearbyTitle);
       } else {
@@ -212,49 +311,36 @@ class _UserProfileInformationPageState
     });
   }
 
-  List<Serices> filteredServices = [];
-  List<dynamic> selectedservice = [];
-  final List<Serices> services = [
-    Serices(title: 'Diabetes Management'),
-    Serices(title: 'Hypertension Treatment'),
-    Serices(title: 'Asthma and Allergies'),
-    Serices(title: 'Cardiovascular Diseases'),
-    Serices(title: 'Pediatric Care'),
-    Serices(title: 'Mental Health Counseling'),
-    Serices(title: 'Skin Conditions'),
-    Serices(title: 'Womens Health (e.g., Gynecology)'),
-    Serices(title: 'General Checkups'),
-    Serices(title: 'Vaccinations'),
-  ];
   void toggleserviceselecte(int index) {
     final dept = filteredServices[index];
-    if (selectedservice.contains(dept.title)) {
-      selectedservice.remove(dept.title);
+    if (selectedservice.contains(dept)) {
+      selectedservice.remove(dept);
     } else {
-      selectedservice.add(dept.title);
+      selectedservice.add(dept);
     }
-    setState(() {}); // This will force a rebuild when selection changes
+    setState(() {});
   }
 
-  // Function to filter services based on text input
   void filterServices(String query) {
     if (query.isEmpty) {
       setState(() {
-        filteredServices = services; // Show all services if query is empty
+        filteredServices =
+            subSpecializationsservice[selectedSpecialization] != null
+                ? List.from(subSpecializationsservice[selectedSpecialization]!)
+                : [];
       });
     } else {
       setState(() {
-        filteredServices = services
-            .where((service) =>
-                service.title.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        filteredServices =
+            subSpecializationsservice[selectedSpecialization] != null
+                ? subSpecializationsservice[selectedSpecialization]!
+                    .where((service) =>
+                        service.toLowerCase().contains(query.toLowerCase()))
+                    .toList()
+                : [];
       });
     }
   }
-
-  List<String> selectedDays = [];
-  List<Map<String, String>> timeSlots = [];
-  List<DateTime> unavailableDates = [];
 
   final List<String> daysOfWeek = [
     "Monday",
@@ -265,12 +351,6 @@ class _UserProfileInformationPageState
     "Saturday",
     "Sunday"
   ];
-
-  // void _addTimeSlot() {
-  //   setState(() {
-  //     timeSlots.add({"start": "", "end": ""});
-  //   });
-  // }
 
   void _pickUnavailableDate() async {
     DateTime? pickedDate = await showDatePicker(
@@ -286,14 +366,16 @@ class _UserProfileInformationPageState
     }
   }
 
-  String selectedText = "";
-  int currentIndex = 0;
   @override
   void initState() {
     super.initState();
     buttonEventHandler(currentIndex);
     nameController.addListener(_updateButtonState);
-    filteredServices = services;
+    filteredMedical = medical;
+    filteredMedical1 = medical;
+    filteredServices = subSpecializationsservice[selectedSpecialization] != null
+        ? List.from(subSpecializationsservice[selectedSpecialization]!)
+        : []; // Return an empty list if the value is null
   }
 
   void _updateButtonState() {
@@ -484,7 +566,6 @@ class _UserProfileInformationPageState
                                             });
                                           } else {
                                             // submitData();
-                                            Get.offAll(() => const TabPage());
                                           }
                                         }
                                       },
@@ -683,7 +764,6 @@ class _UserProfileInformationPageState
                                             });
                                           } else {
                                             // submitData();
-                                            Get.offAll(() => const TabPage());
                                           }
                                         }
                                       },
@@ -703,8 +783,6 @@ class _UserProfileInformationPageState
     );
   }
 
-  String selectdate = "YYYY/MM/DD", pickedDate = "";
-  bool dateError = false;
   buildPersonalinfo() {
     return Flexible(
       child: Column(
@@ -1054,56 +1132,56 @@ class _UserProfileInformationPageState
                 children:
                     subSpecializations[selectedSpecialization]!.map((subSpec) {
                   final isSelected = selectedTitles.contains(subSpec);
-                  return Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      CupertinoButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          toggleSelection(subSpec);
-                        }, // You can add functionality here
-                        child: Container(
-                          width: Get.width - 55,
-                          decoration: BoxDecoration(
-                            color: kWhiteColor,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: isSelected ? kPrimaryColor : kDividerColor,
+                  return GestureDetector(
+                    onTap: () => toggleSelection(subSpec),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      width: Get.width - 50,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: kWhiteColor,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: isSelected ? kPrimaryColor : kDividerColor,
+                          width: isSelected ? 2 : 1,
+                        ),
+                        boxShadow: [
+                          if (isSelected)
+                            BoxShadow(
+                              color: kPrimaryColor.withOpacity(0.3),
+                              blurRadius: 2,
+                              spreadRadius: 0.5,
                             ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            isSelected
+                                ? Icons.check_circle
+                                : Icons.circle_outlined,
+                            color: isSelected ? kPrimaryColor : kDividerColor,
+                            size: 18,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 15.0),
+                          const SizedBox(width: 5),
+                          Expanded(
                             child: Text(
-                              textAlign: TextAlign.center,
                               subSpec,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: kPrimaryColor,
-                                fontFamily: kCircularStdBook,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color:
+                                    isSelected ? kPrimaryColor : Colors.black87,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                      if (isSelected)
-                        Positioned(
-                          right: -5,
-                          top: -3,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 15,
-                            ),
-                          ),
-                        ),
-                    ],
+                    ),
                   );
                 }).toList(),
               ),
@@ -1114,7 +1192,6 @@ class _UserProfileInformationPageState
     );
   }
 
-  List<dynamic> placeList = [];
   void getSuggestion(String input) async {
     try {
       String baseURL =
@@ -1167,26 +1244,7 @@ class _UserProfileInformationPageState
           ),
           const SizedBox(height: 10),
           buildTextWidget("Clinic Address/Location"),
-          // SizedBox(
-          //   width: Get.width - 50,
-          //   child: CustomTextFormFieldAuth(
-          //     hintText: 'Address',
-          //     maxLines: 1,
-          //     ctrl: addressController,
-          //     name: "address",
-          //     formSubmitted: isFormSubmitted,
-          //     validationMsg: 'Please enter Address',
-          //   ),
-          // ),
           TextFormField(
-            // validator: (value) {
-            //   if (isTouched && isFormSubmitted) {
-            //     if (value == null || value.isEmpty) {
-            //       return 'Please enter Address';
-            //     }
-            //   }
-            //   return null;
-            // },
             focusNode: focusNode,
             controller: addressController,
             textInputAction: TextInputAction.next,
@@ -1259,7 +1317,7 @@ class _UserProfileInformationPageState
     );
   }
 
-  buildSelectMedical() {
+  Widget buildSelectMedical() {
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1273,8 +1331,9 @@ class _UserProfileInformationPageState
               maxLines: 1,
               ctrl: feesController,
               name: "name",
-              formSubmitted: isFormSubmitted,
-              validationMsg: 'Please enter conditions',
+              onChanged: (value) {
+                _filterMedicalList();
+              },
             ),
           ),
           const SizedBox(height: 10),
@@ -1287,62 +1346,49 @@ class _UserProfileInformationPageState
                 childAspectRatio: 6,
               ),
               padding: const EdgeInsets.all(5),
-              itemCount: medical.length,
+              itemCount: filteredMedical.length,
               itemBuilder: (context, index) {
-                final dept = medical[index];
-                final isSelected =
-                    selectedmedical.contains(medical[index].title);
-                return Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => toggleSelectionNearby(index),
-                      child: Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          color: kWhiteColor,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                              color:
-                                  isSelected ? kPrimaryColor : kDividerColor),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(width: 10),
-                              Text(
-                                dept.title,
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    color: kPrimaryColor,
-                                    fontFamily: kCircularStdBook),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                final dept = filteredMedical[index];
+                final isSelected = selectedmedical.contains(dept.title);
+
+                return CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () => toggleSelectionNearby(index),
+                  child: Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: kWhiteColor,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                          color: isSelected ? kPrimaryColor : kDividerColor),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            value: isSelected,
+                            activeColor: kPrimaryColor,
+                            onChanged: (value) {
+                              toggleSelectionNearby(index);
+                            },
                           ),
-                        ),
+                          SizedBox(
+                            width: Get.width - 120,
+                            child: Text(
+                              dept.title,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: kPrimaryColor,
+                                  fontFamily: kCircularStdBook),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    if (isSelected)
-                      Positioned(
-                        right: -5,
-                        top: -3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(25)),
-                          child: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                      )
-                  ],
+                  ),
                 );
               },
             ),
@@ -1364,10 +1410,11 @@ class _UserProfileInformationPageState
             child: CustomTextFormFieldAuth(
               hintText: 'Enter conditions',
               maxLines: 1,
-              ctrl: feesController,
+              ctrl: medicalController,
               name: "name",
-              formSubmitted: isFormSubmitted,
-              validationMsg: 'Please enter conditions',
+              onChanged: (value) {
+                _filterMedicalList1();
+              },
             ),
           ),
           const SizedBox(height: 10),
@@ -1380,62 +1427,49 @@ class _UserProfileInformationPageState
                 childAspectRatio: 6,
               ),
               padding: const EdgeInsets.all(5),
-              itemCount: medical.length,
+              itemCount: filteredMedical1.length,
               itemBuilder: (context, index) {
-                final dept = medical[index];
-                final isSelected =
-                    selectedmedicalfamily.contains(medical[index].title);
-                return Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    CupertinoButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => toggleSelectionmedicalfamily(index),
-                      child: Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          color: kWhiteColor,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                              color:
-                                  isSelected ? kPrimaryColor : kDividerColor),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(width: 10),
-                              Text(
-                                dept.title,
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    color: kPrimaryColor,
-                                    fontFamily: kCircularStdBook),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                final dept = filteredMedical1[index];
+                final isSelected = selectedmedicalfamily.contains(dept.title);
+
+                return CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () => toggleSelectionmedicalfamily(index),
+                  child: Container(
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: kWhiteColor,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                          color: isSelected ? kPrimaryColor : kDividerColor),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            value: isSelected,
+                            activeColor: kPrimaryColor,
+                            onChanged: (value) {
+                              toggleSelectionmedicalfamily(index);
+                            },
                           ),
-                        ),
+                          SizedBox(
+                            width: Get.width - 120,
+                            child: Text(
+                              dept.title,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: kPrimaryColor,
+                                  fontFamily: kCircularStdBook),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    if (isSelected)
-                      Positioned(
-                        right: -5,
-                        top: -3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(25)),
-                          child: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                      )
-                  ],
+                  ),
                 );
               },
             ),
@@ -1465,68 +1499,67 @@ class _UserProfileInformationPageState
             ),
           ),
           const SizedBox(height: 10),
-          Flexible(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 4,
-                childAspectRatio: 6,
-              ),
-              padding: const EdgeInsets.all(5),
-              itemCount: filteredServices.length,
-              itemBuilder: (context, index) {
-                final dept = filteredServices[index];
-                final isSelected = selectedservice.contains(dept.title);
-
-                return CupertinoButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () => toggleserviceselecte(index),
-                  child: Container(
-                    width: Get.width,
-                    decoration: BoxDecoration(
-                      color: kWhiteColor,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                          color: isSelected ? kPrimaryColor : kDividerColor),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const SizedBox(width: 5),
-                          Checkbox(
-                            value: isSelected,
-                            activeColor: kPrimaryColor,
-                            onChanged: (value) {
-                              toggleserviceselecte(index);
-                            },
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            dept.title,
-                            style: const TextStyle(
-                                fontSize: 15,
-                                color: kPrimaryColor,
-                                fontFamily: kCircularStdBook),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+          if (subSpecializationsservice[selectedSpecialization] != null)
+            Flexible(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 4,
+                  childAspectRatio: 6,
+                ),
+                padding: const EdgeInsets.all(5),
+                itemCount: filteredServices.length,
+                itemBuilder: (context, index) {
+                  final dept = filteredServices[index];
+                  final isSelected = selectedservice.contains(dept);
+                  return CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => toggleserviceselecte(index),
+                    child: Container(
+                      width: Get.width,
+                      decoration: BoxDecoration(
+                        color: kWhiteColor,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                            color: isSelected ? kPrimaryColor : kDividerColor),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 0.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                              value: isSelected,
+                              activeColor: kPrimaryColor,
+                              onChanged: (value) {
+                                toggleserviceselecte(index);
+                              },
+                            ),
+                            SizedBox(
+                              width: Get.width - 120,
+                              child: Text(
+                                dept,
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdBook),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
   }
 
-  Map<String, Map<String, String>> timeSlotss = {};
   buildAvailable() {
     return Flexible(
       child: SingleChildScrollView(
