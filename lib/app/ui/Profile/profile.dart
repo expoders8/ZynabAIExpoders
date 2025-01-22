@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../config/provider/progress.dart';
 import '../../routes/app_pages.dart';
 import '../Auth/Login/login_doctor.dart';
 import '../../../config/constant/constant.dart';
@@ -183,6 +184,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+              const SizedBox(height: 8),
+              const CustomProfileProgress(completionPercentage: 68.0),
               const SizedBox(height: 8),
               selectedPerson == "Doctor"
                   ? const Padding(

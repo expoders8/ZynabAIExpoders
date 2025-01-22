@@ -408,6 +408,38 @@ class _UserProfileInformationPageState
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                CupertinoButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            color: kHighlightColor, width: 2)),
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.arrow_back_ios_new,
+                                          color: kWhiteColor,
+                                          size: 15,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          "Back",
+                                          style: TextStyle(color: kWhiteColor),
+                                        ),
+                                        SizedBox(width: 5),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(top: 10, bottom: 5),
@@ -600,6 +632,38 @@ class _UserProfileInformationPageState
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                CupertinoButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(
+                                            color: kHighlightColor, width: 2)),
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.arrow_back_ios_new,
+                                          color: kWhiteColor,
+                                          size: 15,
+                                        ),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          "Back",
+                                          style: TextStyle(color: kWhiteColor),
+                                        ),
+                                        SizedBox(width: 5),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(top: 10, bottom: 5),

@@ -172,10 +172,10 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     onPressed: () {
                       getStorage.write("selctetperson", selectedPerson);
-                      // Get.offAll(() => const TabPage());
-                      Get.to(() => UserProfileInformationPage(
-                            roll: selectedPerson,
-                          ));
+                      Get.offAll(() => const TabPage());
+                      // Get.to(() => UserProfileInformationPage(
+                      //       roll: selectedPerson,
+                      //     ));
                     },
                   ),
                 ),
