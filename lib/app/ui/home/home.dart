@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../config/constant/constant.dart';
 import '../../routes/app_pages.dart';
 import '../../controller/tab_controller.dart';
+import '../Call/videocall.dart';
 import '../DoctorDetails/doctor_details.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
@@ -198,6 +199,31 @@ class _HomePageState extends State<HomePage> {
                                     scale: 1.7,
                                   ),
                                 ),
+                              ),
+                              const SizedBox(width: 10),
+                              CupertinoButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CallScreen(
+                                        field: "",
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                    height: 49,
+                                    width: 49,
+                                    decoration: BoxDecoration(
+                                      color: kHighlightColor,
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: const Icon(
+                                      Icons.video_camera_back_outlined,
+                                      color: kPrimaryColor,
+                                    )),
                               ),
                             ],
                           ),
