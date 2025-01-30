@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zynabaiexpoders/app/ui/subscriptionplan/subscription_plan.dart';
 
 import '../../../config/provider/progress.dart';
@@ -590,14 +591,130 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    Get.to(() => SubscriptionPage());
-                  },
-                  child: Text(
-                    "SubscriptionPage",
-                    style: TextStyle(fontSize: 25),
-                  )),
+              const SizedBox(height: 10),
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () async {
+                  var url = "https://www.zaynab.ai/privacy";
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw "Could not launch $url";
+                  }
+                },
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.security,
+                            size: 18,
+                            color: kButtonColor,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "Privacy and Security",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontSize: 16,
+                                fontFamily: kCircularStdMedium),
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 13,
+                        color: kButtonColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () async {
+                  var url = "https://www.zaynab.ai/terms";
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
+                  } else {
+                    throw "Could not launch $url";
+                  }
+                },
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.security,
+                            size: 18,
+                            color: kButtonColor,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "Terms and conditions",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontSize: 16,
+                                fontFamily: kCircularStdMedium),
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 13,
+                        color: kButtonColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () async {
+                  Get.to(() => const SubscriptionPage());
+                },
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.workspace_premium_sharp,
+                            size: 18,
+                            color: kButtonColor,
+                          ),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Subscription Plan (Free)",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontSize: 15,
+                                    fontFamily: kCircularStdMedium),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 13,
+                        color: kButtonColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(height: 85)
             ],
           ),
