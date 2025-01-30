@@ -259,7 +259,15 @@ class _CallScreenState extends State<CallScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 15),
+              const Text(
+                textAlign: TextAlign.center,
+                "I’m Zynab,\nYour AI Health Assistant",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 18),
+              ),
+              const SizedBox(height: 8),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40.0, vertical: 5),
@@ -276,25 +284,26 @@ class _CallScreenState extends State<CallScreen> {
                       child: CameraPreview(_cameraController!),
                     ),
                     Positioned(
-                      top: 20,
+                      top: 12,
                       left: 20,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Text Here",
+                            formatTime1(timerValueoverall!),
+                            // "${timerValue!.toString().padLeft(2, '0')} seconds",
                             style: const TextStyle(
-                                color: kDividerColor,
-                                fontSize: 15,
-                                fontFamily: kCircularStdMedium),
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           SizedBox(
                             width: Get.width - 100,
-                            child: Text(
-                              "Zynab AI",
-                              style: const TextStyle(
+                            child: const Text(
+                              "Consultation in progress",
+                              style: TextStyle(
                                   color: kWhiteColor,
-                                  fontSize: 20,
+                                  fontSize: 17,
                                   fontFamily: kCircularStdBold),
                             ),
                           ),
@@ -302,7 +311,7 @@ class _CallScreenState extends State<CallScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 30,
+                      bottom: 20,
                       left: 0,
                       right: 0,
                       child: Row(
@@ -371,15 +380,6 @@ class _CallScreenState extends State<CallScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 10),
-                  Text(
-                    formatTime(timerValueoverall!),
-                    // "${timerValue!.toString().padLeft(2, '0')} seconds",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
                   // CupertinoButton(
                   //   padding: EdgeInsets.zero,
                   //   onPressed: () {

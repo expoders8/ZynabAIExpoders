@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:zynabaiexpoders/app/ui/subscriptionplan/subscription_plan.dart';
 
 import '../../../config/provider/progress.dart';
 import '../../routes/app_pages.dart';
@@ -589,6 +590,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    Get.to(() => SubscriptionPage());
+                  },
+                  child: Text(
+                    "SubscriptionPage",
+                    style: TextStyle(fontSize: 25),
+                  )),
               const SizedBox(height: 85)
             ],
           ),
