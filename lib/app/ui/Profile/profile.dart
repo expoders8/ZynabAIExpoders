@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zynabaiexpoders/app/ui/Profile/account/account.dart';
 import 'package:zynabaiexpoders/app/ui/subscriptionplan/subscription_plan.dart';
 
 import '../../../config/provider/progress.dart';
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String selectedPerson = "";
   @override
   void initState() {
-    var person = getStorage.read("selctetperson") ?? "";
+    var person = getStorage.read("selctetperson") ?? "Doctor";
     setState(() {
       selectedPerson = person;
     });
@@ -697,6 +698,47 @@ class _ProfilePageState extends State<ProfilePage> {
                             children: [
                               Text(
                                 "Subscription Plan (Free)",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontSize: 15,
+                                    fontFamily: kCircularStdMedium),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 13,
+                        color: kButtonColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              CupertinoButton(
+                padding: EdgeInsets.zero,
+                onPressed: () async {
+                  Get.to(() => const AccountPage());
+                },
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.key,
+                            size: 18,
+                            color: kButtonColor,
+                          ),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Account",
                                 style: TextStyle(
                                     color: kPrimaryColor,
                                     fontSize: 15,
