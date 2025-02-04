@@ -1,6 +1,9 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:zynabaiexpoders/app/ui/FIneDoctorsNearby/general_physician.dart';
 
 import '../../../config/constant/constant.dart';
@@ -8,9 +11,12 @@ import '../../routes/app_pages.dart';
 import '../DoctorDetails/doctor_details.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../widgets/custom_calander.dart';
+import '../widgets/custom_textfield_auth.dart';
 
 class FindDoctorNearbyPage extends StatefulWidget {
-  const FindDoctorNearbyPage({super.key});
+  final String? roll;
+  const FindDoctorNearbyPage({super.key, this.roll});
 
   @override
   State<FindDoctorNearbyPage> createState() => _FindDoctorNearbyPageState();
@@ -19,14 +25,33 @@ class FindDoctorNearbyPage extends StatefulWidget {
 class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
   FocusNode focusNode = FocusNode();
   var searchController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController mobileNoController = TextEditingController();
+  bool isFormSubmitted = false, dateError = false;
   int selectedIndex = 0;
-  String selectedPerson = "";
+  String selectedPerson = "", pickedDate = "", selectdate = "YYYY/MM/DD";
+  String add = "";
   @override
   void initState() {
-    var person = getStorage.read("selctetperson") ?? "";
+    if (widget.roll.toString() != "null") {
+      var person = widget.roll ?? "";
+      setState(() {
+        selectedPerson = person;
+      });
+    } else {
+      var person = getStorage.read("selctetperson") ?? "";
+      setState(() {
+        selectedPerson = person;
+      });
+    }
+    var person = getStorage.read("addpatients") ?? "";
     setState(() {
-      selectedPerson = person;
+      selectedIndex = person == "ADD" ? 3 : selectedIndex;
     });
+
     super.initState();
   }
 
@@ -65,6 +90,10 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                 const SizedBox(height: 30),
                 Row(
                   children: [
+                    selectedPerson == "Doctor"
+                        ? buildSicknessWidget("Add Patient", 3)
+                        : Container(),
+                    const SizedBox(width: 10),
                     buildSicknessWidget(
                         selectedPerson == "Doctor" ? "Patients" : "Doctors", 0),
                     const SizedBox(width: 10),
@@ -79,31 +108,33 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                         : buildSicknessWidget("Appointments", 2)
                   ],
                 ),
-                TextFormField(
-                  controller: searchController,
-                  decoration: const InputDecoration(
-                    labelText: 'Search',
-                    labelStyle: TextStyle(color: kPrimaryColor),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFACACAC),
-                        width: 1,
+                selectedIndex == 3 && selectedPerson == "Doctor"
+                    ? Container()
+                    : TextFormField(
+                        controller: searchController,
+                        decoration: const InputDecoration(
+                          labelText: 'Search',
+                          labelStyle: TextStyle(color: kPrimaryColor),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFACACAC),
+                              width: 1,
+                            ),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFACACAC),
+                              width: 1,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: kWhiteColor,
+                              width: 1,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFFACACAC),
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: kWhiteColor,
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                ),
                 const SizedBox(height: 15),
                 selectedIndex == 0
                     ? selectedPerson == "Doctor"
@@ -446,8 +477,301 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                                   ),
                                 ),
                               )
-                        : selectedPerson == "Doctor"
-                            ? Container()
+                        : selectedIndex == 3
+                            ? selectedPerson == "Doctor"
+                                ? GestureDetector(
+                                    onTap: () {
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                    },
+                                    child: SingleChildScrollView(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(height: 15),
+                                            SizedBox(
+                                              width: Get.width > 500
+                                                  ? 600
+                                                  : Get.width,
+                                              child: IntrinsicHeight(
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Flexible(
+                                                      flex: 5,
+                                                      child:
+                                                          CustomTextFormFieldAuth(
+                                                        hintText: 'First Name',
+                                                        maxLines: 1,
+                                                        ctrl:
+                                                            firstNameController,
+                                                        name: "name",
+                                                        prefixIcon:
+                                                            'assets/icons/edit_profile_icon.png',
+                                                        formSubmitted:
+                                                            isFormSubmitted,
+                                                        validationMsg:
+                                                            'Please enter first name',
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Expanded(
+                                                      flex: 5,
+                                                      child:
+                                                          CustomTextFormFieldAuth(
+                                                        hintText: 'Last Name',
+                                                        maxLines: 1,
+                                                        ctrl:
+                                                            lastNameController,
+                                                        name: "name",
+                                                        prefixIcon:
+                                                            'assets/icons/edit_profile_icon.png',
+                                                        formSubmitted:
+                                                            isFormSubmitted,
+                                                        validationMsg:
+                                                            'Please enter last name',
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 15),
+                                            SizedBox(
+                                              width: Get.width > 500
+                                                  ? 600
+                                                  : Get.width,
+                                              child: CustomTextFormFieldAuth(
+                                                hintText: 'Email',
+                                                maxLines: 1,
+                                                ctrl: emailController,
+                                                name: "email",
+                                                prefixIcon:
+                                                    'assets/icons/email.png',
+                                                formSubmitted: isFormSubmitted,
+                                                validationMsg:
+                                                    'Please enter email',
+                                              ),
+                                            ),
+                                            const SizedBox(height: 15),
+                                            SizedBox(
+                                              width: Get.width > 500
+                                                  ? 600
+                                                  : Get.width,
+                                              child: CustomTextFormFieldAuth(
+                                                hintText: 'Phone Number',
+                                                maxLines: 1,
+                                                ctrl: mobileNoController,
+                                                name: "phonenumber",
+                                                keyboardType:
+                                                    TextInputType.phone,
+                                                prefixIcon:
+                                                    'assets/icons/phoneicon.png',
+                                                formSubmitted: isFormSubmitted,
+                                                validationMsg:
+                                                    'Please enter Phone Number',
+                                              ),
+                                            ),
+                                              const SizedBox(height: 15),
+                                             IntrinsicHeight(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        height: 50,
+                                                        width: Get.width - 60,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                15, 0, 15, 0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: kWhiteColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                        ),
+                                                        child: InkWell(
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(
+                                                                    FocusNode());
+                                                            BottomPicker.date(
+                                                              pickerTitle:
+                                                                  const Text(
+                                                                      ""),
+                                                              onSubmit:
+                                                                  (index) {
+                                                                String
+                                                                    formattedDate =
+                                                                    DateFormat(
+                                                                            'dd-MM-yyyy')
+                                                                        .format(
+                                                                            index);
+                                                                String
+                                                                    formattedstartDate =
+                                                                    DateFormat(
+                                                                            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                                                                        .format(
+                                                                            index);
+                                                                if (mounted) {
+                                                                  setState(() {
+                                                                    selectdate =
+                                                                        formattedDate;
+                                                                    pickedDate =
+                                                                        formattedstartDate;
+                                                                    dateError =
+                                                                        false;
+                                                                  });
+                                                                }
+                                                              },
+                                                              dateOrder:
+                                                                  DatePickerDateOrder
+                                                                      .ymd,
+                                                              minDateTime:
+                                                                  DateTime(1850,
+                                                                      1, 1),
+                                                              maxDateTime:
+                                                                  DateTime.now(),
+                                                              pickerTextStyle:
+                                                                  const TextStyle(
+                                                                color:
+                                                                    kPrimaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 14,
+                                                              ),
+                                                              onClose: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              bottomPickerTheme:
+                                                                  BottomPickerTheme
+                                                                      .plumPlate,
+                                                              buttonAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              buttonContent:
+                                                                  const Center(
+                                                                      child:
+                                                                          Text(
+                                                                "Done",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        kPrimaryColor),
+                                                              )),
+                                                              buttonStyle: BoxDecoration(
+                                                                  color:
+                                                                      kHighlightColor,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15)),
+                                                              closeIconColor:
+                                                                  kPrimaryColor,
+                                                              closeIconSize: 25,
+                                                            ).show(context);
+                                                          },
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                selectdate,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontFamily:
+                                                                      kCircularStdBook,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color:
+                                                                      kPrimaryColor,
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                              Image.asset(
+                                                                "assets/icons/polygon_down.png",
+                                                                scale: 2,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      if (isFormSubmitted &&
+                                                          dateError)
+                                                        const Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 6.0,
+                                                                  left: 12),
+                                                          child: Text(
+                                                            "Please select Start Date",
+                                                            style: TextStyle(
+                                                              color:
+                                                                  kErrorColor,
+                                                              fontFamily:
+                                                                  kCircularStdNormal,
+                                                              fontSize: 12,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(height: 25),
+                                            SizedBox(
+                                              width: Get.width,
+                                              child: CupertinoButton(
+                                                color: kHighlightColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Text(
+                                                      "Save Patient",
+                                                      style: TextStyle(
+                                                          color: kPrimaryColor,
+                                                          fontFamily:
+                                                              kCircularStdMedium,
+                                                          fontSize: 14),
+                                                    ),
+                                                    const SizedBox(width: 10),
+                                                    Image.asset(
+                                                      "assets/icons/arrow_right.png",
+                                                      color: kPrimaryColor,
+                                                      scale: 1.3,
+                                                    )
+                                                  ],
+                                                ),
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container()
                             : Expanded(
                                 child: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(
@@ -526,6 +850,7 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                   name: text,
                   year: year,
                   image: image,
+                  roll: widget.roll,
                 ),
               );
       },
@@ -758,6 +1083,7 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
   buildSicknessWidget(String text, index) {
     return GestureDetector(
       onTap: () {
+        getStorage.remove("addpatients");
         setState(() {
           selectedIndex = index;
         });

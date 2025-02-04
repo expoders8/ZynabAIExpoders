@@ -11,6 +11,7 @@ import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
 import '../Keep asking/keepasking.dart';
 import '../Keep asking/yournotes.dart';
+import '../TabPage/tabpage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -266,7 +267,14 @@ class _HomePageState extends State<HomePage> {
                             CupertinoButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                tabController.changeTabIndex(2);
+                                if(selectedPerson == "Doctor"){
+                                  getStorage.write("addpatients", "ADD");
+                                  // tabController.changeTabIndex(2);
+                                  Get.offAll(
+                                      () => const TabPage(selectedTabIndex: 2));
+                                } else{
+                                  tabController.changeTabIndex(2);
+                                }
                               },
                               child: Container(
                                   height: 33,

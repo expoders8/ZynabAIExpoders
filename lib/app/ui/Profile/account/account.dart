@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../config/constant/color_constant.dart';
+import '../../../../config/constant/constant.dart';
 import '../../../../config/constant/font_constant.dart';
 import '../../Auth/ChangePassword/change_password.dart';
 import '../../Auth/Login/login_patient.dart';
@@ -144,6 +145,7 @@ class _AccountPageState extends State<AccountPage> {
         actions: <Widget>[
           TextButton(
             onPressed: () async {
+                getStorage.remove("addpatients");
               Get.offAll(() => const LoginPatientPage());
             },
             child: const Text(

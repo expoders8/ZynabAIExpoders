@@ -45,6 +45,7 @@ class _TabPageState extends State<TabPage> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    
     super.dispose();
   }
 
