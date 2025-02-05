@@ -116,9 +116,10 @@ class _HomePageState extends State<HomePage> {
                                 ? "I'm Zynab\nYour co and pilot\nMedical Asstant"
                                 : "I’m Zynab\nYour AI Health\nAssistant",
                             style: const TextStyle(
-                                color: kPrimaryColor,
-                                fontFamily: kCircularStdMedium,
-                                fontSize: 20,),
+                              color: kPrimaryColor,
+                              fontFamily: kCircularStdMedium,
+                              fontSize: 20,
+                            ),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -267,9 +268,9 @@ class _HomePageState extends State<HomePage> {
                             CupertinoButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                             
-                                  // tabController.changeTabIndex(2);
-                                  Get.toNamed(Routes.patientDetailsPage);
+                                selectedPerson == "Doctor"
+                                    ? Get.toNamed(Routes.patientDetailsPage)
+                                    : tabController.changeTabIndex(2);
                               },
                               child: Container(
                                   height: 33,
@@ -449,12 +450,13 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               Positioned(
-                  right: 0,
-                  top: 15,
-                  child: Image.asset(
-                    "assets/icons/lady.png",
-                    scale: 4.5,
-                  ),)
+                right: 0,
+                top: 15,
+                child: Image.asset(
+                  "assets/icons/lady.png",
+                  scale: 4.5,
+                ),
+              )
             ],
           ),
         ),

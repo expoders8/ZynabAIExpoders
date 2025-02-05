@@ -437,10 +437,11 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                 ),
                               ),
                               SizedBox(height: 10),
-                              Row(
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   buildServiceCardWidget("Geriatric Medicine"),
-                                  const SizedBox(width: 2),
+                                  const SizedBox(height: 5),
                                   buildServiceCardWidget("Adolescent Medicine"),
                                 ],
                               ),
@@ -1091,6 +1092,19 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
           color: kCardColor, borderRadius: BorderRadius.circular(20)),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       child: Text(text),
+    );
+  }
+
+  buildServiceCardWidget1(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+          color: kWhiteColor, borderRadius: BorderRadius.circular(20)),
+      child: Text(
+        text,
+        style: const TextStyle(
+            color: kPrimaryColor, fontFamily: kCircularStdNormal, fontSize: 15),
+      ),
     );
   }
 

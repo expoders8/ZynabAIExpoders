@@ -772,64 +772,64 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                         //             ),
                         //           )
                         //         : Container()
-                            : Expanded(
-                                child: SingleChildScrollView(
-                                  physics: const BouncingScrollPhysics(
-                                      parent: AlwaysScrollableScrollPhysics()),
-                                  child: Column(
+                        : Expanded(
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(
+                                  parent: AlwaysScrollableScrollPhysics()),
+                              child: Column(
+                                children: [
+                                  Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          buildNearby(
-                                              "5th Mar 2024",
-                                              "assets/icons/h1.png",
-                                              "4.5",
-                                              "Physician / 2+ yrs"),
-                                          const SizedBox(width: 5),
-                                          buildNearby(
-                                              "10th Mar 2024",
-                                              "assets/icons/h3.png",
-                                              "4.8",
-                                              "Surgeons / 8+ yrs"),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        children: [
-                                          buildNearby(
-                                              "5th Mar 2024",
-                                              "assets/icons/h5.png",
-                                              "4.5",
-                                              "Physician / 2+ yrs"),
-                                          const SizedBox(width: 5),
-                                          buildNearby(
-                                              "10th Mar 2024",
-                                              "assets/icons/doctor4.png",
-                                              "4.8",
-                                              "Surgeons / 8+ yrs"),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Row(
-                                        children: [
-                                          buildNearby(
-                                              "5th Mar 2024",
-                                              "assets/icons/doctor1.png",
-                                              "4.5",
-                                              "Physician / 2+ yrs"),
-                                          const SizedBox(width: 5),
-                                          buildNearby(
-                                              "10th Mar 2024",
-                                              "assets/icons/doctor5.png",
-                                              "4.8",
-                                              "Surgeons / 8+ yrs"),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 85)
+                                      buildNearby(
+                                          "5th Mar 2024",
+                                          "assets/icons/h1.png",
+                                          "4.5",
+                                          "Physician / 2+ yrs"),
+                                      const SizedBox(width: 5),
+                                      buildNearby(
+                                          "10th Mar 2024",
+                                          "assets/icons/h3.png",
+                                          "4.8",
+                                          "Surgeons / 8+ yrs"),
                                     ],
                                   ),
-                                ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      buildNearby(
+                                          "5th Mar 2024",
+                                          "assets/icons/h5.png",
+                                          "4.5",
+                                          "Physician / 2+ yrs"),
+                                      const SizedBox(width: 5),
+                                      buildNearby(
+                                          "10th Mar 2024",
+                                          "assets/icons/doctor4.png",
+                                          "4.8",
+                                          "Surgeons / 8+ yrs"),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      buildNearby(
+                                          "5th Mar 2024",
+                                          "assets/icons/doctor1.png",
+                                          "4.5",
+                                          "Physician / 2+ yrs"),
+                                      const SizedBox(width: 5),
+                                      buildNearby(
+                                          "10th Mar 2024",
+                                          "assets/icons/doctor5.png",
+                                          "4.8",
+                                          "Surgeons / 8+ yrs"),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 85)
+                                ],
                               ),
+                            ),
+                          ),
               ],
             ),
           ),
@@ -852,9 +852,8 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                   image: image,
                   roll: widget.roll,
                 ),
-              );},
-      
-      
+              );
+      },
       child: Card(
         shadowColor: const Color.fromARGB(10, 0, 0, 0),
         elevation: 5,
@@ -888,10 +887,12 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: CupertinoButton(
                               padding: EdgeInsets.zero,
-                              onPressed: () {  
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
+                              onPressed: () {
+                                if (selectedPerson != "Doctor") {
+                                  setState(() {
+                                    selectedIndex = 1;
+                                  });
+                                }
                               },
                               child: Container(
                                 height: 30,
@@ -965,8 +966,8 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                   children: [
                     CupertinoButton(
                       padding: EdgeInsets.zero,
-                      onPressed: (){
-                                selectedIndex == 2
+                      onPressed: () {
+                        selectedIndex == 2
                             ? Get.toNamed(Routes.appointmentDetailsPage)
                             : Get.to(
                                 () => DoctoreDetailsPage(

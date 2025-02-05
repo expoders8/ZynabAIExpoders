@@ -483,10 +483,11 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         buildServiceCardWidget("Geriatric Medicine"),
-                        const SizedBox(width: 2),
+                        const SizedBox(height: 5),
                         buildServiceCardWidget("Adolescent Medicine"),
                       ],
                     ),

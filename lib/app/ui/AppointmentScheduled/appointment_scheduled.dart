@@ -307,7 +307,7 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
                         padding: EdgeInsets.zero,
                         color: kPrimaryColor,
                         onPressed: () {
-                          Get.offAll(() => const TabPage(selectedTabIndex: 0));
+                          Get.offAll(() => const TabPage(selectedTabIndex: 3));
                         },
                         child: const Text(
                           "SAVE RECEIPT",
