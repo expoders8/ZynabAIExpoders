@@ -778,7 +778,6 @@ class _ProfilePageState extends State<ProfilePage> {
           TextButton(
             onPressed: () async {
               Get.back();
-              getStorage.remove("addpatients");
               Get.offAll(const LoginDoctorPage());
             },
             child: const Text(

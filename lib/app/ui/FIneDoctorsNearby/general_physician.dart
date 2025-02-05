@@ -276,7 +276,7 @@ class _GeneralPhysicianPageState extends State<GeneralPhysicianPage> {
         shadowColor: const Color.fromARGB(10, 0, 0, 0),
         elevation: 5,
         child: Container(
-            width: 153,
+            width: Get.width / 2.3,
             decoration: BoxDecoration(
               color: kCardColor,
               borderRadius: BorderRadius.circular(8.0),

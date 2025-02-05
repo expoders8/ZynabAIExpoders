@@ -396,9 +396,9 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
               ),
               child: SizedBox(
                 height: 200,
-                width: MediaQuery.of(context).size.width,
+                width: Get.width,
                 child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(0.0),
                   child: Column(
                     children: [
                       const Text(
@@ -410,7 +410,7 @@ class _AppointmentScheduledPageState extends State<AppointmentScheduledPage> {
                       ),
                       const SizedBox(height: 10),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           buildTimeWidget("09:00", 0),
                           const SizedBox(width: 10),

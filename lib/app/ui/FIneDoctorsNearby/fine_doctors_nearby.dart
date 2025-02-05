@@ -47,10 +47,10 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
         selectedPerson = person;
       });
     }
-    var person = getStorage.read("addpatients") ?? "";
-    setState(() {
-      selectedIndex = person == "ADD" ? 3 : selectedIndex;
-    });
+    // var person = getStorage.read("addpatients") ?? "";
+    // setState(() {
+    //   selectedIndex = person == "ADD" ? 3 : selectedIndex;
+    // });
 
     super.initState();
   }
@@ -90,10 +90,10 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                 const SizedBox(height: 30),
                 Row(
                   children: [
-                    selectedPerson == "Doctor"
-                        ? buildSicknessWidget("Add Patient", 3)
-                        : Container(),
-                    const SizedBox(width: 10),
+                    // selectedPerson == "Doctor"
+                    //     ? buildSicknessWidget("Add Patient", 3)
+                    //     : Container(),
+                    // const SizedBox(width: 10),
                     buildSicknessWidget(
                         selectedPerson == "Doctor" ? "Patients" : "Doctors", 0),
                     const SizedBox(width: 10),
@@ -477,301 +477,301 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                                   ),
                                 ),
                               )
-                        : selectedIndex == 3
-                            ? selectedPerson == "Doctor"
-                                ? GestureDetector(
-                                    onTap: () {
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                    },
-                                    child: SingleChildScrollView(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 15.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 15),
-                                            SizedBox(
-                                              width: Get.width > 500
-                                                  ? 600
-                                                  : Get.width,
-                                              child: IntrinsicHeight(
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Flexible(
-                                                      flex: 5,
-                                                      child:
-                                                          CustomTextFormFieldAuth(
-                                                        hintText: 'First Name',
-                                                        maxLines: 1,
-                                                        ctrl:
-                                                            firstNameController,
-                                                        name: "name",
-                                                        prefixIcon:
-                                                            'assets/icons/edit_profile_icon.png',
-                                                        formSubmitted:
-                                                            isFormSubmitted,
-                                                        validationMsg:
-                                                            'Please enter first name',
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    Expanded(
-                                                      flex: 5,
-                                                      child:
-                                                          CustomTextFormFieldAuth(
-                                                        hintText: 'Last Name',
-                                                        maxLines: 1,
-                                                        ctrl:
-                                                            lastNameController,
-                                                        name: "name",
-                                                        prefixIcon:
-                                                            'assets/icons/edit_profile_icon.png',
-                                                        formSubmitted:
-                                                            isFormSubmitted,
-                                                        validationMsg:
-                                                            'Please enter last name',
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 15),
-                                            SizedBox(
-                                              width: Get.width > 500
-                                                  ? 600
-                                                  : Get.width,
-                                              child: CustomTextFormFieldAuth(
-                                                hintText: 'Email',
-                                                maxLines: 1,
-                                                ctrl: emailController,
-                                                name: "email",
-                                                prefixIcon:
-                                                    'assets/icons/email.png',
-                                                formSubmitted: isFormSubmitted,
-                                                validationMsg:
-                                                    'Please enter email',
-                                              ),
-                                            ),
-                                            const SizedBox(height: 15),
-                                            SizedBox(
-                                              width: Get.width > 500
-                                                  ? 600
-                                                  : Get.width,
-                                              child: CustomTextFormFieldAuth(
-                                                hintText: 'Phone Number',
-                                                maxLines: 1,
-                                                ctrl: mobileNoController,
-                                                name: "phonenumber",
-                                                keyboardType:
-                                                    TextInputType.phone,
-                                                prefixIcon:
-                                                    'assets/icons/phoneicon.png',
-                                                formSubmitted: isFormSubmitted,
-                                                validationMsg:
-                                                    'Please enter Phone Number',
-                                              ),
-                                            ),
-                                              const SizedBox(height: 15),
-                                             IntrinsicHeight(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Container(
-                                                        height: 50,
-                                                        width: Get.width - 60,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .fromLTRB(
-                                                                15, 0, 15, 0),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: kWhiteColor,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                        ),
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(
-                                                                    FocusNode());
-                                                            BottomPicker.date(
-                                                              pickerTitle:
-                                                                  const Text(
-                                                                      ""),
-                                                              onSubmit:
-                                                                  (index) {
-                                                                String
-                                                                    formattedDate =
-                                                                    DateFormat(
-                                                                            'dd-MM-yyyy')
-                                                                        .format(
-                                                                            index);
-                                                                String
-                                                                    formattedstartDate =
-                                                                    DateFormat(
-                                                                            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                                                                        .format(
-                                                                            index);
-                                                                if (mounted) {
-                                                                  setState(() {
-                                                                    selectdate =
-                                                                        formattedDate;
-                                                                    pickedDate =
-                                                                        formattedstartDate;
-                                                                    dateError =
-                                                                        false;
-                                                                  });
-                                                                }
-                                                              },
-                                                              dateOrder:
-                                                                  DatePickerDateOrder
-                                                                      .ymd,
-                                                              minDateTime:
-                                                                  DateTime(1850,
-                                                                      1, 1),
-                                                              maxDateTime:
-                                                                  DateTime.now(),
-                                                              pickerTextStyle:
-                                                                  const TextStyle(
-                                                                color:
-                                                                    kPrimaryColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 14,
-                                                              ),
-                                                              onClose: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              bottomPickerTheme:
-                                                                  BottomPickerTheme
-                                                                      .plumPlate,
-                                                              buttonAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              buttonContent:
-                                                                  const Center(
-                                                                      child:
-                                                                          Text(
-                                                                "Done",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        kPrimaryColor),
-                                                              )),
-                                                              buttonStyle: BoxDecoration(
-                                                                  color:
-                                                                      kHighlightColor,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15)),
-                                                              closeIconColor:
-                                                                  kPrimaryColor,
-                                                              closeIconSize: 25,
-                                                            ).show(context);
-                                                          },
-                                                          child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                selectdate,
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontFamily:
-                                                                      kCircularStdBook,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      kPrimaryColor,
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                              Image.asset(
-                                                                "assets/icons/polygon_down.png",
-                                                                scale: 2,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      if (isFormSubmitted &&
-                                                          dateError)
-                                                        const Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 6.0,
-                                                                  left: 12),
-                                                          child: Text(
-                                                            "Please select Start Date",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  kErrorColor,
-                                                              fontFamily:
-                                                                  kCircularStdNormal,
-                                                              fontSize: 12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const SizedBox(height: 25),
-                                            SizedBox(
-                                              width: Get.width,
-                                              child: CupertinoButton(
-                                                color: kHighlightColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    const Text(
-                                                      "Save Patient",
-                                                      style: TextStyle(
-                                                          color: kPrimaryColor,
-                                                          fontFamily:
-                                                              kCircularStdMedium,
-                                                          fontSize: 14),
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    Image.asset(
-                                                      "assets/icons/arrow_right.png",
-                                                      color: kPrimaryColor,
-                                                      scale: 1.3,
-                                                    )
-                                                  ],
-                                                ),
-                                                onPressed: () {},
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : Container()
+                        // : selectedIndex == 3
+                        //     ? selectedPerson == "Doctor"
+                        //         ? GestureDetector(
+                        //             onTap: () {
+                        //               FocusScope.of(context)
+                        //                   .requestFocus(FocusNode());
+                        //             },
+                        //             child: SingleChildScrollView(
+                        //               child: Padding(
+                        //                 padding: const EdgeInsets.symmetric(
+                        //                     horizontal: 15.0),
+                        //                 child: Column(
+                        //                   crossAxisAlignment:
+                        //                       CrossAxisAlignment.start,
+                        //                   children: [
+                        //                     const SizedBox(height: 15),
+                        //                     SizedBox(
+                        //                       width: Get.width > 500
+                        //                           ? 600
+                        //                           : Get.width,
+                        //                       child: IntrinsicHeight(
+                        //                         child: Row(
+                        //                           crossAxisAlignment:
+                        //                               CrossAxisAlignment.start,
+                        //                           children: [
+                        //                             Flexible(
+                        //                               flex: 5,
+                        //                               child:
+                        //                                   CustomTextFormFieldAuth(
+                        //                                 hintText: 'First Name',
+                        //                                 maxLines: 1,
+                        //                                 ctrl:
+                        //                                     firstNameController,
+                        //                                 name: "name",
+                        //                                 prefixIcon:
+                        //                                     'assets/icons/edit_profile_icon.png',
+                        //                                 formSubmitted:
+                        //                                     isFormSubmitted,
+                        //                                 validationMsg:
+                        //                                     'Please enter first name',
+                        //                               ),
+                        //                             ),
+                        //                             const SizedBox(width: 10),
+                        //                             Expanded(
+                        //                               flex: 5,
+                        //                               child:
+                        //                                   CustomTextFormFieldAuth(
+                        //                                 hintText: 'Last Name',
+                        //                                 maxLines: 1,
+                        //                                 ctrl:
+                        //                                     lastNameController,
+                        //                                 name: "name",
+                        //                                 prefixIcon:
+                        //                                     'assets/icons/edit_profile_icon.png',
+                        //                                 formSubmitted:
+                        //                                     isFormSubmitted,
+                        //                                 validationMsg:
+                        //                                     'Please enter last name',
+                        //                               ),
+                        //                             ),
+                        //                           ],
+                        //                         ),
+                        //                       ),
+                        //                     ),
+                        //                     const SizedBox(height: 15),
+                        //                     SizedBox(
+                        //                       width: Get.width > 500
+                        //                           ? 600
+                        //                           : Get.width,
+                        //                       child: CustomTextFormFieldAuth(
+                        //                         hintText: 'Email',
+                        //                         maxLines: 1,
+                        //                         ctrl: emailController,
+                        //                         name: "email",
+                        //                         prefixIcon:
+                        //                             'assets/icons/email.png',
+                        //                         formSubmitted: isFormSubmitted,
+                        //                         validationMsg:
+                        //                             'Please enter email',
+                        //                       ),
+                        //                     ),
+                        //                     const SizedBox(height: 15),
+                        //                     SizedBox(
+                        //                       width: Get.width > 500
+                        //                           ? 600
+                        //                           : Get.width,
+                        //                       child: CustomTextFormFieldAuth(
+                        //                         hintText: 'Phone Number',
+                        //                         maxLines: 1,
+                        //                         ctrl: mobileNoController,
+                        //                         name: "phonenumber",
+                        //                         keyboardType:
+                        //                             TextInputType.phone,
+                        //                         prefixIcon:
+                        //                             'assets/icons/phoneicon.png',
+                        //                         formSubmitted: isFormSubmitted,
+                        //                         validationMsg:
+                        //                             'Please enter Phone Number',
+                        //                       ),
+                        //                     ),
+                        //                       const SizedBox(height: 15),
+                        //                      IntrinsicHeight(
+                        //                       child: Row(
+                        //                         mainAxisAlignment:
+                        //                             MainAxisAlignment.center,
+                        //                         children: [
+                        //                           Column(
+                        //                             crossAxisAlignment:
+                        //                                 CrossAxisAlignment
+                        //                                     .start,
+                        //                             children: [
+                        //                               Container(
+                        //                                 height: 50,
+                        //                                 width: Get.width - 60,
+                        //                                 padding:
+                        //                                     const EdgeInsets
+                        //                                         .fromLTRB(
+                        //                                         15, 0, 15, 0),
+                        //                                 decoration:
+                        //                                     BoxDecoration(
+                        //                                   color: kWhiteColor,
+                        //                                   borderRadius:
+                        //                                       BorderRadius
+                        //                                           .circular(8),
+                        //                                 ),
+                        //                                 child: InkWell(
+                        //                                   onTap: () {
+                        //                                     FocusScope.of(
+                        //                                             context)
+                        //                                         .requestFocus(
+                        //                                             FocusNode());
+                        //                                     BottomPicker.date(
+                        //                                       pickerTitle:
+                        //                                           const Text(
+                        //                                               ""),
+                        //                                       onSubmit:
+                        //                                           (index) {
+                        //                                         String
+                        //                                             formattedDate =
+                        //                                             DateFormat(
+                        //                                                     'dd-MM-yyyy')
+                        //                                                 .format(
+                        //                                                     index);
+                        //                                         String
+                        //                                             formattedstartDate =
+                        //                                             DateFormat(
+                        //                                                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                        //                                                 .format(
+                        //                                                     index);
+                        //                                         if (mounted) {
+                        //                                           setState(() {
+                        //                                             selectdate =
+                        //                                                 formattedDate;
+                        //                                             pickedDate =
+                        //                                                 formattedstartDate;
+                        //                                             dateError =
+                        //                                                 false;
+                        //                                           });
+                        //                                         }
+                        //                                       },
+                        //                                       dateOrder:
+                        //                                           DatePickerDateOrder
+                        //                                               .ymd,
+                        //                                       minDateTime:
+                        //                                           DateTime(1850,
+                        //                                               1, 1),
+                        //                                       maxDateTime:
+                        //                                           DateTime.now(),
+                        //                                       pickerTextStyle:
+                        //                                           const TextStyle(
+                        //                                         color:
+                        //                                             kPrimaryColor,
+                        //                                         fontWeight:
+                        //                                             FontWeight
+                        //                                                 .bold,
+                        //                                         fontSize: 14,
+                        //                                       ),
+                        //                                       onClose: () {
+                        //                                         Navigator.of(
+                        //                                                 context)
+                        //                                             .pop();
+                        //                                       },
+                        //                                       bottomPickerTheme:
+                        //                                           BottomPickerTheme
+                        //                                               .plumPlate,
+                        //                                       buttonAlignment:
+                        //                                           MainAxisAlignment
+                        //                                               .center,
+                        //                                       buttonContent:
+                        //                                           const Center(
+                        //                                               child:
+                        //                                                   Text(
+                        //                                         "Done",
+                        //                                         style: TextStyle(
+                        //                                             color:
+                        //                                                 kPrimaryColor),
+                        //                                       )),
+                        //                                       buttonStyle: BoxDecoration(
+                        //                                           color:
+                        //                                               kHighlightColor,
+                        //                                           borderRadius:
+                        //                                               BorderRadius
+                        //                                                   .circular(
+                        //                                                       15)),
+                        //                                       closeIconColor:
+                        //                                           kPrimaryColor,
+                        //                                       closeIconSize: 25,
+                        //                                     ).show(context);
+                        //                                   },
+                        //                                   child: Row(
+                        //                                     mainAxisAlignment:
+                        //                                         MainAxisAlignment
+                        //                                             .spaceBetween,
+                        //                                     children: [
+                        //                                       Text(
+                        //                                         selectdate,
+                        //                                         style:
+                        //                                             const TextStyle(
+                        //                                           fontFamily:
+                        //                                               kCircularStdBook,
+                        //                                           fontWeight:
+                        //                                               FontWeight
+                        //                                                   .w400,
+                        //                                           color:
+                        //                                               kPrimaryColor,
+                        //                                           fontSize: 14,
+                        //                                         ),
+                        //                                       ),
+                        //                                       Image.asset(
+                        //                                         "assets/icons/polygon_down.png",
+                        //                                         scale: 2,
+                        //                                       ),
+                        //                                     ],
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                               if (isFormSubmitted &&
+                        //                                   dateError)
+                        //                                 const Padding(
+                        //                                   padding:
+                        //                                       EdgeInsets.only(
+                        //                                           top: 6.0,
+                        //                                           left: 12),
+                        //                                   child: Text(
+                        //                                     "Please select Start Date",
+                        //                                     style: TextStyle(
+                        //                                       color:
+                        //                                           kErrorColor,
+                        //                                       fontFamily:
+                        //                                           kCircularStdNormal,
+                        //                                       fontSize: 12,
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                             ],
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                     ),
+                        //                     const SizedBox(height: 25),
+                        //                     SizedBox(
+                        //                       width: Get.width,
+                        //                       child: CupertinoButton(
+                        //                         color: kHighlightColor,
+                        //                         borderRadius:
+                        //                             BorderRadius.circular(25),
+                        //                         child: Row(
+                        //                           mainAxisAlignment:
+                        //                               MainAxisAlignment.center,
+                        //                           children: [
+                        //                             const Text(
+                        //                               "Save Patient",
+                        //                               style: TextStyle(
+                        //                                   color: kPrimaryColor,
+                        //                                   fontFamily:
+                        //                                       kCircularStdMedium,
+                        //                                   fontSize: 14),
+                        //                             ),
+                        //                             const SizedBox(width: 10),
+                        //                             Image.asset(
+                        //                               "assets/icons/arrow_right.png",
+                        //                               color: kPrimaryColor,
+                        //                               scale: 1.3,
+                        //                             )
+                        //                           ],
+                        //                         ),
+                        //                         onPressed: () {},
+                        //                       ),
+                        //                     ),
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           )
+                        //         : Container()
                             : Expanded(
                                 child: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(
@@ -852,8 +852,9 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                   image: image,
                   roll: widget.roll,
                 ),
-              );
-      },
+              );},
+      
+      
       child: Card(
         shadowColor: const Color.fromARGB(10, 0, 0, 0),
         elevation: 5,
@@ -885,17 +886,25 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                     selectedIndex == 0
                         ? Padding(
                             padding: const EdgeInsets.only(right: 8.0),
-                            child: Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  color: kWhiteColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                  border: Border.all(
-                                      width: 1, color: kPrimaryColor)),
-                              child: const Icon(
-                                Icons.add,
-                                color: kPrimaryColor,
+                            child: CupertinoButton(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {  
+                                setState(() {
+                                  selectedIndex = 1;
+                                });
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    color: kWhiteColor,
+                                    borderRadius: BorderRadius.circular(25),
+                                    border: Border.all(
+                                        width: 1, color: kPrimaryColor)),
+                                child: const Icon(
+                                  Icons.add,
+                                  color: kPrimaryColor,
+                                ),
                               ),
                             ),
                           )
@@ -954,18 +963,33 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      width: 39,
-                      height: 39,
-                      decoration: BoxDecoration(
-                          color: kPrimaryColor,
-                          borderRadius: BorderRadius.circular(25)),
-                      child: selectedIndex == 2
-                          ? Image.asset(image)
-                          : const Icon(
-                              Icons.arrow_right_alt_rounded,
-                              color: kWhiteColor,
-                            ),
+                    CupertinoButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: (){
+                                selectedIndex == 2
+                            ? Get.toNamed(Routes.appointmentDetailsPage)
+                            : Get.to(
+                                () => DoctoreDetailsPage(
+                                  name: text,
+                                  year: year,
+                                  image: image,
+                                  roll: widget.roll,
+                                ),
+                              );
+                      },
+                      child: Container(
+                        width: 39,
+                        height: 39,
+                        decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(25)),
+                        child: selectedIndex == 2
+                            ? Image.asset(image)
+                            : const Icon(
+                                Icons.arrow_right_alt_rounded,
+                                color: kWhiteColor,
+                              ),
+                      ),
                     ),
                     const SizedBox(width: 10),
                     selectedIndex == 2
@@ -1083,7 +1107,6 @@ class _FindDoctorNearbyPageState extends State<FindDoctorNearbyPage> {
   buildSicknessWidget(String text, index) {
     return GestureDetector(
       onTap: () {
-        getStorage.remove("addpatients");
         setState(() {
           selectedIndex = index;
         });

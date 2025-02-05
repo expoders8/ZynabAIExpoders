@@ -159,70 +159,79 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
 
   buildHistory(String number) {
     return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        selectedHistory == "chathistory"
-            ? Container(
-                height: 35,
-                width: 35,
-                decoration: BoxDecoration(
-                    color: kHighlightColor,
-                    borderRadius: BorderRadius.circular(25)),
-                child: Center(
-                    child: Text(
-                  number,
-                  style: const TextStyle(
-                      color: kPrimaryColor, fontFamily: kCircularStdMedium),
-                )),
-              )
-            : Image.asset(
-                "assets/icons/h8.png",
-                scale: 3.2,
-              ),
-        const SizedBox(width: 7),
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
           children: [
-            Text(
-              "Let’s reduce a fever at home.",
-              style: TextStyle(
-                  color: kWhiteColor,
-                  fontFamily: kCircularStdMedium,
-                  fontSize: 14),
+            selectedHistory == "chathistory"
+                ? Container(
+                    height: 35,
+                    width: 35,
+                    decoration: BoxDecoration(
+                        color: kHighlightColor,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Center(
+                        child: Text(
+                      number,
+                      style: const TextStyle(
+                          color: kPrimaryColor, fontFamily: kCircularStdMedium),
+                    )),
+                  )
+                : Image.asset(
+                    "assets/icons/h8.png",
+                    scale: 3.2,
+                  ),
+            const SizedBox(width: 7),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Let’s reduce a fever at home.",
+                  style: TextStyle(
+                      color: kWhiteColor,
+                      fontFamily: kCircularStdMedium,
+                      fontSize: 14),
+                ),
+                Text(
+                  "23rd Mar",
+                  style: TextStyle(
+                      color: kWhiteColor,
+                      fontFamily: kCircularStdNormal,
+                      fontSize: 12),
+                ),
+              ],
             ),
-            Text(
-              "23rd Mar",
-              style: TextStyle(
-                  color: kWhiteColor,
-                  fontFamily: kCircularStdNormal,
-                  fontSize: 12),
-            ),
+            const SizedBox(width: 10),
           ],
         ),
-        const SizedBox(width: 10),
-        Container(
-          height: 35,
-          width: 35,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: kWhiteColor, width: 0.5)),
-          child: Image.asset(
-            "assets/icons/download.png",
-            color: kWhiteColor,
-            scale: 1.4,
-          ),
-        ),
-        const SizedBox(width: 5),
-        Container(
-          height: 35,
-          width: 35,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              border: Border.all(color: kWhiteColor, width: 0.5)),
-          child: Image.asset(
-            "assets/icons/arrow_left.png",
-            color: kWhiteColor,
-            scale: 1.4,
-          ),
+        Row(
+          children: [
+            Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: kWhiteColor, width: 0.5)),
+              child: Image.asset(
+                "assets/icons/download.png",
+                color: kWhiteColor,
+                scale: 1.4,
+              ),
+            ),
+            const SizedBox(width: 5),
+            Container(
+              height: 35,
+              width: 35,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: kWhiteColor, width: 0.5)),
+              child: Image.asset(
+                "assets/icons/arrow_right.png",
+                color: kWhiteColor,
+                scale: 1.4,
+              ),
+            ),
+          ],
         )
       ],
     );

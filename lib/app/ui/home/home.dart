@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                             style: const TextStyle(
                                 color: kPrimaryColor,
                                 fontFamily: kCircularStdMedium,
-                                fontSize: 20),
+                                fontSize: 20,),
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -267,14 +267,9 @@ class _HomePageState extends State<HomePage> {
                             CupertinoButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                if(selectedPerson == "Doctor"){
-                                  getStorage.write("addpatients", "ADD");
+                             
                                   // tabController.changeTabIndex(2);
-                                  Get.offAll(
-                                      () => const TabPage(selectedTabIndex: 2));
-                                } else{
-                                  tabController.changeTabIndex(2);
-                                }
+                                  Get.toNamed(Routes.patientDetailsPage);
                               },
                               child: Container(
                                   height: 33,
@@ -459,7 +454,7 @@ class _HomePageState extends State<HomePage> {
                   child: Image.asset(
                     "assets/icons/lady.png",
                     scale: 4.5,
-                  ))
+                  ),)
             ],
           ),
         ),

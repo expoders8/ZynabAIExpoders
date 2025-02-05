@@ -144,7 +144,7 @@ class _AISharePDFPageState extends State<AISharePDFPage> {
               ),
             ),
             SizedBox(
-              height: Get.height - 222,
+              height: Get.height - 275,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),

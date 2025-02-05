@@ -454,34 +454,129 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         ),
                       ),
                     ),
-                    const Text(
-                      "Services",
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 18,
-                        fontFamily: kCircularStdNormal,
+                    SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        "Main Specialization",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdNormal,
+                            fontSize: 19),
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     Row(
                       children: [
-                        buildServiceCardWidget("Fever"),
-                        const SizedBox(width: 10),
-                        buildServiceCardWidget("Cough"),
-                        const SizedBox(width: 10),
-                        buildServiceCardWidget("Sore Throat")
+                        buildServiceCardWidget("Family Medicine"),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        "Sub-Specializations",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdNormal,
+                            fontSize: 19),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                     Row(
                       children: [
-                        buildServiceCardWidget("Vomiting"),
-                        const SizedBox(width: 10),
-                        buildServiceCardWidget("Wheezes"),
-                        const SizedBox(width: 10),
-                        buildServiceCardWidget("Chest Pain")
+                        buildServiceCardWidget("Geriatric Medicine"),
+                        const SizedBox(width: 2),
+                        buildServiceCardWidget("Adolescent Medicine"),
                       ],
                     ),
+                    SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Text(
+                        "Services",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdNormal,
+                            fontSize: 19),
+                      ),
+                    ),
+                    Card(
+                      shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                      elevation: 5,
+                      child: Container(
+                        width: Get.width,
+                        decoration: BoxDecoration(
+                          color: kCardColor,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: kPrimaryColor,
+                                    size: 12,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "General health check-ups",
+                                    style: TextStyle(
+                                        color: kSecondaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: kPrimaryColor,
+                                    size: 12,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Vaccinations",
+                                    style: TextStyle(
+                                        color: kSecondaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.circle,
+                                    color: kPrimaryColor,
+                                    size: 12,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Management of chronic conditions\n(diabetes, hypertension)",
+                                    style: TextStyle(
+                                        color: kSecondaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     const Text(
                       "Availability",
                       style: TextStyle(
@@ -490,7 +585,6 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         fontFamily: kCircularStdNormal,
                       ),
                     ),
-                    const SizedBox(height: 10),
                     SizedBox(
                         height: 395, width: Get.width, child: CustomCalendar()),
                     // TableCalendar(
@@ -581,6 +675,8 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                     //     }
                     //   }),
                     // ),
+
+                    const SizedBox(height: 20),
                     const Text(
                       "About",
                       style: TextStyle(
@@ -589,8 +685,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         fontFamily: kCircularStdNormal,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const SizedBox(height: 10),
+
                     Card(
                       shadowColor: const Color.fromARGB(10, 0, 0, 0),
                       elevation: 5,

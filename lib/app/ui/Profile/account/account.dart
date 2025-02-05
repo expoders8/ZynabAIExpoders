@@ -145,7 +145,6 @@ class _AccountPageState extends State<AccountPage> {
         actions: <Widget>[
           TextButton(
             onPressed: () async {
-                getStorage.remove("addpatients");
               Get.offAll(() => const LoginPatientPage());
             },
             child: const Text(

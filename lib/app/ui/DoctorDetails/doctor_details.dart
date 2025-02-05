@@ -22,7 +22,8 @@ class DoctoreDetailsPage extends StatefulWidget {
       {super.key,
       this.name = "Dr.Pooja\n Patel",
       this.year = "Physician / 2+ yrs",
-      this.image = "assets/icons/ladydoctor.png", this.roll});
+      this.image = "assets/icons/ladydoctor.png",
+      this.roll});
 
   @override
   State<DoctoreDetailsPage> createState() => _DoctoreDetailsPageState();
@@ -42,7 +43,6 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
   String selectedPerson = "";
   @override
   void initState() {
-
     if (widget.roll.toString() != "null") {
       var person = widget.roll ?? "";
       setState(() {
@@ -245,7 +245,9 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                         onTap: () async {
                                           // Get.toNamed(
                                           //     Routes.findDoctorNearbyPage);
-                                          Get.to(()=> const FindDoctorNearbyPage(roll: "Patient"));
+                                          Get.to(() =>
+                                              const FindDoctorNearbyPage(
+                                                  roll: "Patient"));
                                         },
                                         child: Container(
                                             height: 45,
@@ -379,33 +381,159 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                         : Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Services",
-                                style: TextStyle(
-                                  color: kPrimaryColor,
-                                  fontSize: 18,
-                                  fontFamily: kCircularStdNormal,
+                              // const Text(
+                              //   "Services",
+                              //   style: TextStyle(
+                              //     color: kPrimaryColor,
+                              //     fontSize: 18,
+                              //     fontFamily: kCircularStdNormal,
+                              //   ),
+                              // ),
+                              // const SizedBox(height: 10),
+                              // Row(
+                              //   children: [
+                              //     buildServiceCardWidget("Fever"),
+                              //     const SizedBox(width: 10),
+                              //     buildServiceCardWidget("Cough"),
+                              //     const SizedBox(width: 10),
+                              //     buildServiceCardWidget("Sore Throat")
+                              //   ],
+                              // ),
+                              // const SizedBox(height: 10),
+                              // Row(
+                              //   children: [
+                              //     buildServiceCardWidget("Vomiting"),
+                              //     const SizedBox(width: 10),
+                              //     buildServiceCardWidget("Wheezes"),
+                              //     const SizedBox(width: 10),
+                              //     buildServiceCardWidget("Chest Pain")
+                              //   ],
+                              // ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  "Main Specialization",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdNormal,
+                                      fontSize: 19),
                                 ),
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10),
                               Row(
                                 children: [
-                                  buildServiceCardWidget("Fever"),
-                                  const SizedBox(width: 10),
-                                  buildServiceCardWidget("Cough"),
-                                  const SizedBox(width: 10),
-                                  buildServiceCardWidget("Sore Throat")
+                                  buildServiceCardWidget("Family Medicine"),
                                 ],
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  "Sub-Specializations",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdNormal,
+                                      fontSize: 19),
+                                ),
+                              ),
+                              SizedBox(height: 10),
                               Row(
                                 children: [
-                                  buildServiceCardWidget("Vomiting"),
-                                  const SizedBox(width: 10),
-                                  buildServiceCardWidget("Wheezes"),
-                                  const SizedBox(width: 10),
-                                  buildServiceCardWidget("Chest Pain")
+                                  buildServiceCardWidget("Geriatric Medicine"),
+                                  const SizedBox(width: 2),
+                                  buildServiceCardWidget("Adolescent Medicine"),
                                 ],
+                              ),
+                              SizedBox(height: 10),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  "Services",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdNormal,
+                                      fontSize: 19),
+                                ),
+                              ),
+                              Card(
+                                shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                                elevation: 5,
+                                child: Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                    color: kCardColor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              color: kPrimaryColor,
+                                              size: 12,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              "General health check-ups",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              color: kPrimaryColor,
+                                              size: 12,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              "Vaccinations",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.circle,
+                                              color: kPrimaryColor,
+                                              size: 12,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              "Management of chronic conditions\n(diabetes, hypertension)",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(height: 20),
                               const Text(
@@ -700,7 +828,8 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10.0),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Column(
                                           crossAxisAlignment:
@@ -773,7 +902,6 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                               ],
                                             ),
                                             const SizedBox(height: 5),
-                                           
                                           ],
                                         ),
                                         Column(
@@ -781,7 +909,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             const SizedBox(height: 10),
-                                             Row(
+                                            Row(
                                               children: [
                                                 Container(
                                                   height: 35,
@@ -847,10 +975,8 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                               ],
                                             ),
                                             const SizedBox(height: 5),
-                                           
                                           ],
                                         ),
-
                                       ],
                                     ),
                                   ),
@@ -990,7 +1116,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                 highlightColor: Colors.transparent,
               ),
               child: SizedBox(
-                height: 200,
+                height: 220,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -1061,7 +1187,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
               style: TextStyle(
                   color:
                       selectedTimendex == index ? kWhiteColor : kPrimaryColor,
-                  fontSize: 16,
+                  fontSize: 14,
                   fontFamily: kCircularStdNormal),
             ),
           ),
