@@ -5,8 +5,8 @@ import 'package:zynabaiexpoders/config/constant/color_constant.dart';
 import 'package:zynabaiexpoders/config/constant/font_constant.dart';
 
 class CustomCalendar extends StatefulWidget {
-   final Function(DateTime)? onDateSelected;
-   CustomCalendar({super.key,this.onDateSelected});
+  final Function(DateTime)? onDateSelected;
+  CustomCalendar({super.key, this.onDateSelected});
 
   @override
   CustomCalendarState createState() => CustomCalendarState();
@@ -39,13 +39,12 @@ class CustomCalendarState extends State<CustomCalendar> {
     DateTime(2025, 7, 10),
     DateTime(2025, 7, 16),
     DateTime(2025, 7, 26),
-    
   ];
   PageController _pageController = PageController();
   int currentMonth = 0;
   @override
   void initState() {
-     currentMonth = DateTime.now().month;
+    currentMonth = DateTime.now().month;
     _pageController = PageController(initialPage: currentMonth - 1);
     super.initState();
   }
@@ -62,10 +61,9 @@ class CustomCalendarState extends State<CustomCalendar> {
           // itemBuilder: (context, index) {
           //   return buildMonthView(index + 1);
           // },
-          itemCount: 12 - (currentMonth - 1), 
+          itemCount: 12 - (currentMonth - 1),
           itemBuilder: (context, index) {
-            return buildMonthView(
-                currentMonth + index);
+            return buildMonthView(currentMonth + index);
           },
         ),
       ),
@@ -93,25 +91,26 @@ class CustomCalendarState extends State<CustomCalendar> {
 
       dayWidgets.add(
         GestureDetector(
-        onTap: () {
-            DateTime now = DateTime.now();
-            DateTime today = DateTime(now.year, now.month, now.day);
-            DateTime selectedDay = DateTime(date.year, date.month, date.day);
+          onTap: () {
+            if (isHighlighted) {
+            } else {
+              DateTime now = DateTime.now();
+              DateTime today = DateTime(now.year, now.month, now.day);
+              DateTime selectedDay = DateTime(date.year, date.month, date.day);
 
-            if (selectedDay.isBefore(today)) {
-              return; // Prevent selecting past dates
-            }
+              if (selectedDay.isBefore(today)) {
+                return; // Prevent selecting past dates
+              }
 
-            setState(() {
-              selectedDate = date;
-            });
-             print(widget.onDateSelected);
-            if (widget.onDateSelected != null) {
-              widget.onDateSelected!(date); // Pass selected date to parent
+              setState(() {
+                selectedDate = date;
+              });
+              print(widget.onDateSelected);
+              if (widget.onDateSelected != null) {
+                widget.onDateSelected!(date); // Pass selected date to parent
+              }
             }
           },
-
-
           child: Container(
             margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
@@ -177,7 +176,6 @@ class CustomCalendarState extends State<CustomCalendar> {
                 children: dayWidgets,
               ),
             ),
-            
           ],
         ),
       ),
