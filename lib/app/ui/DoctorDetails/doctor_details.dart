@@ -31,7 +31,7 @@ class DoctoreDetailsPage extends StatefulWidget {
 
 class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _selectedDay = DateTime.now();
+  DateTime? _selectedDay;
   DateTime todayDate = DateTime.now();
   bool focuseToday = false;
   int selectedTimendex = 0;
@@ -40,6 +40,9 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
     DateTime(DateTime.now().year, 5, 12),
     DateTime(DateTime.now().year, 5, 21),
   };
+  String formattedDate = "";
+  String selectedDayString = "";
+
   String selectedPerson = "";
   @override
   void initState() {
@@ -64,7 +67,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
       });
     }
 
-    String formattedDate = DateFormat('dd/MM/yyyy').format(_selectedDay);
+    String formattedDate = DateFormat('dd/MM/yyyy').format(_selectedDay!);
     String today = DateFormat('dd/MM/yyyy').format(todayDate);
     if (formattedDate == today) {
       setState(() {
@@ -419,13 +422,13 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                       fontSize: 19),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Row(
                                 children: [
                                   buildServiceCardWidget("Family Medicine"),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               const Padding(
                                 padding: EdgeInsets.only(left: 5.0),
                                 child: Text(
@@ -436,7 +439,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                       fontSize: 19),
                                 ),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -445,7 +448,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                   buildServiceCardWidget("Adolescent Medicine"),
                                 ],
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               const Padding(
                                 padding: EdgeInsets.only(left: 5.0),
                                 child: Text(
@@ -547,9 +550,43 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                               ),
                               const SizedBox(height: 10),
                               SizedBox(
-                                  height: 395,
-                                  width: Get.width,
-                                  child: const CustomCalendar())
+                                height: 395,
+                                width: Get.width,
+                                child: CustomCalendar(
+                                  onDateSelected: (DateTime selectedDate) {
+                                    setState(() {
+                                      _selectedDay = selectedDate;
+                                      DateTime date = DateTime.parse(
+                                          _selectedDay.toString());
+                                      formattedDate = DateFormat("dd MMM yyyy")
+                                          .format(date);
+                                    });
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: _selectedDay != null ? 10 : 0),
+                              if (_selectedDay != null)
+                                Text("Selected Date: $formattedDate"),
+                              SizedBox(height: _selectedDay != null ? 10 : 0),
+                              if (_selectedDay != null)
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      buildContainer("7:00 AM"),
+                                      const SizedBox(width: 10),
+                                      buildContainer("7:30 AM"),
+                                      const SizedBox(width: 10),
+                                      buildContainer("8:00 AM"),
+                                      const SizedBox(width: 10),
+                                      buildContainer("8:30 AM"),
+                                      const SizedBox(width: 10),
+                                      buildContainer("9:00 AM"),
+                                    ],
+                                  ),
+                                ),
+                              const SizedBox(height: 15),
+
                               // TableCalendar(
                               //   firstDay: DateTime.utc(2010, 10, 16),
                               //   rowHeight: 51,
@@ -843,15 +880,18 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                   height: 35,
                                                   width: 35,
                                                   decoration: BoxDecoration(
-                                                      color: kHighlightColor,
+                                                      color:
+                                                          kHighlightColor,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
+                                                          BorderRadius
+                                                              .circular(
+                                                                  25)),
                                                   child: const Center(
                                                     child: Text(
                                                       "B",
                                                       style: TextStyle(
-                                                          color: kPrimaryColor,
+                                                          color:
+                                                              kPrimaryColor,
                                                           fontFamily:
                                                               kCircularStdMedium,
                                                           fontSize: 16),
@@ -862,7 +902,8 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                 const Text(
                                                   "20 Nov 1978",
                                                   style: TextStyle(
-                                                      color: kSecondaryColor,
+                                                      color:
+                                                          kSecondaryColor,
                                                       fontFamily:
                                                           kCircularStdMedium,
                                                       fontSize: 14),
@@ -876,15 +917,18 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                   height: 35,
                                                   width: 35,
                                                   decoration: BoxDecoration(
-                                                      color: kHighlightColor,
+                                                      color:
+                                                          kHighlightColor,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
+                                                          BorderRadius
+                                                              .circular(
+                                                                  25)),
                                                   child: const Center(
                                                     child: Text(
                                                       "G",
                                                       style: TextStyle(
-                                                          color: kPrimaryColor,
+                                                          color:
+                                                              kPrimaryColor,
                                                           fontFamily:
                                                               kCircularStdMedium,
                                                           fontSize: 16),
@@ -895,7 +939,8 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                 const Text(
                                                   "Male",
                                                   style: TextStyle(
-                                                      color: kSecondaryColor,
+                                                      color:
+                                                          kSecondaryColor,
                                                       fontFamily:
                                                           kCircularStdMedium,
                                                       fontSize: 14),
@@ -916,15 +961,18 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                   height: 35,
                                                   width: 35,
                                                   decoration: BoxDecoration(
-                                                      color: kHighlightColor,
+                                                      color:
+                                                          kHighlightColor,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
+                                                          BorderRadius
+                                                              .circular(
+                                                                  25)),
                                                   child: const Center(
                                                     child: Text(
                                                       "H",
                                                       style: TextStyle(
-                                                          color: kPrimaryColor,
+                                                          color:
+                                                              kPrimaryColor,
                                                           fontFamily:
                                                               kCircularStdMedium,
                                                           fontSize: 16),
@@ -935,7 +983,8 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                 const Text(
                                                   "HT : 4.7 feet",
                                                   style: TextStyle(
-                                                      color: kSecondaryColor,
+                                                      color:
+                                                          kSecondaryColor,
                                                       fontFamily:
                                                           kCircularStdMedium,
                                                       fontSize: 14),
@@ -949,15 +998,18 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                   height: 35,
                                                   width: 35,
                                                   decoration: BoxDecoration(
-                                                      color: kHighlightColor,
+                                                      color:
+                                                          kHighlightColor,
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              25)),
+                                                          BorderRadius
+                                                              .circular(
+                                                                  25)),
                                                   child: const Center(
                                                     child: Text(
                                                       "W",
                                                       style: TextStyle(
-                                                          color: kPrimaryColor,
+                                                          color:
+                                                              kPrimaryColor,
                                                           fontFamily:
                                                               kCircularStdMedium,
                                                           fontSize: 16),
@@ -968,7 +1020,8 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                                 const Text(
                                                   "WT : 60 Kg",
                                                   style: TextStyle(
-                                                      color: kSecondaryColor,
+                                                      color:
+                                                          kSecondaryColor,
                                                       fontFamily:
                                                           kCircularStdMedium,
                                                       fontSize: 14),
@@ -986,6 +1039,114 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                             ],
                           )
                         : Container(),
+                    selectedPerson != "Doctor"
+                        ? Container()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  "Medical",
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdNormal,
+                                      fontSize: 19),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Card(
+                                shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                                elevation: 5,
+                                child: Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                    color: kCardColor,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 35,
+                                              width: 35,
+                                              decoration: BoxDecoration(
+                                                  color: kHighlightColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "M",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Text(
+                                              "Medical History : Diabetes",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 35,
+                                              width: 35,
+                                              decoration: BoxDecoration(
+                                                  color: kHighlightColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "F",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Text(
+                                              "Family History : Cancer",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                     selectedPerson == "Doctor"
                         ? Container()
                         : Row(
@@ -1068,19 +1229,35 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
     );
   }
 
-  Widget buildDayWidget(DateTime date, Color color) {
-    return Container(
-      margin: const EdgeInsets.all(4),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
-      child: Text(
-        date.day.toString(),
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
+  String? selectedTime;
+
+  buildContainer(String text) {
+    bool isSelected = selectedTime == text; // Check if this slot is selected
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedTime = text; // Update selected time
+        });
+      },
+      child: Container(
+        height: 40,
+        width: 100,
+        decoration: BoxDecoration(
+          color: isSelected
+              ? kPrimaryColor
+              : kHighlightColor, // Change color if selected
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color:
+                  isSelected ? Colors.white : Colors.black, // Change text color
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

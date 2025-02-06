@@ -5,7 +5,8 @@ import 'package:zynabaiexpoders/config/constant/color_constant.dart';
 import 'package:zynabaiexpoders/config/constant/font_constant.dart';
 
 class CustomCalendar extends StatefulWidget {
-  const CustomCalendar({super.key});
+   final Function(DateTime)? onDateSelected;
+   CustomCalendar({super.key,this.onDateSelected});
 
   @override
   CustomCalendarState createState() => CustomCalendarState();
@@ -14,15 +15,37 @@ class CustomCalendar extends StatefulWidget {
 class CustomCalendarState extends State<CustomCalendar> {
   DateTime selectedDate = DateTime.now();
   List<DateTime> highlightedDates = [
-    DateTime(2024, 7, 5),
-    DateTime(2024, 7, 10),
-    DateTime(2024, 7, 16),
-    DateTime(2024, 7, 26),
+    DateTime(2025, 2, 5),
+    DateTime(2025, 2, 10),
+    DateTime(2025, 2, 16),
+    DateTime(2025, 2, 26),
+    DateTime(2025, 3, 5),
+    DateTime(2025, 3, 10),
+    DateTime(2025, 3, 16),
+    DateTime(2025, 3, 26),
+    DateTime(2025, 4, 5),
+    DateTime(2025, 4, 10),
+    DateTime(2025, 4, 16),
+    DateTime(2025, 4, 26),
+    DateTime(2025, 5, 5),
+    DateTime(2025, 5, 10),
+    DateTime(2025, 5, 16),
+    DateTime(2025, 5, 26),
+    DateTime(2025, 6, 5),
+    DateTime(2025, 6, 10),
+    DateTime(2025, 6, 16),
+    DateTime(2025, 6, 26),
+    DateTime(2025, 7, 5),
+    DateTime(2025, 7, 10),
+    DateTime(2025, 7, 16),
+    DateTime(2025, 7, 26),
+    
   ];
   PageController _pageController = PageController();
+  int currentMonth = 0;
   @override
   void initState() {
-    int currentMonth = DateTime.now().month;
+     currentMonth = DateTime.now().month;
     _pageController = PageController(initialPage: currentMonth - 1);
     super.initState();
   }
@@ -35,9 +58,14 @@ class CustomCalendarState extends State<CustomCalendar> {
         width: Get.width,
         child: PageView.builder(
           controller: _pageController,
-          itemCount: 12,
+          // itemCount: 12,
+          // itemBuilder: (context, index) {
+          //   return buildMonthView(index + 1);
+          // },
+          itemCount: 12 - (currentMonth - 1), 
           itemBuilder: (context, index) {
-            return buildMonthView(index + 1);
+            return buildMonthView(
+                currentMonth + index);
           },
         ),
       ),
@@ -65,11 +93,25 @@ class CustomCalendarState extends State<CustomCalendar> {
 
       dayWidgets.add(
         GestureDetector(
-          onTap: () {
+        onTap: () {
+            DateTime now = DateTime.now();
+            DateTime today = DateTime(now.year, now.month, now.day);
+            DateTime selectedDay = DateTime(date.year, date.month, date.day);
+
+            if (selectedDay.isBefore(today)) {
+              return; // Prevent selecting past dates
+            }
+
             setState(() {
               selectedDate = date;
             });
+             print(widget.onDateSelected);
+            if (widget.onDateSelected != null) {
+              widget.onDateSelected!(date); // Pass selected date to parent
+            }
           },
+
+
           child: Container(
             margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
@@ -84,9 +126,11 @@ class CustomCalendarState extends State<CustomCalendar> {
               child: Text(
                 '${date.day}',
                 style: TextStyle(
-                  color: isHighlighted || selectedDate == date
-                      ? Colors.white
-                      : Colors.black,
+                  color: isHighlighted
+                      ? Colors.black
+                      : selectedDate == date
+                          ? Colors.white
+                          : Colors.black,
                 ),
               ),
             ),
@@ -133,6 +177,7 @@ class CustomCalendarState extends State<CustomCalendar> {
                 children: dayWidgets,
               ),
             ),
+            
           ],
         ),
       ),

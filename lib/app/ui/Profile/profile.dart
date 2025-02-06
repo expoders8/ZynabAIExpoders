@@ -592,6 +592,107 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
+              selectedPerson == "Doctor"
+                  ? Container()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 5.0),
+                          child: Text(
+                            "Medical",
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontFamily: kCircularStdNormal,
+                                fontSize: 19),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Card(
+                          shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                          elevation: 5,
+                          child: Container(
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              color: kCardColor,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 35,
+                                        width: 35,
+                                        decoration: BoxDecoration(
+                                            color: kHighlightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: const Center(
+                                          child: Text(
+                                            "M",
+                                            style: TextStyle(
+                                                color: kPrimaryColor,
+                                                fontFamily: kCircularStdMedium,
+                                                fontSize: 16),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Text(
+                                        "Medical History : Diabetes",
+                                        style: TextStyle(
+                                            color: kSecondaryColor,
+                                            fontFamily: kCircularStdMedium,
+                                            fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 35,
+                                        width: 35,
+                                        decoration: BoxDecoration(
+                                            color: kHighlightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: const Center(
+                                          child: Text(
+                                            "F",
+                                            style: TextStyle(
+                                                color: kPrimaryColor,
+                                                fontFamily: kCircularStdMedium,
+                                                fontSize: 16),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Text(
+                                        "Family History : Cancer",
+                                        style: TextStyle(
+                                            color: kSecondaryColor,
+                                            fontFamily: kCircularStdMedium,
+                                            fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
               const SizedBox(height: 10),
               CupertinoButton(
                 padding: EdgeInsets.zero,
