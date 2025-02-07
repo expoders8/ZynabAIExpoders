@@ -280,8 +280,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                         const SizedBox(height: 10),
-                        buildMedical(
-                            "Management of chronic conditions"),
+                        buildMedical("Management of chronic conditions"),
                       ],
                     )
                   : Container(),
@@ -443,7 +442,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: [
                                       Container(
                                         height: 35,
-                                        width: 65,
+                                        width: 85,
                                         decoration: BoxDecoration(
                                             color: kHighlightColor,
                                             borderRadius:
@@ -457,7 +456,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   color: kPrimaryColor,
                                                   fontFamily:
                                                       kCircularStdMedium,
-                                                  fontSize: 16),
+                                                  fontSize: 15),
                                             ),
                                           ),
                                         ),
@@ -477,21 +476,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: [
                                       Container(
                                         height: 35,
-                                        width: 65,
+                                        width: 85,
                                         decoration: BoxDecoration(
                                             color: kHighlightColor,
                                             borderRadius:
                                                 BorderRadius.circular(25)),
                                         child: const Center(
                                           child: Padding(
-                                            padding: EdgeInsets.all(2.0),
+                                            padding: EdgeInsets.all(4.0),
                                             child: Text(
                                               "Gender",
                                               style: TextStyle(
                                                   color: kPrimaryColor,
                                                   fontFamily:
                                                       kCircularStdMedium,
-                                                  fontSize: 16),
+                                                  fontSize: 15),
                                             ),
                                           ),
                                         ),
@@ -511,7 +510,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: [
                                       Container(
                                         height: 35,
-                                        width: 65,
+                                        width: 85,
                                         decoration: BoxDecoration(
                                             color: kHighlightColor,
                                             borderRadius:
@@ -525,7 +524,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   color: kPrimaryColor,
                                                   fontFamily:
                                                       kCircularStdMedium,
-                                                  fontSize: 16),
+                                                  fontSize: 15),
                                             ),
                                           ),
                                         ),
@@ -545,7 +544,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: [
                                       Container(
                                         height: 35,
-                                        width: 65,
+                                        width: 85,
                                         decoration: BoxDecoration(
                                             color: kHighlightColor,
                                             borderRadius:
@@ -559,7 +558,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   color: kPrimaryColor,
                                                   fontFamily:
                                                       kCircularStdMedium,
-                                                  fontSize: 16),
+                                                  fontSize: 15),
                                             ),
                                           ),
                                         ),
