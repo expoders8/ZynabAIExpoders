@@ -13,16 +13,31 @@ class CustomProfileProgress extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Profile Status :",
-          style: TextStyle(
-              color: kPrimaryColor,
-              fontSize: 18,
-              fontFamily: kCircularStdMedium),
+        const Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Profile Status : ",
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontSize: 18,
+                fontFamily: kCircularStdMedium,
+              ),
+            ),
+            Text(
+              "68%",
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontSize: 22,
+                fontFamily: kCircularStdMedium,
+              ),
+            ),
+          ],
         ),
+        const SizedBox(height: 5),
         Container(
           margin: const EdgeInsets.all(0.0),
-          height: 40.0,
+          height: 12.0,
           decoration: BoxDecoration(
             color: kWhiteColor,
             borderRadius: BorderRadius.circular(15.0),
@@ -37,11 +52,11 @@ class CustomProfileProgress extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15.0),
                 ),
               ),
-              Align(
+              const Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "${completionPercentage.toInt()}%",
-                  style: const TextStyle(
+                  "",
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

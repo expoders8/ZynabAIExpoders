@@ -454,7 +454,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     const Padding(
                       padding: EdgeInsets.only(left: 5.0),
                       child: Text(
@@ -465,13 +465,13 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                             fontSize: 19),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         buildServiceCardWidget("Family Medicine"),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     const Padding(
                       padding: EdgeInsets.only(left: 5.0),
                       child: Text(
@@ -482,7 +482,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                             fontSize: 19),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -491,7 +491,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         buildServiceCardWidget("Adolescent Medicine"),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     const Padding(
                       padding: EdgeInsets.only(left: 5.0),
                       child: Text(
@@ -902,6 +902,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
     );
   }
 
+  
   buildServiceCardWidget(String text) {
     return Container(
       decoration: BoxDecoration(

@@ -425,7 +425,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                               const SizedBox(height: 10),
                               Row(
                                 children: [
-                                  buildServiceCardWidget("Family Medicine"),
+                                  buildMedical("Family Medicine"),
                                 ],
                               ),
                               const SizedBox(height: 10),
@@ -443,9 +443,13 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  buildServiceCardWidget("Geriatric Medicine"),
-                                  const SizedBox(height: 5),
-                                  buildServiceCardWidget("Adolescent Medicine"),
+                                  Row(
+                                    children: [
+                                      buildMedical("Geriatric Medicine"),
+                                      const SizedBox(width: 5),
+                                      buildMedical("Adolescent Medicine"),
+                                    ],
+                                  )
                                 ],
                               ),
                               const SizedBox(height: 10),
@@ -459,86 +463,97 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                       fontSize: 19),
                                 ),
                               ),
-                              Card(
-                                shadowColor: const Color.fromARGB(10, 0, 0, 0),
-                                elevation: 5,
-                                child: Container(
-                                  width: Get.width,
-                                  decoration: BoxDecoration(
-                                    color: kCardColor,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.circle,
-                                              color: kPrimaryColor,
-                                              size: 12,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(
-                                              "General health check-ups",
-                                              style: TextStyle(
-                                                  color: kSecondaryColor,
-                                                  fontFamily:
-                                                      kCircularStdMedium,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 5),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.circle,
-                                              color: kPrimaryColor,
-                                              size: 12,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(
-                                              "Vaccinations",
-                                              style: TextStyle(
-                                                  color: kSecondaryColor,
-                                                  fontFamily:
-                                                      kCircularStdMedium,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 5),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.circle,
-                                              color: kPrimaryColor,
-                                              size: 12,
-                                            ),
-                                            SizedBox(width: 8),
-                                            Text(
-                                              "Management of chronic conditions\n(diabetes, hypertension)",
-                                              style: TextStyle(
-                                                  color: kSecondaryColor,
-                                                  fontFamily:
-                                                      kCircularStdMedium,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                              Row(
+                                children: [
+                                  buildMedical("General health check-ups"),
+                                  const SizedBox(width: 5),
+                                  buildMedical("Vaccinations"),
+                                ],
                               ),
+                              const SizedBox(height: 10),
+                              buildMedical(
+                                  "Management of chronic conditions"),
+                              // Card(
+                              //   shadowColor: const Color.fromARGB(10, 0, 0, 0),
+                              //   elevation: 5,
+                              //   child: Container(
+                              //     width: Get.width,
+                              //     decoration: BoxDecoration(
+                              //       color: kCardColor,
+                              //       borderRadius: BorderRadius.circular(8.0),
+                              //     ),
+                              //     padding: const EdgeInsets.all(8.0),
+                              //     child:  Padding(
+                              //       padding:
+                              //           const EdgeInsets.symmetric(horizontal: 10.0),
+                              //       child: Column(
+                              //         crossAxisAlignment:
+                              //             CrossAxisAlignment.start,
+                              //         children: [
+
+                              //           const SizedBox(height: 10),
+                              //           const Row(
+                              //             children: [
+                              //               Icon(
+                              //                 Icons.circle,
+                              //                 color: kPrimaryColor,
+                              //                 size: 12,
+                              //               ),
+                              //               SizedBox(width: 8),
+                              //               Text(
+                              //                 "General health check-ups",
+                              //                 style: TextStyle(
+                              //                     color: kSecondaryColor,
+                              //                     fontFamily:
+                              //                         kCircularStdMedium,
+                              //                     fontSize: 14),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //           const SizedBox(height: 5),
+                              //           const Row(
+                              //             children: [
+                              //               Icon(
+                              //                 Icons.circle,
+                              //                 color: kPrimaryColor,
+                              //                 size: 12,
+                              //               ),
+                              //               SizedBox(width: 8),
+                              //               Text(
+                              //                 "Vaccinations",
+                              //                 style: TextStyle(
+                              //                     color: kSecondaryColor,
+                              //                     fontFamily:
+                              //                         kCircularStdMedium,
+                              //                     fontSize: 14),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //           const SizedBox(height: 5),
+                              //           const Row(
+                              //             children: [
+                              //               Icon(
+                              //                 Icons.circle,
+                              //                 color: kPrimaryColor,
+                              //                 size: 12,
+                              //               ),
+                              //               SizedBox(width: 8),
+                              //               Text(
+                              //                 "Management of chronic conditions\n(diabetes, hypertension)",
+                              //                 style: TextStyle(
+                              //                     color: kSecondaryColor,
+                              //                     fontFamily:
+                              //                         kCircularStdMedium,
+                              //                     fontSize: 14),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //           const SizedBox(height: 10),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               const SizedBox(height: 20),
                               const Text(
                                 "Availability",
@@ -837,208 +852,6 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                       ),
                     ),
                     const SizedBox(height: 25),
-                    selectedPerson == "Doctor"
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.only(left: 5.0),
-                                child: Text(
-                                  "Details",
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdNormal,
-                                      fontSize: 19),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Card(
-                                shadowColor: const Color.fromARGB(10, 0, 0, 0),
-                                elevation: 5,
-                                child: Container(
-                                  width: Get.width,
-                                  decoration: BoxDecoration(
-                                    color: kCardColor,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  height: 35,
-                                                  width: 35,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          kHighlightColor,
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                                  25)),
-                                                  child: const Center(
-                                                    child: Text(
-                                                      "B",
-                                                      style: TextStyle(
-                                                          color:
-                                                              kPrimaryColor,
-                                                          fontFamily:
-                                                              kCircularStdMedium,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                const Text(
-                                                  "20 Nov 1978",
-                                                  style: TextStyle(
-                                                      color:
-                                                          kSecondaryColor,
-                                                      fontFamily:
-                                                          kCircularStdMedium,
-                                                      fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 5),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  height: 35,
-                                                  width: 35,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          kHighlightColor,
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                                  25)),
-                                                  child: const Center(
-                                                    child: Text(
-                                                      "G",
-                                                      style: TextStyle(
-                                                          color:
-                                                              kPrimaryColor,
-                                                          fontFamily:
-                                                              kCircularStdMedium,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                const Text(
-                                                  "Male",
-                                                  style: TextStyle(
-                                                      color:
-                                                          kSecondaryColor,
-                                                      fontFamily:
-                                                          kCircularStdMedium,
-                                                      fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 5),
-                                          ],
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  height: 35,
-                                                  width: 35,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          kHighlightColor,
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                                  25)),
-                                                  child: const Center(
-                                                    child: Text(
-                                                      "H",
-                                                      style: TextStyle(
-                                                          color:
-                                                              kPrimaryColor,
-                                                          fontFamily:
-                                                              kCircularStdMedium,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                const Text(
-                                                  "HT : 4.7 feet",
-                                                  style: TextStyle(
-                                                      color:
-                                                          kSecondaryColor,
-                                                      fontFamily:
-                                                          kCircularStdMedium,
-                                                      fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  height: 35,
-                                                  width: 35,
-                                                  decoration: BoxDecoration(
-                                                      color:
-                                                          kHighlightColor,
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(
-                                                                  25)),
-                                                  child: const Center(
-                                                    child: Text(
-                                                      "W",
-                                                      style: TextStyle(
-                                                          color:
-                                                              kPrimaryColor,
-                                                          fontFamily:
-                                                              kCircularStdMedium,
-                                                          fontSize: 16),
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                const Text(
-                                                  "WT : 60 Kg",
-                                                  style: TextStyle(
-                                                      color:
-                                                          kSecondaryColor,
-                                                      fontFamily:
-                                                          kCircularStdMedium,
-                                                      fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 5),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        : Container(),
                     selectedPerson != "Doctor"
                         ? Container()
                         : Column(
@@ -1048,7 +861,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                               const Padding(
                                 padding: EdgeInsets.only(left: 5.0),
                                 child: Text(
-                                  "Medical",
+                                  "Personal Details",
                                   style: TextStyle(
                                       color: kPrimaryColor,
                                       fontFamily: kCircularStdNormal,
@@ -1078,26 +891,101 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                           children: [
                                             Container(
                                               height: 35,
-                                              width: 35,
+                                              width: 65,
                                               decoration: BoxDecoration(
                                                   color: kHighlightColor,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           25)),
                                               child: const Center(
-                                                child: Text(
-                                                  "M",
-                                                  style: TextStyle(
-                                                      color: kPrimaryColor,
-                                                      fontFamily:
-                                                          kCircularStdMedium,
-                                                      fontSize: 16),
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(2.0),
+                                                  child: Text(
+                                                    "DOB",
+                                                    style: TextStyle(
+                                                        color: kPrimaryColor,
+                                                        fontFamily:
+                                                            kCircularStdMedium,
+                                                        fontSize: 16),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             const SizedBox(width: 8),
                                             const Text(
-                                              "Medical History : Diabetes",
+                                              "20 Nov 1978",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 35,
+                                              width: 65,
+                                              decoration: BoxDecoration(
+                                                  color: kHighlightColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: const Center(
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(2.0),
+                                                  child: Text(
+                                                    "Gender",
+                                                    style: TextStyle(
+                                                        color: kPrimaryColor,
+                                                        fontFamily:
+                                                            kCircularStdMedium,
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Text(
+                                              "Male",
+                                              style: TextStyle(
+                                                  color: kSecondaryColor,
+                                                  fontFamily:
+                                                      kCircularStdMedium,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 35,
+                                              width: 65,
+                                              decoration: BoxDecoration(
+                                                  color: kHighlightColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25)),
+                                              child: const Center(
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(2.0),
+                                                  child: Text(
+                                                    "Height",
+                                                    style: TextStyle(
+                                                        color: kPrimaryColor,
+                                                        fontFamily:
+                                                            kCircularStdMedium,
+                                                        fontSize: 16),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            const Text(
+                                              "4.7 feet",
                                               style: TextStyle(
                                                   color: kSecondaryColor,
                                                   fontFamily:
@@ -1111,26 +999,29 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                           children: [
                                             Container(
                                               height: 35,
-                                              width: 35,
+                                              width: 65,
                                               decoration: BoxDecoration(
                                                   color: kHighlightColor,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           25)),
                                               child: const Center(
-                                                child: Text(
-                                                  "F",
-                                                  style: TextStyle(
-                                                      color: kPrimaryColor,
-                                                      fontFamily:
-                                                          kCircularStdMedium,
-                                                      fontSize: 16),
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(2.0),
+                                                  child: Text(
+                                                    "Weight",
+                                                    style: TextStyle(
+                                                        color: kPrimaryColor,
+                                                        fontFamily:
+                                                            kCircularStdMedium,
+                                                        fontSize: 16),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             const SizedBox(width: 8),
                                             const Text(
-                                              "Family History : Cancer",
+                                              "60 Kg",
                                               style: TextStyle(
                                                   color: kSecondaryColor,
                                                   fontFamily:
@@ -1147,6 +1038,108 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                               ),
                             ],
                           ),
+                    selectedPerson != "Doctor"
+                        ? Container()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 15),
+                              const Text(
+                                "Basic Vitals",
+                                style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdNormal,
+                                    fontSize: 19),
+                              ),
+                              const SizedBox(height: 5),
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      detailcard("Heart Rate", "72 bpm"),
+                                      detailcard("Blood Pressure", "120/80"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      detailcard("Temperature", "36.8°C"),
+                                      detailcard("Oxygen Saturation", "98%"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      detailcard("Respiratory Rate", "16 bpm"),
+                                      detailcard("Weight (kg)", "60"),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      detailcard("Height (cm)", "170"),
+                                      detailcard("BMI", "20.8"),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Text(
+                                      "Medical History",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 19),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      buildMedical("Diabetes"),
+                                      const SizedBox(width: 10),
+                                      buildMedical("Hypertension"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 10),
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 5.0),
+                                    child: Text(
+                                      "Family History",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 19),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      buildMedical("Diabetes"),
+                                      const SizedBox(width: 10),
+                                      buildMedical("Cancer"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                    const SizedBox(height: 10),
                     selectedPerson == "Doctor"
                         ? Container()
                         : Row(
@@ -1226,6 +1219,78 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
           ),
         ),
       ),
+    );
+  }
+
+  detailcard(String titleText, subText) {
+    return Card(
+      elevation: 3,
+      child: Container(
+        width: Get.width / 2.3,
+        decoration: BoxDecoration(
+          color: kCardColor,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              subText,
+              style: const TextStyle(
+                color: kPrimaryColor,
+                fontFamily: kCircularStdNormal,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              titleText,
+              style: const TextStyle(
+                color: kPrimaryColor,
+                fontFamily: kCircularStdNormal,
+                fontSize: 15,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildMedical(String text) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+              border: Border.all(width: 0.5),
+              color: kWhiteColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: Text(
+            text,
+            style: const TextStyle(
+                color: kPrimaryColor,
+                fontFamily: kCircularStdNormal,
+                fontSize: 15),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          top: -2,
+          child: Container(
+            decoration: BoxDecoration(
+                color: kPrimaryColor, borderRadius: BorderRadius.circular(25)),
+            child: const Icon(
+              Icons.check,
+              color: Colors.white,
+              size: 15,
+            ),
+          ),
+        )
+      ],
     );
   }
 
