@@ -1044,49 +1044,301 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 15),
-                              const Text(
-                                "Basic Vitals",
-                                style: TextStyle(
-                                    color: kPrimaryColor,
-                                    fontFamily: kCircularStdNormal,
-                                    fontSize: 19),
-                              ),
-                              const SizedBox(height: 5),
-                              Column(
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  Text(
+                                    "Current Health",
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdNormal,
+                                        fontSize: 19),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 15),
+                              Container(
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                  color: kCardColor,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0, vertical: 5),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      detailcard("Heart Rate", "72 bpm"),
-                                      detailcard("Blood Pressure", "120/80"),
+                                      const SizedBox(height: 15),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Weight",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "70 Kg",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 25),
+                                          Image.asset(
+                                            "assets/icons/line_vertical.png",
+                                            scale: 2,
+                                            color: kDividerColor,
+                                          ),
+                                          const SizedBox(width: 25),
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "BP",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "120/80 mmHg",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Last Visit",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "12-Jul-2024",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 25),
+                                          Image.asset(
+                                            "assets/icons/line_vertical.png",
+                                            scale: 2,
+                                            color: kDividerColor,
+                                          ),
+                                          const SizedBox(width: 25),
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Medications",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "2",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 20),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Height",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "170 cm",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 25),
+                                          Image.asset(
+                                            "assets/icons/line_vertical.png",
+                                            scale: 2,
+                                            color: kDividerColor,
+                                          ),
+                                          const SizedBox(width: 25),
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Heart Rate",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "72 bpm",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 20),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Temperature",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                ),
+                                                Text(
+                                                  "36.8°C",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 25),
+                                          Image.asset(
+                                            "assets/icons/line_vertical.png",
+                                            scale: 2,
+                                            color: kDividerColor,
+                                          ),
+                                          const SizedBox(width: 25),
+                                          const SizedBox(
+                                            width: 100,
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Oxygen Saturation",
+                                                  style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                      fontFamily:
+                                                          kCircularStdMedium,
+                                                      fontSize: 14),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  "2",
+                                                  style: TextStyle(
+                                                      color: kSecondaryColor,
+                                                      fontFamily:
+                                                          kCircularStdNormal,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 15),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      detailcard("Temperature", "36.8°C"),
-                                      detailcard("Oxygen Saturation", "98%"),
-                                    ],
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                               const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Medical History",
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdNormal,
+                                        fontSize: 19),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      detailcard("Respiratory Rate", "16 bpm"),
-                                      detailcard("Weight (kg)", "60"),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      detailcard("Height (cm)", "170"),
-                                      detailcard("BMI", "20.8"),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(right: 8.0),
+                                  //   child: Text(
+                                  //     "View All",
+                                  //     style: TextStyle(
+                                  //         color: kSecondaryPrimaryColor,
+                                  //         fontFamily: kCircularStdNormal,
+                                  //         fontSize: 14),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               Accordion(

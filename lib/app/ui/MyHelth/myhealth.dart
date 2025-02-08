@@ -489,16 +489,16 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             fontFamily: kCircularStdMedium,
                             fontSize: 16),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          "View All",
-                          style: TextStyle(
-                              color: kSecondaryPrimaryColor,
-                              fontFamily: kCircularStdNormal,
-                              fontSize: 14),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.only(right: 8.0),
+                      //   child: Text(
+                      //     "View All",
+                      //     style: TextStyle(
+                      //         color: kSecondaryPrimaryColor,
+                      //         fontFamily: kCircularStdNormal,
+                      //         fontSize: 14),
+                      //   ),
+                      // ),
                     ],
                   ),
                   Accordion(
