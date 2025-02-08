@@ -19,6 +19,7 @@ class MyHealthPage extends StatefulWidget {
 class _MyHealthPageState extends State<MyHealthPage> {
   FocusNode focusNode = FocusNode();
   var searchController = TextEditingController();
+  bool isMedicalHistory = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -241,6 +242,117 @@ class _MyHealthPageState extends State<MyHealthPage> {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 100,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Height",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdMedium,
+                                          fontSize: 14),
+                                    ),
+                                    Text(
+                                      "170 cm",
+                                      style: TextStyle(
+                                          color: kSecondaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 25),
+                              Image.asset(
+                                "assets/icons/line_vertical.png",
+                                scale: 2,
+                                color: kDividerColor,
+                              ),
+                              const SizedBox(width: 25),
+                              const SizedBox(
+                                width: 100,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Heart Rate",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdMedium,
+                                          fontSize: 14),
+                                    ),
+                                    Text(
+                                      "72 bpm",
+                                      style: TextStyle(
+                                          color: kSecondaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 100,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Temperature",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdMedium,
+                                          fontSize: 14),
+                                    ),
+                                    Text(
+                                      "36.8°C",
+                                      style: TextStyle(
+                                          color: kSecondaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 25),
+                              Image.asset(
+                                "assets/icons/line_vertical.png",
+                                scale: 2,
+                                color: kDividerColor,
+                              ),
+                              const SizedBox(width: 25),
+                              const SizedBox(
+                                width: 100,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Oxygen Saturation",
+                                      style: TextStyle(
+                                          color: kPrimaryColor,
+                                          fontFamily: kCircularStdMedium,
+                                          fontSize: 14),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      "2",
+                                      style: TextStyle(
+                                          color: kSecondaryColor,
+                                          fontFamily: kCircularStdNormal,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -366,6 +478,80 @@ class _MyHealthPageState extends State<MyHealthPage> {
                       ),
                     ],
                   ),
+
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Medical History",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 16),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          "View All",
+                          style: TextStyle(
+                              color: kSecondaryPrimaryColor,
+                              fontFamily: kCircularStdNormal,
+                              fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Accordion(
+                    headerBorderColorOpened: kPrimaryColor,
+                    headerBackgroundColor: kHighlightColor,
+                    headerBackgroundColorOpened: kHighlightColor,
+                    contentBackgroundColor: Colors.white,
+                    contentBorderColor: kWhiteColor,
+                    contentBorderWidth: 1,
+                    contentHorizontalPadding: 8,
+                    scaleWhenAnimating: true,
+                    openAndCloseAnimation: true,
+                    disableScrolling: true,
+                    headerPadding: const EdgeInsets.symmetric(vertical: 10),
+                    children: [
+                      AccordionSection(
+                        isOpen: true,
+                        contentVerticalPadding: 20,
+                        header: const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Personal History',
+                                  style: TextStyle(
+                                      color: kPrimaryColor,
+                                      fontFamily: kCircularStdMedium,
+                                      fontSize: 14)),
+                            ],
+                          ),
+                        ),
+                        content: medicalHistory("Personal History"),
+                      ),
+                      AccordionSection(
+                          isOpen: true,
+                          contentVerticalPadding: 20,
+                          header: const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Family History',
+                                    style: TextStyle(
+                                        color: kPrimaryColor,
+                                        fontFamily: kCircularStdMedium,
+                                        fontSize: 14)),
+                              ],
+                            ),
+                          ),
+                          content: medicalHistory("Family History")),
+                    ],
+                  ),
+
                   Column(
                     children: [
                       // Row(
@@ -422,6 +608,7 @@ class _MyHealthPageState extends State<MyHealthPage> {
                       //   ),
                       // ),
                       // const SizedBox(height: 15),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -805,6 +992,41 @@ class _MyHealthPageState extends State<MyHealthPage> {
     );
   }
 
+  buildMedical(String text) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+          decoration: BoxDecoration(
+              border: Border.all(width: 0.5),
+              color: kWhiteColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: Text(
+            text,
+            style: const TextStyle(
+                color: kPrimaryColor,
+                fontFamily: kCircularStdNormal,
+                fontSize: 15),
+          ),
+        ),
+        Positioned(
+          right: 0,
+          top: -2,
+          child: Container(
+            decoration: BoxDecoration(
+                color: kPrimaryColor, borderRadius: BorderRadius.circular(25)),
+            child: const Icon(
+              Icons.check,
+              color: Colors.white,
+              size: 15,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   accordionDesign() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1176,4 +1398,59 @@ class _MyHealthPageState extends State<MyHealthPage> {
       ],
     );
   }
+
+  medicalHistory(String historyType) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        Row(
+          children: historyType == "Personal History"
+              ? [
+                  buildMedical("Diabetes"),
+                  const SizedBox(width: 10),
+                  buildMedical("Hypertension"),
+                ]
+              : [
+                  buildMedical("Diabetes"),
+                  const SizedBox(width: 10),
+                  buildMedical("Cancer"),
+                ],
+        ),
+      ],
+    );
+  }
+
+  // medicalHistory(String historyType) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const SizedBox(height: 10),
+  //       Padding(
+  //         padding: const EdgeInsets.only(left: 5.0),
+  //         child: Text(
+  //           historyType,
+  //           style: const TextStyle(
+  //               color: kPrimaryColor,
+  //               fontFamily: kCircularStdNormal,
+  //               fontSize: 19),
+  //         ),
+  //       ),
+  //       const SizedBox(height: 8),
+  //       Row(
+  //         children: historyType == "Personal History"
+  //             ? [
+  //                 buildMedical("Diabetes"),
+  //                 const SizedBox(width: 10),
+  //                 buildMedical("Hypertension"),
+  //               ]
+  //             : [
+  //                 buildMedical("Diabetes"),
+  //                 const SizedBox(width: 10),
+  //                 buildMedical("Cancer"),
+  //               ],
+  //       ),
+  //     ],
+  //   );
+  // }
 }

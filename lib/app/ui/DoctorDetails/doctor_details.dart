@@ -1,3 +1,4 @@
+import 'package:accordion/accordion.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -471,8 +472,7 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                 ],
                               ),
                               const SizedBox(height: 10),
-                              buildMedical(
-                                  "Management of chronic conditions"),
+                              buildMedical("Management of chronic conditions"),
                               // Card(
                               //   shadowColor: const Color.fromARGB(10, 0, 0, 0),
                               //   elevation: 5,
@@ -1089,51 +1089,51 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
                                   const SizedBox(height: 10),
                                 ],
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Accordion(
+                                headerBorderColorOpened: kPrimaryColor,
+                                headerBackgroundColor: kHighlightColor,
+                                headerBackgroundColorOpened: kHighlightColor,
+                                contentBackgroundColor: Colors.white,
+                                contentBorderColor: kWhiteColor,
+                                contentBorderWidth: 1,
+                                contentHorizontalPadding: 8,
+                                scaleWhenAnimating: true,
+                                openAndCloseAnimation: true,
+                                disableScrolling: true,
+                                headerPadding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 children: [
-                                  const SizedBox(height: 10),
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 5.0),
-                                    child: Text(
-                                      "Medical History",
-                                      style: TextStyle(
-                                          color: kPrimaryColor,
-                                          fontFamily: kCircularStdNormal,
-                                          fontSize: 19),
+                                  AccordionSection(
+                                    isOpen: true,
+                                    contentVerticalPadding: 20,
+                                    header: const Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        'Personal History',
+                                        style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontFamily: kCircularStdMedium,
+                                            fontSize: 14),
+                                      ),
                                     ),
+                                    content: medicalHistory(
+                                        "Personal History"), // Calls function without title duplication
                                   ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      buildMedical("Diabetes"),
-                                      const SizedBox(width: 10),
-                                      buildMedical("Hypertension"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10),
-                                  const Padding(
-                                    padding: EdgeInsets.only(left: 5.0),
-                                    child: Text(
-                                      "Family History",
-                                      style: TextStyle(
-                                          color: kPrimaryColor,
-                                          fontFamily: kCircularStdNormal,
-                                          fontSize: 19),
+                                  AccordionSection(
+                                    isOpen: true,
+                                    contentVerticalPadding: 20,
+                                    header: const Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        'Family History',
+                                        style: TextStyle(
+                                            color: kPrimaryColor,
+                                            fontFamily: kCircularStdMedium,
+                                            fontSize: 14),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      buildMedical("Diabetes"),
-                                      const SizedBox(width: 10),
-                                      buildMedical("Cancer"),
-                                    ],
+                                    content: medicalHistory(
+                                        "Family History"), // Calls function without title duplication
                                   ),
                                 ],
                               ),
@@ -1455,6 +1455,28 @@ class _DoctoreDetailsPageState extends State<DoctoreDetailsPage> {
               color: kSecondaryColor,
               fontSize: 16,
               fontFamily: kCircularStdNormal),
+        ),
+      ],
+    );
+  }
+
+  medicalHistory(String historyType) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 8),
+        Row(
+          children: historyType == "Personal History"
+              ? [
+                  buildMedical("Diabetes"),
+                  const SizedBox(width: 10),
+                  buildMedical("Hypertension"),
+                ]
+              : [
+                  buildMedical("Diabetes"),
+                  const SizedBox(width: 10),
+                  buildMedical("Cancer"),
+                ],
         ),
       ],
     );
