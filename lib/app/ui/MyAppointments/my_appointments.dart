@@ -128,70 +128,72 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                                           " Mar 2024-10:30 AM"),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 85, //tirth
-                                  )
+                                  const SizedBox(height: 85)
                                 ],
                               ),
                             ),
                           )
                         : selectedIndex == 1
-                            ? const Text("NEW")
-                            // ? Expanded(
-                            //     child: SingleChildScrollView(
-                            //       child: Column(
-                            //         children: [
-                            //           Row(
-                            //             children: [
-                            //               buildNearby(
-                            //                   "Dr. Pooja\nPatel",
-                            //                   "assets/icons/h1.png",
-                            //                   "4.5",
-                            //                   "Physician / 2+ yrs"),
-                            //               const SizedBox(width: 5),
-                            //               buildNearby(
-                            //                   "Dr. Aryaa\nPatel",
-                            //                   "assets/icons/h3.png",
-                            //                   "4.8",
-                            //                   "Surgeons / 8+ yrs"),
-                            //             ],
-                            //           ),
-                            //           const SizedBox(height: 10),
-                            //           Row(
-                            //             children: [
-                            //               buildNearby(
-                            //                   "Dr. Amelia\nKimani",
-                            //                   "assets/icons/h5.png",
-                            //                   "4.5",
-                            //                   "Physician / 2+ yrs"),
-                            //               const SizedBox(width: 5),
-                            //               buildNearby(
-                            //                   "Dr. Vincent\nChepkwony",
-                            //                   "assets/icons/doctor4.png",
-                            //                   "4.8",
-                            //                   "Surgeons / 8+ yrs"),
-                            //             ],
-                            //           ),
-                            //           const SizedBox(height: 10),
-                            //           Row(
-                            //             children: [
-                            //               buildNearby(
-                            //                   "Dr. Anusha\nPriya",
-                            //                   "assets/icons/doctor1.png",
-                            //                   "4.5",
-                            //                   "Physician / 2+ yrs"),
-                            //               const SizedBox(width: 5),
-                            //               buildNearby(
-                            //                   "Dr. John\nDoe",
-                            //                   "assets/icons/doctor5.png",
-                            //                   "4.8",
-                            //                   "Surgeons / 8+ yrs"),
-                            //             ],
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   )
+                            ? Expanded(
+                                child: SingleChildScrollView(
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 7),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "Vincent\nChepkwony",
+                                              "assets/icons/h7.png",
+                                              "5",
+                                              "th",
+                                              " Mar 2024-10:30 AM"),
+                                          buildNearby(
+                                              "Amelia\nKimani",
+                                              "assets/icons/h6.png",
+                                              "5",
+                                              "th",
+                                              " Mar 2024-10:30 AM"),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "Aryaa\nPatel",
+                                              "assets/icons/h3.png",
+                                              "5",
+                                              "th",
+                                              " Mar 2024-10:30 AM"),
+                                          buildNearby(
+                                              "Pooja\nPatel",
+                                              "assets/icons/h5.png",
+                                              "5",
+                                              "th",
+                                              " Mar 2024-10:30 AM"),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          buildNearby(
+                                              "Scarlett\nKimani",
+                                              "assets/icons/g2.png",
+                                              "5",
+                                              "th",
+                                              " Mar 2024-10:30 AM"),
+                                          buildNearby(
+                                              "Sophia\nJohn",
+                                              "assets/icons/h2.png",
+                                              "5",
+                                              "th",
+                                              " Mar 2024-10:30 AM"),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 85)
+                                    ],
+                                  ),
+                                ),
+                              )
                             : Expanded(
                                 child: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(
@@ -247,9 +249,7 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                                               " Mar 2024-10:30 AM"),
                                         ],
                                       ),
-                                      const SizedBox(
-                                        height: 85, //tirth
-                                      )
+                                      const SizedBox(height: 85)
                                     ],
                                   ),
                                 ),
@@ -290,9 +290,7 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
                   decoration: BoxDecoration(
                       color: selectedIndex == 2 ? kSecondaryColor : kWhiteColor,
                       borderRadius: BorderRadius.circular(25)),
-                  child: selectedIndex == 1
-                      ? const Center(child: Text("5th"))
-                      : Image.asset(image),
+                  child: Image.asset(image),
                 ),
                 const SizedBox(height: 10),
                 Text(

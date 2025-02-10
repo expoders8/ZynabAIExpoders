@@ -314,9 +314,7 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    const SizedBox(height: 8),
                     Card(
                       shadowColor: const Color.fromARGB(10, 0, 0, 0),
                       elevation: 5,
@@ -902,7 +900,6 @@ class _DoctoreDetailsPageState extends State<AppointmentDetailsPage> {
     );
   }
 
-  
   buildServiceCardWidget(String text) {
     return Container(
       decoration: BoxDecoration(

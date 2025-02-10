@@ -209,83 +209,76 @@ class _ProfilePageState extends State<ProfilePage> {
               const CustomProfileProgress(completionPercentage: 68.0),
               const SizedBox(height: 8),
               selectedPerson == "Doctor"
-                  ? const Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        "Main Specialization",
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontFamily: kCircularStdNormal,
-                            fontSize: 19),
-                      ),
-                    )
-                  : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
-              selectedPerson == "Doctor"
-                  ? Row(
-                      children: [
-                        buildMedical("Family Medicine"),
-                      ],
-                    )
-                  : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
-              selectedPerson == "Doctor"
-                  ? const Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        "Sub-Specializations",
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontFamily: kCircularStdNormal,
-                            fontSize: 19),
-                      ),
-                    )
-                  : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
-              selectedPerson == "Doctor"
                   ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Row(
+                        Accordion(
+                          headerBorderColorOpened: kPrimaryColor,
+                          headerBackgroundColor: kHighlightColor,
+                          headerBackgroundColorOpened: kHighlightColor,
+                          contentBackgroundColor: Colors.white,
+                          contentBorderColor: kWhiteColor,
+                          contentBorderWidth: 1,
+                          contentHorizontalPadding: 5,
+                          scaleWhenAnimating: true,
+                          openAndCloseAnimation: true,
+                          disableScrolling: true,
+                          headerPadding:
+                              const EdgeInsets.symmetric(vertical: 12),
                           children: [
-                            buildMedical("Geriatric Medicine"),
-                            const SizedBox(width: 5),
-                            buildMedical("Adolescent Medicine"),
-                          ],
-                        )
-                      ],
-                    )
-                  : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 10 : 0),
-              selectedPerson == "Doctor"
-                  ? const Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Text(
-                        "Services",
-                        style: TextStyle(
-                            color: kPrimaryColor,
-                            fontFamily: kCircularStdNormal,
-                            fontSize: 19),
-                      ),
-                    )
-                  : Container(),
-              selectedPerson == "Doctor"
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            buildMedical("General health check-ups"),
-                            const SizedBox(width: 5),
-                            buildMedical("Vaccinations"),
+                            AccordionSection(
+                              isOpen: true,
+                              contentVerticalPadding: 20,
+                              header: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Specialization',
+                                  style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdMedium,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                              content: accordionDesign(),
+                            ),
                           ],
                         ),
-                        const SizedBox(height: 10),
-                        buildMedical("Management of chronic conditions"),
+                        Accordion(
+                          headerBorderColorOpened: kPrimaryColor,
+                          headerBackgroundColor: kHighlightColor,
+                          headerBackgroundColorOpened: kHighlightColor,
+                          contentBackgroundColor: Colors.white,
+                          contentBorderColor: kWhiteColor,
+                          contentBorderWidth: 1,
+                          contentHorizontalPadding: 5,
+                          scaleWhenAnimating: true,
+                          openAndCloseAnimation: true,
+                          disableScrolling: true,
+                          headerPadding:
+                              const EdgeInsets.symmetric(vertical: 12),
+                          children: [
+                            AccordionSection(
+                              isOpen: true,
+                              header: const Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'Services',
+                                  style: TextStyle(
+                                    color: kPrimaryColor,
+                                    fontFamily: kCircularStdMedium,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                              content: accordionDesign1(),
+                            ),
+                          ],
+                        ),
                       ],
                     )
                   : Container(),
-              SizedBox(height: selectedPerson == "Doctor" ? 15 : 10),
               const Padding(
                 padding: EdgeInsets.only(left: 5.0),
                 child: Text(
@@ -582,336 +575,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ],
                     ),
-              selectedPerson == "Doctor"
-                  ? Container()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 15),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Current Health",
-                              style: TextStyle(
-                                  color: kPrimaryColor,
-                                  fontFamily: kCircularStdNormal,
-                                  fontSize: 19),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        Container(
-                          width: Get.width,
-                          decoration: BoxDecoration(
-                            color: kCardColor,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 15),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Weight",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "70 Kg",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 25),
-                                    Image.asset(
-                                      "assets/icons/line_vertical.png",
-                                      scale: 2,
-                                      color: kDividerColor,
-                                    ),
-                                    const SizedBox(width: 25),
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "BP",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "120/80 mmHg",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Last Visit",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "12-Jul-2024",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 25),
-                                    Image.asset(
-                                      "assets/icons/line_vertical.png",
-                                      scale: 2,
-                                      color: kDividerColor,
-                                    ),
-                                    const SizedBox(width: 25),
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Medications",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "2",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Height",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "170 cm",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 25),
-                                    Image.asset(
-                                      "assets/icons/line_vertical.png",
-                                      scale: 2,
-                                      color: kDividerColor,
-                                    ),
-                                    const SizedBox(width: 25),
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Heart Rate",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "72 bpm",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Temperature",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                          ),
-                                          Text(
-                                            "36.8°C",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 25),
-                                    Image.asset(
-                                      "assets/icons/line_vertical.png",
-                                      scale: 2,
-                                      color: kDividerColor,
-                                    ),
-                                    const SizedBox(width: 25),
-                                    const SizedBox(
-                                      width: 100,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            "Oxygen Saturation",
-                                            style: TextStyle(
-                                                color: kPrimaryColor,
-                                                fontFamily: kCircularStdMedium,
-                                                fontSize: 14),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Text(
-                                            "2",
-                                            style: TextStyle(
-                                                color: kSecondaryColor,
-                                                fontFamily: kCircularStdNormal,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Medical History",
-                              style: TextStyle(
-                                  color: kPrimaryColor,
-                                  fontFamily: kCircularStdNormal,
-                                  fontSize: 19),
-                            ),
-                            // Padding(
-                            //   padding: EdgeInsets.only(right: 8.0),
-                            //   child: Text(
-                            //     "View All",
-                            //     style: TextStyle(
-                            //         color: kSecondaryPrimaryColor,
-                            //         fontFamily: kCircularStdNormal,
-                            //         fontSize: 14),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        Accordion(
-                          headerBorderColorOpened: kPrimaryColor,
-                          headerBackgroundColor: kHighlightColor,
-                          headerBackgroundColorOpened: kHighlightColor,
-                          contentBackgroundColor: Colors.white,
-                          contentBorderColor: kWhiteColor,
-                          contentBorderWidth: 1,
-                          contentHorizontalPadding: 8,
-                          scaleWhenAnimating: true,
-                          openAndCloseAnimation: true,
-                          disableScrolling: true,
-                          headerPadding:
-                              const EdgeInsets.symmetric(vertical: 10),
-                          children: [
-                            AccordionSection(
-                              isOpen: true,
-                              contentVerticalPadding: 20,
-                              header: const Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  'Personal History',
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdMedium,
-                                      fontSize: 14),
-                                ),
-                              ),
-                              content: medicalHistory(
-                                  "Personal History"), // Calls function without title duplication
-                            ),
-                            AccordionSection(
-                              isOpen: true,
-                              contentVerticalPadding: 20,
-                              header: const Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  'Family History',
-                                  style: TextStyle(
-                                      color: kPrimaryColor,
-                                      fontFamily: kCircularStdMedium,
-                                      fontSize: 14),
-                                ),
-                              ),
-                              content: medicalHistory(
-                                  "Family History"), // Calls function without title duplication
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
               const SizedBox(height: 10),
               CupertinoButton(
                 padding: EdgeInsets.zero,
@@ -1085,6 +748,189 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  accordionDesign() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                  color: kHighlightColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                  child: Text(
+                "01",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 14),
+              )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 90,
+                  width: 2,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kHighlightColor, width: 0.8)),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        "Main Specialization",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    specialities("Family Medicine"),
+                  ],
+                )
+              ],
+            ),
+            Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                  color: kHighlightColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                  child: Text(
+                "02",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 14),
+              )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 90,
+                  width: 2,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kHighlightColor, width: 0.8)),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        "Sub-Specializations",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        specialities("Geriatric Medicine"),
+                        const SizedBox(width: 5),
+                        specialities("Adolescent Medicine"),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  accordionDesign1() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 25,
+              height: 25,
+              decoration: BoxDecoration(
+                  color: kHighlightColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: const Center(
+                  child: Text(
+                "01",
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: kCircularStdMedium,
+                    fontSize: 14),
+              )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  height: 120,
+                  width: 2,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kHighlightColor, width: 0.8)),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 3.0),
+                      child: Text(
+                        "Services",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontFamily: kCircularStdMedium,
+                            fontSize: 18),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            specialities("General health check-ups"),
+                            const SizedBox(width: 5),
+                            specialities("Vaccinations"),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        specialities("Management of chronic conditions"),
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   logoutConfirmationDialog() async {
     return await showDialog(
       context: context,
@@ -1193,6 +1039,41 @@ class _ProfilePageState extends State<ProfilePage> {
               Icons.check,
               color: Colors.white,
               size: 15,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  specialities(String text) {
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+          decoration: BoxDecoration(
+              border: Border.all(width: 0.5),
+              color: kWhiteColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: Text(
+            text,
+            style: const TextStyle(
+                color: kPrimaryColor,
+                fontFamily: kCircularStdNormal,
+                fontSize: 13.5),
+          ),
+        ),
+        Positioned(
+          right: -2,
+          top: -2,
+          child: Container(
+            decoration: BoxDecoration(
+                color: kPrimaryColor, borderRadius: BorderRadius.circular(25)),
+            child: const Icon(
+              Icons.check,
+              color: Colors.white,
+              size: 12,
             ),
           ),
         )
