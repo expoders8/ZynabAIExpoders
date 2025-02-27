@@ -5,9 +5,11 @@ import 'package:accordion/accordion.dart';
 import 'package:zynabaiexpoders/app/routes/app_pages.dart';
 import 'package:zynabaiexpoders/app/view/medications_view.dart';
 
+import '../../../config/constant/constant.dart';
 import '../../view/allergies_view.dart';
 import '../../../config/constant/font_constant.dart';
 import '../../../config/constant/color_constant.dart';
+import '../Auth/user_profile_info.dart';
 
 class MyHealthPage extends StatefulWidget {
   const MyHealthPage({super.key});
@@ -20,6 +22,16 @@ class _MyHealthPageState extends State<MyHealthPage> {
   FocusNode focusNode = FocusNode();
   var searchController = TextEditingController();
   bool isMedicalHistory = false;
+  String selectedPerson = "";
+  @override
+  void initState() {
+    var person = getStorage.read("selctetperson") ?? "Doctor";
+    setState(() {
+      selectedPerson = person;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,19 +113,27 @@ class _MyHealthPageState extends State<MyHealthPage> {
                             fontFamily: kCircularStdMedium,
                             fontSize: 16),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Container(
-                          height: 31,
-                          width: 31,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: kPrimaryColor, width: 0.5)),
-                          child: const Icon(
-                            Icons.edit,
-                            color: kPrimaryColor,
-                            size: 18,
+                      CupertinoButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          Get.to(() => UserProfileInformationPage(
+                                roll: selectedPerson,
+                              ));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Container(
+                            height: 31,
+                            width: 31,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(
+                                    color: kPrimaryColor, width: 0.5)),
+                            child: const Icon(
+                              Icons.edit,
+                              color: kPrimaryColor,
+                              size: 18,
+                            ),
                           ),
                         ),
                       ),

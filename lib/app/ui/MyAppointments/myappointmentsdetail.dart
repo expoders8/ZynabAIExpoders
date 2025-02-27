@@ -471,7 +471,7 @@ class _MyAppointmentDetailPageState extends State<MyAppointmentDetailPage> {
               const Padding(
                 padding: EdgeInsets.only(left: 5.0),
                 child: Text(
-                  "Services",
+                  "Purpose of visit",
                   style: TextStyle(
                       color: kPrimaryColor,
                       fontFamily: kCircularStdNormal,

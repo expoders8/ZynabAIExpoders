@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 
-import '../TabPage/tabpage.dart';
+import '../../../config/provider/custome_search.dart';
 import '../widgets/custom_picker.dart';
 import 'package:http/http.dart' as http;
 import '../../models/userdata_model.dart';
@@ -112,6 +112,10 @@ class _UserProfileInformationPageState
       'Interstitial Lung Disease'
     ],
   };
+  TextEditingController medicineController = TextEditingController();
+  List<String> selectedMedicines = [];
+  TextEditingController allegiesController = TextEditingController();
+  List<String> selectedAllergies = [];
 
   final Map<String, List<String>> subSpecializationsservice = {
     'Family Medicine': [
@@ -233,8 +237,11 @@ class _UserProfileInformationPageState
   final List<String> questionsPatient = [
     "Personal Information.",
     "Tell us about your past medical history. Select any conditions you've had before",
-    "Does anyone in your family have a history of these conditions? Select one or more that apply"
+    "Does anyone in your family have a history of these conditions? Select one or more that apply",
+    "What medications do you take?",
+    "Do you have any drug allergies?"
   ];
+
   final List<String> questionsDoctor = [
     "Basic Information.",
     "What conditions do you treat?",
@@ -257,6 +264,7 @@ class _UserProfileInformationPageState
     MedicalHistory(title: 'Depression/Anxiety'),
     MedicalHistory(title: 'Thyroid Disorders'),
   ];
+
   void toggleSelectionNearby(int index) {
     setState(() {
       String nearbyTitle = filteredMedical[index].title;
@@ -284,12 +292,94 @@ class _UserProfileInformationPageState
     });
   }
 
+  final List<String> medicineList = [
+    "Paracetamol",
+    "Ibuprofen",
+    "Amoxicillin",
+    "Aspirin",
+    "Cetirizine",
+    "Metformin",
+    "Omeprazole",
+    "Losartan",
+    "Atorvastatin",
+    "Hydrochlorothiazide",
+    "Azithromycin",
+    "Prednisone",
+    "Simvastatin",
+    "Lisinopril",
+    "Gabapentin",
+    "Levothyroxine",
+    "Metoprolol",
+    "Albuterol",
+    "Tramadol",
+    "Doxycycline",
+  ];
+
+  final List<String> allegiesList = [
+    "Peanuts",
+    "Tree Nuts",
+    "Milk",
+    "Eggs",
+    "Wheat",
+    "Soy",
+    "Shellfish",
+    "Fish",
+    "Sesame",
+    "Corn",
+    "Pollen",
+    "Dust Mites",
+    "Mold",
+    "Pet Dander",
+    "Insect Stings",
+    "Penicillin",
+    "Aspirin",
+    "Ibuprofen",
+    "Sulfa Drugs",
+    "Latex",
+    "Perfumes & Fragrances",
+    "Nickel",
+    "Hair Dye",
+    "Cleaning Products",
+  ];
+
+  void _openMedicineSearchScreen() async {
+    final String? result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CustomSearchScreen(medicines: medicineList),
+      ),
+    );
+
+    if (result != null && !selectedMedicines.contains(result)) {
+      setState(() {
+        selectedMedicines.add(result);
+        medicineController.text = "";
+      });
+    }
+  }
+
+  void _openAllergiSearchScreen() async {
+    final String? result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CustomSearchScreen(medicines: allegiesList),
+      ),
+    );
+
+    if (result != null && !selectedAllergies.contains(result)) {
+      setState(() {
+        selectedAllergies.add(result);
+        allegiesController.text = "";
+      });
+    }
+  }
+
   List<MedicalHistory> filteredMedical1 = [];
 
   void _filterMedicalList1() {
     setState(() {
       if (medicalController.text.isEmpty) {
-        filteredMedical1 = medical; // Show all items when search is empty
+        filteredMedical1 = medical;
       } else {
         filteredMedical1 = medical
             .where((item) => item.title
@@ -414,13 +504,12 @@ class _UserProfileInformationPageState
                                     Get.back();
                                   },
                                   child: Container(
-                                    height: 35,
+                                    height: 32,
                                     width: 80,
                                     decoration: BoxDecoration(
-                                        color: kPrimaryColor,
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                            color: kHighlightColor, width: 2)),
+                                      color: kPrimaryColor,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
                                     child: const Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -453,7 +542,15 @@ class _UserProfileInformationPageState
                                             : questionsPatient[currentIndex] ==
                                                     "Does anyone in your family have a history of these conditions? Select one or more that apply"
                                                 ? "Does anyone in your family have a history of these conditions?\nSelect one or more that apply"
-                                                : "Some issues please close app and re-open",
+                                                : questionsPatient[
+                                                            currentIndex] ==
+                                                        "What medications do you take?"
+                                                    ? "What medications do you take?"
+                                                    : questionsPatient[
+                                                                currentIndex] ==
+                                                            "Do you have any drug allergies?"
+                                                        ? "Do you have any drug allergies?"
+                                                        : "Some issues please close app and re-open",
                                     style: const TextStyle(
                                         color: kPrimaryColor,
                                         fontSize: 19,
@@ -469,7 +566,14 @@ class _UserProfileInformationPageState
                                         : questionsPatient[currentIndex] ==
                                                 "Does anyone in your family have a history of these conditions? Select one or more that apply"
                                             ? buildSelectMedicalfamily()
-                                            : Container(),
+                                            : questionsPatient[currentIndex] ==
+                                                    "What medications do you take?"
+                                                ? buildSelectMedicien()
+                                                : questionsPatient[
+                                                            currentIndex] ==
+                                                        "Do you have any drug allergies?"
+                                                    ? buildSelectAllergies()
+                                                    : Container(),
                               ],
                             ),
                           ),
@@ -522,11 +626,11 @@ class _UserProfileInformationPageState
                                   : Container(),
                               Row(
                                 children: [
-                                  currentIndex != 2
+                                  currentIndex != 4
                                       ? CupertinoButton(
                                           padding: EdgeInsets.zero,
                                           onPressed: () {
-                                            if (currentIndex != 2) {
+                                            if (currentIndex != 4) {
                                               setState(() {
                                                 currentIndex++;
                                                 buttonEventHandler(
@@ -572,7 +676,7 @@ class _UserProfileInformationPageState
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            currentIndex != 2
+                                            currentIndex != 4
                                                 ? "Next"
                                                 : "Submit",
                                             style: const TextStyle(
@@ -1379,6 +1483,110 @@ class _UserProfileInformationPageState
         ],
       ),
     );
+  }
+
+  buildSelectMedicien() {
+    return Flexible(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        TextField(
+          controller: medicineController,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: "Select Medicine",
+            labelStyle: const TextStyle(color: kPrimaryColor),
+            hintText: "Tap to select medicine",
+            suffixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: kPrimaryColor, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: kPrimaryColor, width: 1),
+            ),
+          ),
+          onTap: _openMedicineSearchScreen,
+        ),
+        const SizedBox(height: 20),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: selectedMedicines.map((medicine) {
+            return Chip(
+              label: Text(medicine,
+                  style: const TextStyle(
+                      color: kPrimaryColor, fontFamily: kCircularStdMedium)),
+              backgroundColor: kHighlightColor,
+              deleteIcon:
+                  const Icon(color: kPrimaryColor, Icons.close, size: 18),
+              onDeleted: () {
+                setState(() {
+                  selectedMedicines.remove(medicine);
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    ));
+  }
+
+  buildSelectAllergies() {
+    return Flexible(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 20),
+        TextField(
+          controller: allegiesController,
+          readOnly: true,
+          decoration: InputDecoration(
+            labelText: "Select Allergies",
+            labelStyle: const TextStyle(color: kPrimaryColor),
+            hintText: "Tap to select Allergies",
+            suffixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: kPrimaryColor, width: 1),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: kPrimaryColor, width: 1),
+            ),
+          ),
+          onTap: _openAllergiSearchScreen,
+        ),
+        const SizedBox(height: 20),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: selectedAllergies.map((medicine) {
+            return Chip(
+              label: Text(medicine,
+                  style: const TextStyle(
+                      color: kPrimaryColor, fontFamily: kCircularStdMedium)),
+              backgroundColor: kHighlightColor,
+              deleteIcon:
+                  const Icon(color: kPrimaryColor, Icons.close, size: 18),
+              onDeleted: () {
+                setState(() {
+                  selectedAllergies.remove(medicine);
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    ));
   }
 
   Widget buildSelectMedical() {
